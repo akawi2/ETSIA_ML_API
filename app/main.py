@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.config import settings
-from app.routes import router
+from app.routes import router, image_router
 from app.models.schemas import HealthResponse
 from app.core.model_registry import registry
 from app.utils.logger import setup_logger
@@ -33,6 +33,7 @@ app.add_middleware(
 
 # Inclure les routes
 app.include_router(router)
+app.include_router(image_router)
 
 
 @app.on_event("startup")
@@ -55,7 +56,16 @@ async def startup_event():
         logger.error(f"✗ Erreur lors de l'enregistrement du modèle YANSNET LLM: {e}")
         logger.error(f"  Vérifiez que .env est configuré avec les clés API")
     
-    # 2. Autres modèles à ajouter ici
+    # 2. Modèle de Détection de Contenu Sensible dans les Images
+    try:
+        from app.services.sensitive_image_caption import SensitiveImageCaptionModel
+        registry.register(SensitiveImageCaptionModel())
+        logger.info("✓ Modèle de détection de contenu sensible (images) enregistré")
+    except Exception as e:
+        logger.error(f"✗ Erreur lors de l'enregistrement du modèle d'images: {e}")
+        logger.error(f"  Vérifiez que les dépendances sont installées (transformers, torch, PIL)")
+    
+    # 3. Autres modèles à ajouter ici
     # Exemple pour un futur étudiant:
     # try:
     #     from app.services.etudiant2_gcn import Etudiant2GCNModel
