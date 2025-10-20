@@ -101,11 +101,11 @@ async def predict_image(
 
 
 @router.post(
-    "/batch-predict-images",
+    "/batch-predict-image",
     summary="Analyser plusieurs images",
     description="Analyse plusieurs images en batch (max 10)"
 )
-async def batch_predict_images(
+async def batch_predict_image(
     images: List[UploadFile] = File(..., description="Images à analyser"),
     model_name: Optional[str] = Query(
         None,

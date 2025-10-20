@@ -1,8 +1,9 @@
 """
 Routes API - Support multi-modèles
 """
-from fastapi import APIRouter, HTTPException, status, Query
-from typing import Optional
+from fastapi import APIRouter, HTTPException, status, Query, UploadFile, File, Form
+from typing import Optional, List
+from datetime import datetime
 from app.models.schemas import (
     PredictRequest,
     PredictResponse,
@@ -12,6 +13,8 @@ from app.models.schemas import (
 )
 from app.core.model_registry import registry
 from app.utils.logger import setup_logger
+from PIL import Image
+import io
 import time
 
 logger = setup_logger(__name__)
@@ -140,6 +143,58 @@ async def predict(
 
 
 @router.post(
+    "/predict-image",
+    summary="Analyser une image",
+    description="Analyse une image avec un modèle de vision"
+)
+async def predict_image(
+    model_name: str = Form(..., description="Nom du modèle à utiliser"),
+    image: UploadFile = File(..., description="Image à analyser")
+):
+    """
+    Analyse une image avec un modèle de vision.
+    
+    - **model_name**: Nom du modèle (ex: sensitive-image-caption)
+    - **image**: Fichier image (JPEG, PNG, etc.)
+    """
+    try:
+        logger.info(f"Requête de prédiction image (modèle: {model_name})")
+        
+        # Récupérer le modèle
+        model = registry.get(model_name)
+        if not model:
+            available = registry.get_model_names()
+            raise HTTPException(
+                status_code=404,
+                detail=f"Modèle '{model_name}' non trouvé. Disponibles: {available}"
+            )
+        
+        # Lire l'image
+        image_bytes = await image.read()
+        pil_image = Image.open(io.BytesIO(image_bytes))
+        
+        logger.info(f"  → Image chargée: {pil_image.size}, mode: {pil_image.mode}")
+        
+        # Prédire
+        result = model.predict(image=pil_image)
+        
+        return {
+            **result,
+            "model_used": model.model_name,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Erreur lors de l'analyse de l'image: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Erreur d'analyse: {str(e)}"
+        )
+
+
+@router.post(
     "/batch-predict",
     response_model=BatchPredictResponse,
     responses={
@@ -227,4 +282,63 @@ async def batch_predict(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Erreur de prédiction batch: {str(e)}"
+        )
+
+
+@router.post(
+    "/batch-predict-image",
+    summary="Analyser plusieurs images",
+    description="Analyse plusieurs images en batch"
+)
+async def batch_predict_image(
+    model_name: str = Form(..., description="Nom du modèle à utiliser"),
+    images: List[UploadFile] = File(..., description="Images à analyser")
+):
+    """
+    Analyse plusieurs images en batch.
+    
+    - **model_name**: Nom du modèle (ex: sensitive-image-caption)
+    - **images**: Liste de fichiers images
+    """
+    try:
+        logger.info(f"Requête batch image ({len(images)} images, modèle: {model_name})")
+        
+        # Récupérer le modèle
+        model = registry.get(model_name)
+        if not model:
+            available = registry.get_model_names()
+            raise HTTPException(
+                status_code=404,
+                detail=f"Modèle '{model_name}' non trouvé. Disponibles: {available}"
+            )
+        
+        # Charger toutes les images
+        pil_images = []
+        for img_file in images:
+            image_bytes = await img_file.read()
+            pil_image = Image.open(io.BytesIO(image_bytes))
+            pil_images.append(pil_image)
+        
+        logger.info(f"  → {len(pil_images)} images chargées")
+        
+        # Prédire en batch
+        start_time = time.time()
+        results = model.batch_predict(images=pil_images)
+        processing_time = time.time() - start_time
+        
+        return {
+            "results": results,
+            "total_processed": len(results),
+            "processing_time": round(processing_time, 2),
+            "model_used": model.model_name,
+            "timestamp": datetime.utcnow().isoformat()
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Erreur lors de l'analyse batch des images: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Erreur d'analyse batch: {str(e)}"
         )

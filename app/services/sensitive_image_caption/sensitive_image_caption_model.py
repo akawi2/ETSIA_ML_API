@@ -1,13 +1,13 @@
 """
 Modèle de Détection de Contenu Sensible dans les Images
-Utilise microsoft/git-large-textcaps pour la génération de légendes
+Utilise Salesforce/blip-image-captioning-base pour la génération de légendes
 et détecte du contenu sensible (drogue, violence, sexe, etc.)
 """
 from typing import Dict, Any, List, Optional
 import re
 import torch
 from PIL import Image
-from transformers import GitProcessor, GitForCausalLM, pipeline
+from transformers import BlipProcessor, BlipForConditionalGeneration, pipeline
 from app.core.base_model import BaseDepressionModel
 from app.utils.logger import setup_logger
 
@@ -19,7 +19,7 @@ class SensitiveImageCaptionModel(BaseDepressionModel):
     Modèle de détection de contenu sensible dans les images.
     
     Processus :
-    1. Génère une légende de l'image en anglais (microsoft/git-large-textcaps)
+    1. Génère une légende de l'image en anglais (Salesforce/blip-image-captioning-base)
     2. Détecte les mots-clés sensibles
     3. Traduit en français
     4. Retourne une alerte si contenu sensible détecté
@@ -71,16 +71,23 @@ class SensitiveImageCaptionModel(BaseDepressionModel):
             logger.info("Initialisation du modèle de détection de contenu sensible...")
             
             # Charger le modèle de génération de légendes
-            logger.info("  → Chargement de microsoft/git-large-textcaps...")
-            self.processor = GitProcessor.from_pretrained("microsoft/git-large-textcaps")
-            self.caption_model = GitForCausalLM.from_pretrained("microsoft/git-large-textcaps")
+            logger.info("  → Chargement de Salesforce/blip-image-captioning-base...")
+            self.processor = BlipProcessor.from_pretrained(
+                "Salesforce/blip-image-captioning-base",
+                token=False
+            )
+            self.caption_model = BlipForConditionalGeneration.from_pretrained(
+                "Salesforce/blip-image-captioning-base",
+                token=False
+            )
             
             # Charger le modèle de traduction
             logger.info("  → Chargement du traducteur EN→FR...")
             self.translator = pipeline(
                 "translation",
                 model="Helsinki-NLP/opus-mt-en-fr",
-                device=0 if torch.cuda.is_available() else -1
+                device=0 if torch.cuda.is_available() else -1,
+                token=False
             )
             
             self.device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -142,13 +149,10 @@ class SensitiveImageCaptionModel(BaseDepressionModel):
             Légende en anglais
         """
         inputs = self.processor(images=image, return_tensors="pt").to(self.device)
-        
+
         with torch.no_grad():
-            generated_ids = self.caption_model.generate(
-                pixel_values=inputs["pixel_values"],
-                max_length=50
-            )
-        
+            generated_ids = self.caption_model.generate(**inputs, max_length=50)
+
         caption = self.processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
         return caption
     
