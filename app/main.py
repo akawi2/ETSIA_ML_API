@@ -1,13 +1,14 @@
 """
 Point d'entrée de l'application FastAPI - Architecture Multi-Modèles
 """
-from fastapi import FastAPI
+from fastapi import FastAPI,Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.config import settings
 from app.routes import router
 from app.models.schemas import HealthResponse
 from app.core.model_registry import registry
+from app.services.recommendation.recommendation_service import recommend_service
 from app.utils.logger import setup_logger
 from datetime import datetime
 
@@ -123,6 +124,26 @@ async def health():
             "available": list(models_list.keys()),
             "health": models_health
         }
+    }
+
+
+@app.get(
+    "/recommend",
+    response_model=dict,
+    summary="Recommendation",
+    description="Propose une recommendation de posts"
+)
+async def recommend(userId: int = Query(...)):
+    recommendations = recommend_service(userId)
+    print("+"*10)
+    print(userId)
+    print(recommendations)
+    
+    return {
+        "user_id": userId,
+        "version": settings.API_VERSION,
+        "timestamp": datetime.utcnow().isoformat(),
+        "recommendations": recommendations, 
     }
 
 
