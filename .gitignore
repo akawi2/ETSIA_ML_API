@@ -53,6 +53,7 @@ Thumbs.db
 
 # Project specific
 Modèle GCN/
+comm
 *.csv
 *.pt
 *.pth

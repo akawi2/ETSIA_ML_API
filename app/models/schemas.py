@@ -205,3 +205,191 @@ class ErrorResponse(BaseModel):
                 "timestamp": "2025-01-16T10:30:00Z"
             }
         }
+
+
+# ============================================================================
+# SCHÉMAS POUR LA GÉNÉRATION DE CONTENU YANSNET
+# ============================================================================
+
+class PostTypeEnum(str, Enum):
+    """Types de posts"""
+    CONFESSION = "confession"
+    RANT = "coup de gueule"
+    HELP_REQUEST = "demande d'aide"
+    SUPPORT = "message de soutien"
+    JOKE = "blague"
+    INFO = "information utile"
+
+
+class SentimentEnum(str, Enum):
+    """Sentiments"""
+    POSITIVE = "positif"
+    NEUTRAL = "neutre"
+    NEGATIVE = "négatif"
+
+
+class GeneratePostRequest(BaseModel):
+    """Requête de génération de post"""
+    post_type: Optional[PostTypeEnum] = Field(
+        None,
+        description="Type de post (aléatoire si non spécifié)"
+    )
+    topic: Optional[str] = Field(
+        None,
+        max_length=200,
+        description="Sujet du post (aléatoire si non spécifié)"
+    )
+    sentiment: Optional[SentimentEnum] = Field(
+        None,
+        description="Sentiment souhaité (auto si non spécifié)"
+    )
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "post_type": "demande d'aide",
+                "topic": "les partiels stressants",
+                "sentiment": "négatif"
+            }
+        }
+
+
+class GeneratePostResponse(BaseModel):
+    """Réponse de génération de post"""
+    content: str = Field(..., description="Contenu du post généré")
+    post_type: str = Field(..., description="Type de post")
+    topic: str = Field(..., description="Sujet du post")
+    sentiment: str = Field(..., description="Sentiment du post")
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "content": "Bonjour à tous, je suis vraiment stressé par les partiels qui arrivent...",
+                "post_type": "demande d'aide",
+                "topic": "les partiels stressants",
+                "sentiment": "négatif",
+                "timestamp": "2025-01-16T10:30:00Z"
+            }
+        }
+
+
+class GenerateCommentsRequest(BaseModel):
+    """Requête de génération de commentaires"""
+    post_content: str = Field(
+        ...,
+        min_length=10,
+        max_length=5000,
+        description="Contenu du post original"
+    )
+    sentiment: Optional[SentimentEnum] = Field(
+        None,
+        description="Sentiment souhaité pour les commentaires (naturel si non spécifié)"
+    )
+    num_comments: int = Field(
+        default=5,
+        ge=1,
+        le=20,
+        description="Nombre de commentaires à générer (1-20)"
+    )
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "post_content": "Je suis vraiment stressé par les partiels qui arrivent...",
+                "sentiment": "positif",
+                "num_comments": 3
+            }
+        }
+
+
+class CommentData(BaseModel):
+    """Données d'un commentaire"""
+    content: str
+    sentiment: str
+    comment_number: int
+
+
+class GenerateCommentsResponse(BaseModel):
+    """Réponse de génération de commentaires"""
+    comments: List[CommentData]
+    total_comments: int
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "comments": [
+                    {
+                        "content": "Courage ! On est tous dans le même bateau.",
+                        "sentiment": "positif",
+                        "comment_number": 1
+                    },
+                    {
+                        "content": "Tu devrais essayer de réviser en groupe, ça aide beaucoup !",
+                        "sentiment": "positif",
+                        "comment_number": 2
+                    }
+                ],
+                "total_comments": 2,
+                "timestamp": "2025-01-16T10:30:00Z"
+            }
+        }
+
+
+class GeneratePostWithCommentsRequest(BaseModel):
+    """Requête de génération de post avec commentaires"""
+    post_type: Optional[PostTypeEnum] = Field(
+        None,
+        description="Type de post (aléatoire si non spécifié)"
+    )
+    topic: Optional[str] = Field(
+        None,
+        max_length=200,
+        description="Sujet du post (aléatoire si non spécifié)"
+    )
+    num_comments: Optional[int] = Field(
+        None,
+        ge=1,
+        le=20,
+        description="Nombre de commentaires (8-12 aléatoire si non spécifié)"
+    )
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "post_type": "blague",
+                "topic": "les fêtes étudiantes",
+                "num_comments": 10
+            }
+        }
+
+
+class GeneratePostWithCommentsResponse(BaseModel):
+    """Réponse de génération de post avec commentaires"""
+    post: GeneratePostResponse
+    comments: List[CommentData]
+    total_comments: int
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "post": {
+                    "content": "Vous savez ce qui est drôle ? Les fêtes étudiantes...",
+                    "post_type": "blague",
+                    "topic": "les fêtes étudiantes",
+                    "sentiment": "positif",
+                    "timestamp": "2025-01-16T10:30:00Z"
+                },
+                "comments": [
+                    {
+                        "content": "Haha trop vrai !",
+                        "sentiment": "positif",
+                        "comment_number": 1
+                    }
+                ],
+                "total_comments": 1,
+                "timestamp": "2025-01-16T10:30:00Z"
+            }
+        }
