@@ -9,7 +9,13 @@ from app.models.schemas import (
     PredictResponse,
     BatchPredictRequest,
     BatchPredictResponse,
-    ErrorResponse
+    ErrorResponse,
+    GeneratePostRequest,
+    GeneratePostResponse,
+    GenerateCommentsRequest,
+    GenerateCommentsResponse,
+    GeneratePostWithCommentsRequest,
+    GeneratePostWithCommentsResponse
 )
 from app.core.model_registry import registry
 from app.utils.logger import setup_logger
@@ -341,4 +347,205 @@ async def batch_predict_image(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Erreur d'analyse batch: {str(e)}"
+        )
+
+
+
+# ============================================================================
+# ROUTES DE GÉNÉRATION DE CONTENU YANSNET
+# ============================================================================
+
+content_router = APIRouter(prefix="/api/v1/content", tags=["Génération de Contenu"])
+
+
+@content_router.post(
+    "/generate-post",
+    response_model=GeneratePostResponse,
+    summary="Générer un post",
+    description="Génère un post pour le forum étudiant YANSNET"
+)
+async def generate_post(request: GeneratePostRequest) -> GeneratePostResponse:
+    """
+    Génère un post pour le forum étudiant.
+    
+    - **post_type**: Type de post (optionnel, aléatoire si non spécifié)
+    - **topic**: Sujet du post (optionnel, aléatoire si non spécifié)
+    - **sentiment**: Sentiment souhaité (optionnel, auto si non spécifié)
+    
+    Retourne:
+    - **content**: Contenu du post généré
+    - **post_type**: Type de post
+    - **topic**: Sujet du post
+    - **sentiment**: Sentiment du post
+    """
+    try:
+        logger.info(f"Génération de post (type: {request.post_type}, topic: {request.topic})")
+        
+        # Récupérer le générateur
+        generator = registry.get("yansnet-content-generator")
+        if not generator:
+            raise HTTPException(
+                status_code=500,
+                detail="Générateur de contenu non disponible. Vérifiez la configuration."
+            )
+        
+        # Générer le post
+        result = generator.generate_post(
+            post_type=request.post_type.value if request.post_type else None,
+            topic=request.topic,
+            sentiment=request.sentiment.value if request.sentiment else None
+        )
+        
+        return GeneratePostResponse(
+            content=result["content"],
+            post_type=result["post_type"],
+            topic=result["topic"],
+            sentiment=result["sentiment"]
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Erreur lors de la génération du post: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Erreur de génération: {str(e)}"
+        )
+
+
+@content_router.post(
+    "/generate-comments",
+    response_model=GenerateCommentsResponse,
+    summary="Générer des commentaires",
+    description="Génère des commentaires pour un post donné"
+)
+async def generate_comments(request: GenerateCommentsRequest) -> GenerateCommentsResponse:
+    """
+    Génère des commentaires pour un post.
+    
+    - **post_content**: Contenu du post original
+    - **sentiment**: Sentiment souhaité (optionnel, naturel si non spécifié)
+    - **num_comments**: Nombre de commentaires (1-20)
+    
+    Retourne:
+    - **comments**: Liste des commentaires générés
+    - **total_comments**: Nombre total de commentaires
+    """
+    try:
+        logger.info(f"Génération de {request.num_comments} commentaires")
+        
+        # Récupérer le générateur
+        generator = registry.get("yansnet-content-generator")
+        if not generator:
+            raise HTTPException(
+                status_code=500,
+                detail="Générateur de contenu non disponible"
+            )
+        
+        # Générer les commentaires
+        comments = generator.generate_comment(
+            post_content=request.post_content,
+            sentiment=request.sentiment.value if request.sentiment else None,
+            num_comments=request.num_comments
+        )
+        
+        from app.models.schemas import CommentData
+        
+        formatted_comments = [
+            CommentData(
+                content=c["content"],
+                sentiment=c["sentiment"],
+                comment_number=c["comment_number"]
+            )
+            for c in comments
+        ]
+        
+        return GenerateCommentsResponse(
+            comments=formatted_comments,
+            total_comments=len(formatted_comments)
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Erreur lors de la génération des commentaires: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Erreur de génération: {str(e)}"
+        )
+
+
+@content_router.post(
+    "/generate-post-with-comments",
+    response_model=GeneratePostWithCommentsResponse,
+    summary="Générer un post avec commentaires",
+    description="Génère un post complet avec ses commentaires"
+)
+async def generate_post_with_comments(
+    request: GeneratePostWithCommentsRequest
+) -> GeneratePostWithCommentsResponse:
+    """
+    Génère un post complet avec ses commentaires.
+    
+    - **post_type**: Type de post (optionnel, aléatoire si non spécifié)
+    - **topic**: Sujet (optionnel, aléatoire si non spécifié)
+    - **num_comments**: Nombre de commentaires (optionnel, 8-12 si non spécifié)
+    
+    Retourne:
+    - **post**: Post généré
+    - **comments**: Liste des commentaires
+    - **total_comments**: Nombre total de commentaires
+    """
+    try:
+        logger.info(
+            f"Génération de post complet "
+            f"(type: {request.post_type}, comments: {request.num_comments})"
+        )
+        
+        # Récupérer le générateur
+        generator = registry.get("yansnet-content-generator")
+        if not generator:
+            raise HTTPException(
+                status_code=500,
+                detail="Générateur de contenu non disponible"
+            )
+        
+        # Générer le post avec commentaires
+        result = generator.generate_post_with_comments(
+            post_type=request.post_type.value if request.post_type else None,
+            topic=request.topic,
+            num_comments=request.num_comments
+        )
+        
+        from app.models.schemas import CommentData
+        
+        post_data = GeneratePostResponse(
+            content=result["post"]["content"],
+            post_type=result["post"]["post_type"],
+            topic=result["post"]["topic"],
+            sentiment=result["post"]["sentiment"]
+        )
+        
+        formatted_comments = [
+            CommentData(
+                content=c["content"],
+                sentiment=c["sentiment"],
+                comment_number=c["comment_number"]
+            )
+            for c in result["comments"]
+        ]
+        
+        return GeneratePostWithCommentsResponse(
+            post=post_data,
+            comments=formatted_comments,
+            total_comments=result["total_comments"]
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Erreur lors de la génération du post complet: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Erreur de génération: {str(e)}"
         )
