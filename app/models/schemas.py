@@ -1,7 +1,7 @@
 """
 Schémas Pydantic pour validation des données
 """
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 from typing import Optional, List
 from datetime import datetime
 from enum import Enum
@@ -12,6 +12,9 @@ class PredictionEnum(str, Enum):
     DEPRESSION = "DÉPRESSION"
     NORMAL = "NORMAL"
     ERROR = "ERREUR"
+    # Support pour modèle hate speech
+    HATEFUL = "HAINEUX"
+    NON_HATEFUL = "NON-HAINEUX"
 
 
 class SeverityEnum(str, Enum):
@@ -36,7 +39,8 @@ class PredictRequest(BaseModel):
         description="Inclure le raisonnement dans la réponse"
     )
     
-    @validator('text')
+    @field_validator('text')
+    @classmethod
     def text_not_empty(cls, v):
         if not v.strip():
             raise ValueError("Le texte ne peut pas être vide")
@@ -55,7 +59,7 @@ class PredictResponse(BaseModel):
     """Réponse de prédiction"""
     prediction: PredictionEnum = Field(
         ...,
-        description="Prédiction: DÉPRESSION ou NORMAL"
+        description="Prédiction: DÉPRESSION, NORMAL, HAINEUX ou NON-HAINEUX"
     )
     confidence: float = Field(
         ...,
@@ -82,14 +86,24 @@ class PredictResponse(BaseModel):
     
     class Config:
         json_schema_extra = {
-            "example": {
-                "prediction": "DÉPRESSION",
-                "confidence": 0.85,
-                "severity": "Élevée",
-                "reasoning": "Le texte exprime un désespoir profond et une tristesse intense, avec des pensées suicidaires explicites.",
-                "timestamp": "2025-01-16T10:30:00Z",
-                "model_used": "gpt-4o-mini"
-            }
+            "examples": [
+                {
+                    "prediction": "DÉPRESSION",
+                    "confidence": 0.85,
+                    "severity": "Élevée",
+                    "reasoning": "Le texte exprime un désespoir profond et une tristesse intense, avec des pensées suicidaires explicites.",
+                    "timestamp": "2025-01-16T10:30:00Z",
+                    "model_used": "yansnet-llm"
+                },
+                {
+                    "prediction": "HAINEUX",
+                    "confidence": 0.92,
+                    "severity": "Critique",
+                    "reasoning": "Commentaire classifié comme haineux avec une confiance de 92.00%. Le contenu contient des éléments de discours haineux.",
+                    "timestamp": "2025-01-16T10:30:00Z",
+                    "model_used": "hatecomment-bert"
+                }
+            ]
         }
 
 
@@ -106,7 +120,8 @@ class BatchPredictRequest(BaseModel):
         description="Inclure le raisonnement (ralentit le traitement)"
     )
     
-    @validator('texts')
+    @field_validator('texts')
+    @classmethod
     def texts_not_empty(cls, v):
         if not v:
             raise ValueError("La liste ne peut pas être vide")
@@ -162,11 +177,17 @@ class BatchPredictResponse(BaseModel):
                         "prediction": "DÉPRESSION",
                         "confidence": 0.88,
                         "severity": "Élevée"
+                    },
+                    {
+                        "text": "Je déteste tout le monde",
+                        "prediction": "HAINEUX",
+                        "confidence": 0.91,
+                        "severity": "Élevée"
                     }
                 ],
-                "total_processed": 2,
-                "processing_time": 1.2,
-                "model_used": "gpt-4o-mini"
+                "total_processed": 3,
+                "processing_time": 1.5,
+                "model_used": "hatecomment-bert"
             }
         }
 

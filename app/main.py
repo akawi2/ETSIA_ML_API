@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.config import settings
-from app.routes import router, image_router, content_router
+from app.routes import router, hatecomment_router, image_router, content_router
 from app.models.schemas import HealthResponse
 from app.core.model_registry import registry
 from app.utils.logger import setup_logger
@@ -33,6 +33,7 @@ app.add_middleware(
 
 # Inclure les routes
 app.include_router(router)
+app.include_router(hatecomment_router)
 app.include_router(image_router)
 app.include_router(content_router)
 
@@ -65,6 +66,7 @@ async def startup_event():
     except Exception as e:
         logger.error(f"✗ Erreur lors de l'enregistrement du modèle d'images: {e}")
         logger.error(f"  Vérifiez que les dépendances sont installées (transformers, torch, PIL)")
+
     
     # 3. Générateur de Contenu YANSNET
     try:
@@ -74,8 +76,16 @@ async def startup_event():
     except Exception as e:
         logger.error(f"✗ Erreur lors de l'enregistrement du générateur: {e}")
         logger.error(f"  Vérifiez que le LLM est configuré dans .env")
+
+    # 4. Modèle HateComment BERT
+    try:
+        from app.services.hatecomment_bert import HateCommentBertModel
+        registry.register(HateCommentBertModel())
+        logger.info("✓ Modèle HateComment BERT enregistré")
+    except Exception as e:
+        logger.error(f"✗ Erreur lors de l'enregistrement du modèle HateComment BERT: {e}")
     
-    # 4. Autres modèles à ajouter ici
+    # 5. Autres modèles à ajouter ici
     # Exemple pour un futur étudiant:
     # try:
     #     from app.services.etudiant2_gcn import Etudiant2GCNModel
