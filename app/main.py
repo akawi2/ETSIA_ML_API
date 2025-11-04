@@ -5,7 +5,7 @@ from fastapi import FastAPI,Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.config import settings
-from app.routes import router, hatecomment_router, image_router, content_router
+from app.routes import router, hatecomment_router, image_router, content_router, recommendation_router
 from app.models.schemas import HealthResponse
 from app.core.model_registry import registry
 from app.services.recommendation.recommendation_service import recommend_service
@@ -37,6 +37,7 @@ app.include_router(router)
 app.include_router(hatecomment_router)
 app.include_router(image_router)
 app.include_router(content_router)
+app.include_router(recommendation_router)
 
 
 @app.on_event("startup")
@@ -86,7 +87,15 @@ async def startup_event():
     except Exception as e:
         logger.error(f"✗ Erreur lors de l'enregistrement du modèle HateComment BERT: {e}")
     
-    # 5. Autres modèles à ajouter ici
+    # 5. Système de Recommandation
+    try:
+        from app.services.recommendation import RecommendationModel
+        registry.register(RecommendationModel())
+        logger.info("✓ Système de recommandation enregistré")
+    except Exception as e:
+        logger.error(f"✗ Erreur lors de l'enregistrement du système de recommandation: {e}")
+    
+    # 6. Autres modèles à ajouter ici
     # Exemple pour un futur étudiant:
     # try:
     #     from app.services.etudiant2_gcn import Etudiant2GCNModel
