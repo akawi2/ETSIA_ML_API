@@ -1,23 +1,111 @@
+<<<<<<< HEAD
 version: '3.8'
 
 services:
   api:
     build: .
     container_name: depression-api
+=======
+services:
+  # API avec support CPU uniquement (production légère)
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: python:3.11-slim
+    image: etsia-ml-api:cpu
+    container_name: etsia-ml-api-cpu
+>>>>>>> cda1f63ffa39c1344ee5c876a2dfb835c641bbf5
     ports:
       - "8000:8000"
     env_file:
       - .env
+<<<<<<< HEAD
+=======
+    environment:
+      - LOG_LEVEL=info
+      - API_ENV=production
+>>>>>>> cda1f63ffa39c1344ee5c876a2dfb835c641bbf5
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
+<<<<<<< HEAD
       timeout: 10s
       retries: 3
       start_period: 5s
     networks:
       - api-network
+=======
+      timeout: 30s
+      retries: 3
+      start_period: 60s
+    networks:
+      - api-network
+    volumes:
+      - model_cache:/app/.cache
+      - huggingface_cache:/app/.cache/huggingface
+    deploy:
+      resources:
+        limits:
+          memory: 6G
+        reservations:
+          memory: 2G
+
+  # API avec support GPU (performance optimale)
+  api-gpu:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: nvidia/cuda:12.1-runtime-ubuntu22.04
+    image: etsia-ml-api:gpu
+    container_name: etsia-ml-api-gpu
+    ports:
+      - "8001:8000"
+    env_file:
+      - .env
+    environment:
+      - LOG_LEVEL=info
+      - API_ENV=production
+      - CUDA_VISIBLE_DEVICES=0
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 120s
+    networks:
+      - api-network
+    volumes:
+      - model_cache:/app/.cache
+      - huggingface_cache:/app/.cache/huggingface
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 4G
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    profiles:
+      - gpu
+
+volumes:
+  model_cache:
+    driver: local
+  huggingface_cache:
+    driver: local
+>>>>>>> cda1f63ffa39c1344ee5c876a2dfb835c641bbf5
 
 networks:
   api-network:
     driver: bridge
+<<<<<<< HEAD
+=======
+    name: etsia-ml-network
+>>>>>>> cda1f63ffa39c1344ee5c876a2dfb835c641bbf5

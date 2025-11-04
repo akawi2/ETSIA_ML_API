@@ -5,7 +5,7 @@ from fastapi import FastAPI,Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.config import settings
-from app.routes import router
+from app.routes import router, hatecomment_router, image_router, content_router
 from app.models.schemas import HealthResponse
 from app.core.model_registry import registry
 from app.services.recommendation.recommendation_service import recommend_service
@@ -34,6 +34,9 @@ app.add_middleware(
 
 # Inclure les routes
 app.include_router(router)
+app.include_router(hatecomment_router)
+app.include_router(image_router)
+app.include_router(content_router)
 
 
 @app.on_event("startup")
@@ -56,7 +59,34 @@ async def startup_event():
         logger.error(f"✗ Erreur lors de l'enregistrement du modèle YANSNET LLM: {e}")
         logger.error(f"  Vérifiez que .env est configuré avec les clés API")
     
-    # 2. Autres modèles à ajouter ici
+    # 2. Modèle de Détection de Contenu Sensible dans les Images
+    try:
+        from app.services.sensitive_image_caption import SensitiveImageCaptionModel
+        registry.register(SensitiveImageCaptionModel())
+        logger.info("✓ Modèle de détection de contenu sensible (images) enregistré")
+    except Exception as e:
+        logger.error(f"✗ Erreur lors de l'enregistrement du modèle d'images: {e}")
+        logger.error(f"  Vérifiez que les dépendances sont installées (transformers, torch, PIL)")
+
+    
+    # 3. Générateur de Contenu YANSNET
+    try:
+        from app.services.yansnet_content_generator import YansnetContentGeneratorModel
+        registry.register(YansnetContentGeneratorModel())
+        logger.info("✓ Générateur de contenu YANSNET enregistré")
+    except Exception as e:
+        logger.error(f"✗ Erreur lors de l'enregistrement du générateur: {e}")
+        logger.error(f"  Vérifiez que le LLM est configuré dans .env")
+
+    # 4. Modèle HateComment BERT
+    try:
+        from app.services.hatecomment_bert import HateCommentBertModel
+        registry.register(HateCommentBertModel())
+        logger.info("✓ Modèle HateComment BERT enregistré")
+    except Exception as e:
+        logger.error(f"✗ Erreur lors de l'enregistrement du modèle HateComment BERT: {e}")
+    
+    # 5. Autres modèles à ajouter ici
     # Exemple pour un futur étudiant:
     # try:
     #     from app.services.etudiant2_gcn import Etudiant2GCNModel

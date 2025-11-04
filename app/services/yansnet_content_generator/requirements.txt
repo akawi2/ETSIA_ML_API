@@ -1,0 +1,5 @@
+# Dépendances pour le générateur de contenu YANSNET
+# Utilise les mêmes dépendances que yansnet_llm
+
+# Aucune dépendance supplémentaire requise
+# Le générateur réutilise le LLM configuré dans l'app
