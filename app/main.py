@@ -5,7 +5,7 @@ from fastapi import FastAPI,Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.config import settings
-from app.routes import router, hatecomment_router, image_router, content_router, recommendation_router
+from app.routes import router, hatecomment_router, image_router, content_router, recommendation_router, censure_router
 from app.models.schemas import HealthResponse
 from app.core.model_registry import registry
 from app.services.recommendation.recommendation_service import recommend_service
@@ -38,6 +38,7 @@ app.include_router(hatecomment_router)
 app.include_router(image_router)
 app.include_router(content_router)
 app.include_router(recommendation_router)
+app.include_router(censure_router)
 
 
 @app.on_event("startup")
@@ -95,7 +96,15 @@ async def startup_event():
     except Exception as e:
         logger.error(f"✗ Erreur lors de l'enregistrement du système de recommandation: {e}")
     
-    # 6. Autres modèles à ajouter ici
+    # 6. Modèle de Détection NSFW
+    try:
+        from app.services.model_censure import CensureModel
+        registry.register(CensureModel())
+        logger.info("✓ Modèle de détection NSFW enregistré")
+    except Exception as e:
+        logger.error(f"✗ Erreur lors de l'enregistrement du modèle NSFW: {e}")
+    
+    # 7. Autres modèles à ajouter ici
     # Exemple pour un futur étudiant:
     # try:
     #     from app.services.etudiant2_gcn import Etudiant2GCNModel

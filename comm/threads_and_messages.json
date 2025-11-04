@@ -1,0 +1,460 @@
+[
+  {
+    "thread_id": 1,
+    "topic": "les salles de TP",
+    "users": [
+      "Étudiant A",
+      "Étudiant B"
+    ],
+    "messages": [
+      {
+        "message_id": 1,
+        "thread_id": 1,
+        "sender": "Étudiant A",
+        "content": "Je suis déconnecté pour le moment ! Mon téléphone fait une pause. Pourquoi ne pas me laisser un message si tu as besoin ? Je reviendrai bientôt !",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T14:00:00"
+      },
+      {
+        "message_id": 2,
+        "thread_id": 1,
+        "sender": "Étudiant B",
+        "content": "“ Je t'ai cherché partout pour te demander mon rendu de partielle. Ça ne risque pas d'être trop tard ?”",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T14:04:00"
+      },
+      {
+        "message_id": 3,
+        "thread_id": 1,
+        "sender": "Étudiant A",
+        "content": "Pas de problème ! Je vais finir ça tout à l'heure, ça devrait aller comme prévu.",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T14:08:00"
+      },
+      {
+        "message_id": 4,
+        "thread_id": 1,
+        "sender": "Étudiant B",
+        "content": "\"Qu'est-ce que tu fais pour t'aider ? Tu as encore un peu du truc magique avec les formules ?\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T14:09:00"
+      },
+      {
+        "message_id": 5,
+        "thread_id": 1,
+        "sender": "Étudiant A",
+        "content": "\"Non, heureusement ! J'ai simplement pris mon temps cette fois pour bien comprendre les bases. C'est plus fatigant mais ça marche mieux !\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T14:08:00"
+      },
+      {
+        "message_id": 6,
+        "thread_id": 1,
+        "sender": "Étudiant B",
+        "content": "\"Cassemblé aussi hier soir pas mal la matière commence à rentrer en moi !\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T14:45:00"
+      },
+      {
+        "message_id": 7,
+        "thread_id": 1,
+        "sender": "Étudiant A",
+        "content": "\"Moi j'ai essayé de faire quelques petites repas pour éviter le stress avec les partiels\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T14:12:00"
+      },
+      {
+        "message_id": 8,
+        "thread_id": 1,
+        "sender": "Étudiant B",
+        "content": "\"Tu as raison, ma mère me les fait aussi. Elle dit que c'est une bonne façon de nous apprivoiser. Comment ça s'est passé à tes partiels ?",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T15:10:00"
+      },
+      {
+        "message_id": 9,
+        "thread_id": 1,
+        "sender": "Étudiant A",
+        "content": "Pas super, j'ai eu du mal avec la matière mais j'ai réussi à sauver un 12/20. Et toi ?",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T14:56:00"
+      },
+      {
+        "message_id": 10,
+        "thread_id": 1,
+        "sender": "Étudiant B",
+        "content": "\"Moi aussi c'était chaud ! J'ai pris 15/20, je suis pas trop malheureux\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T14:09:00"
+      },
+      {
+        "message_id": 11,
+        "thread_id": 1,
+        "sender": "Étudiant A",
+        "content": "\"Tout à fait d'accord ! Moi j'ai eu même moins que toi ! Comment t’as réussi à avoir 15 ?\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T14:10:00"
+      },
+      {
+        "message_id": 12,
+        "thread_id": 1,
+        "sender": "Étudiant B",
+        "content": "\"J'avais prévu de faire les TD avant mais je n'en ai pas eu le temps ! Cela m'a bien fait penser à ma gestion du temps !\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T14:22:00"
+      },
+      {
+        "message_id": 13,
+        "thread_id": 1,
+        "sender": "Étudiant A",
+        "content": "\"Ahah oui moi aussi ! Les TD ont été un peu trop lourds cette fois... Mais ça a bien fait réfléchir à ma priorisation de prochainement !\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T14:48:00"
+      },
+      {
+        "message_id": 14,
+        "thread_id": 1,
+        "sender": "Étudiant B",
+        "content": "\"Moi aussi j'ai eu du mal, mais au moins on sait maintenant pour quoi nous allons bien faire attention.\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T14:52:00"
+      },
+      {
+        "message_id": 15,
+        "thread_id": 1,
+        "sender": "Étudiant A",
+        "content": "\"Bien dit ! Ça nous aidera à ne pas être pris par surprise la prochaine fois. On se voit pour travailler ensemble?\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T16:06:00"
+      }
+    ]
+  },
+  {
+    "thread_id": 2,
+    "topic": "les partiels",
+    "users": [
+      "Étudiant A",
+      "Étudiant B"
+    ],
+    "messages": [
+      {
+        "message_id": 1,
+        "thread_id": 2,
+        "sender": "Étudiant A",
+        "content": "\"Qu'est-ce que tu racontes ? Et toi, comment trouves-tu Mlle Fichet ? Je trouve qu'elle a vraiment des explications bien faciles à suivre.\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T15:00:00"
+      },
+      {
+        "message_id": 2,
+        "thread_id": 2,
+        "sender": "Étudiant B",
+        "content": "\"Moi je pense que c'est vrai ! Ça rend l'apprentissage moins douloureux\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T15:04:00"
+      },
+      {
+        "message_id": 3,
+        "thread_id": 2,
+        "sender": "Étudiant A",
+        "content": "\"Tu as raison!\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T15:16:00"
+      },
+      {
+        "message_id": 4,
+        "thread_id": 2,
+        "sender": "Étudiant B",
+        "content": "\"Merci ! Mais pas trop optimiste tout de même, j'ai vu la liste du cours ce matin...\"",
+        "sentiment": "négatif",
+        "timestamp": "2025-07-04T15:30:00"
+      },
+      {
+        "message_id": 5,
+        "thread_id": 2,
+        "sender": "Étudiant A",
+        "content": "\"Mais tu vas pouvoir te sortir à peu près des cours d'histo et les maths!\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T15:20:00"
+      }
+    ]
+  },
+  {
+    "thread_id": 3,
+    "topic": "les cours en amphi",
+    "users": [
+      "Étudiant A",
+      "Étudiant B"
+    ],
+    "messages": [
+      {
+        "message_id": 1,
+        "thread_id": 3,
+        "sender": "Étudiant B",
+        "content": "J'attendais vraiment que ce groupe soit formé hier ! Tu as reçu l'email d'avertissement pour le premier semestre ? Et à quand je peux espérer les tâches du projet ?",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T16:00:00"
+      },
+      {
+        "message_id": 2,
+        "thread_id": 3,
+        "sender": "Étudiant A",
+        "content": "\"Dites donc, j'espère que c'est arrivé aujourd'hui. Même moi, ça commence à faire long, si je puis dire. Et selon ma professeure, il faudrait bientôt connaître l’évaluation",
+        "sentiment": "négatif",
+        "timestamp": "2025-07-04T16:03:00"
+      },
+      {
+        "message_id": 3,
+        "thread_id": 3,
+        "sender": "Étudiant B",
+        "content": "Oui, tu as raison. Je commencerai à me renseigner plus sérieusement sur l'objectif de notre projet.",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T16:08:00"
+      },
+      {
+        "message_id": 4,
+        "thread_id": 3,
+        "sender": "Étudiant A",
+        "content": "\"Je trouve ça mieux ainsi. Si on est tous sur la même longueur d’ondes, on pourra travailler ensemble de manière plus efficace.\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T16:18:00"
+      },
+      {
+        "message_id": 5,
+        "thread_id": 3,
+        "sender": "Étudiant B",
+        "content": "\"Tu as raison. Cela nous aidera à réduire les malentendus.\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T16:08:00"
+      },
+      {
+        "message_id": 6,
+        "thread_id": 3,
+        "sender": "Étudiant A",
+        "content": "\"Oui, surtout en début d'année, avant de buter trop longtemps sur rien...\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T16:10:00"
+      },
+      {
+        "message_id": 7,
+        "thread_id": 3,
+        "sender": "Étudiant B",
+        "content": "\"J'ai bien cru avoir compris que mon groupe avait planifié son travail... Et puis plus on avançait, moins il semblait y avoir de coordination...\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T16:42:00"
+      }
+    ]
+  },
+  {
+    "thread_id": 4,
+    "topic": "les groupes de projet",
+    "users": [
+      "Étudiant A",
+      "Étudiant B"
+    ],
+    "messages": [
+      {
+        "message_id": 1,
+        "thread_id": 4,
+        "sender": "Étudiant B",
+        "content": "J'adore mon cours d'informatique mais je n'arrive vraiment pas à me loger dans les salles TP, c'est trop ressenti.",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T17:00:00"
+      },
+      {
+        "message_id": 2,
+        "thread_id": 4,
+        "sender": "Étudiant A",
+        "content": "\"Oui j'ai eu du mal cette semaine également. Je pense qu'il faut faire un report pour le prochain cours de TP.\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T17:01:00"
+      },
+      {
+        "message_id": 3,
+        "thread_id": 4,
+        "sender": "Étudiant B",
+        "content": "\"J'en suis d'accord. C'est incroyable ! J'ai déjà parlé à mon professeur mais il me dit qu'il n'y a pas de report possible.\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T17:16:00"
+      },
+      {
+        "message_id": 4,
+        "thread_id": 4,
+        "sender": "Étudiant A",
+        "content": "“Je comprends ! Ça m'arrive également. Est-ce que tu as déjà réfléchi à un moyen d'accéder pour éviter les notes déficientes ?”",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T17:27:00"
+      },
+      {
+        "message_id": 5,
+        "thread_id": 4,
+        "sender": "Étudiant B",
+        "content": "\" Oui je voulais aussi demander auprès de mon prof.”\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T17:08:00"
+      },
+      {
+        "message_id": 6,
+        "thread_id": 4,
+        "sender": "Étudiant A",
+        "content": "\" Mon prof avait déjà fait une annonce hier ! J'ai vérifié la salle qui est juste derrière.\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T17:35:00"
+      },
+      {
+        "message_id": 7,
+        "thread_id": 4,
+        "sender": "Étudiant B",
+        "content": "\"Ah ouais, l'annonce était il y a 2 jours je crois. J'étais déjà passé à la salle avant hier donc c'est bien celle-là.\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T17:12:00"
+      },
+      {
+        "message_id": 8,
+        "thread_id": 4,
+        "sender": "Étudiant A",
+        "content": "\"C'est pour sûr !\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T18:03:00"
+      },
+      {
+        "message_id": 9,
+        "thread_id": 4,
+        "sender": "Étudiant B",
+        "content": "\"Je t'écoute maintenant ! Quelle est la nouvelle ?\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T17:40:00"
+      },
+      {
+        "message_id": 10,
+        "thread_id": 4,
+        "sender": "Étudiant A",
+        "content": "\"J'ai reçu mes cahiers pour les TP, mais je trouve ça bizarre. J'y ai juste signé. L'autre élève devrait avoir le numéro de notre professeur de TP dans ses cours.\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T18:30:00"
+      }
+    ]
+  },
+  {
+    "thread_id": 5,
+    "topic": "le stress des examens",
+    "users": [
+      "Étudiant A",
+      "Étudiant B"
+    ],
+    "messages": [
+      {
+        "message_id": 1,
+        "thread_id": 5,
+        "sender": "Étudiant A",
+        "content": "Tu veux vraiment assister aux cours en amphi. C'est vrai que c'est pratique mais ça nous empêche d'étudier les séances de cours à la maison.",
+        "sentiment": "négatif",
+        "timestamp": "2025-07-04T18:00:00"
+      },
+      {
+        "message_id": 2,
+        "thread_id": 5,
+        "sender": "Étudiant B",
+        "content": "Exact, mais au moins on n'a pas besoin de s'lever tôt pour arriver à l'amphi !",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T18:04:00"
+      },
+      {
+        "message_id": 3,
+        "thread_id": 5,
+        "sender": "Étudiant A",
+        "content": "\"Pas questionnable, encore heureux qu'on puisse suivre les cours à distance...\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T18:10:00"
+      },
+      {
+        "message_id": 4,
+        "thread_id": 5,
+        "sender": "Étudiant B",
+        "content": "\"Effectivement, je suis bien content que nos profs soient flexibles !\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T18:06:00"
+      },
+      {
+        "message_id": 5,
+        "thread_id": 5,
+        "sender": "Étudiant A",
+        "content": "\"Oui c'est sympa, encore une fois ils nous prennent en compte. Ca change d'être forcé de suivre les cours en amphi comme on l'a vu la première semaine\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T18:16:00"
+      },
+      {
+        "message_id": 6,
+        "thread_id": 5,
+        "sender": "Étudiant B",
+        "content": "\"Tout à fait ! Ça devient vite ennuyeux. Je me demande bien pourquoi ils forcent les cours en amphi\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T18:10:00"
+      },
+      {
+        "message_id": 7,
+        "thread_id": 5,
+        "sender": "Étudiant A",
+        "content": "\"On a besoin d'un débat sur la pédagogie dans notre université. Peut-être que nous sommes trop critiques ! C'est juste à l'occasion de réfléchir\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T18:42:00"
+      },
+      {
+        "message_id": 8,
+        "thread_id": 5,
+        "sender": "Étudiant B",
+        "content": "\"je suis même allée faire une petite présentation avec l'un de mes collègues pour essayer de voir comment on peut rendre les cours plus sympas\".",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T18:35:00"
+      },
+      {
+        "message_id": 9,
+        "thread_id": 5,
+        "sender": "Étudiant A",
+        "content": "\"Coucou, quid des réunions de groupe ? On a pu échanger sur ce que ça donne ?\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T19:04:00"
+      },
+      {
+        "message_id": 10,
+        "thread_id": 5,
+        "sender": "Étudiant B",
+        "content": "\"Non, je n'ai pas encore été à une réunion. Je suis encore un peu perdu avec les amphis.\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T18:54:00"
+      },
+      {
+        "message_id": 11,
+        "thread_id": 5,
+        "sender": "Étudiant A",
+        "content": "\"J'ai bien peur que ça ne soit la plupart du temps confus. Mais si tu as besoin de quelques conseils ou explications, je suis là !\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T18:30:00"
+      },
+      {
+        "message_id": 12,
+        "thread_id": 5,
+        "sender": "Étudiant B",
+        "content": "\"Je t'en suis vraiment reconnaissant, je commence à m'inquiéter car je n'ai pas encore compris les principes de bases...\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T19:06:00"
+      },
+      {
+        "message_id": 13,
+        "thread_id": 5,
+        "sender": "Étudiant A",
+        "content": "\" Pas inquiet ! Rends-toi demain dans l'amphi et demande à la prof après cours. Elle t explique les choses qui ont été vues aujourd'hui\"",
+        "sentiment": "neutre",
+        "timestamp": "2025-07-04T19:12:00"
+      },
+      {
+        "message_id": 14,
+        "thread_id": 5,
+        "sender": "Étudiant B",
+        "content": "\"Oui, c'est sympa ! Les cours d'amphi sont vraiment utiles pour clarifier !\"",
+        "sentiment": "positif",
+        "timestamp": "2025-07-04T18:52:00"
+      }
+    ]
+  }
+]
