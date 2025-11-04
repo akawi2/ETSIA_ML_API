@@ -22,12 +22,32 @@ tests/
 .pytest_cache/
 .coverage
 
+<<<<<<< HEAD
 # Documentation
 docs/
 *.md
 
 # Modèle GCN (ne pas inclure dans l'image)
 Modèle GCN/
+=======
+# Documentation (garder seulement les essentiels)
+docs/
+*.md
+!app/services/*/README.md
+
+# Fichiers de développement et temporaires
+Modèle GCN/
+fine_tuned_hatecomment/
+*.ipynb
+*_test.py
+*_dev.py
+train_*.py
+test_*.py
+adjust_*.py
+integrate_*.py
+enhanced_*.py
+cleanup_*.py
+>>>>>>> cda1f63ffa39c1344ee5c876a2dfb835c641bbf5
 
 # Environment
 .env
