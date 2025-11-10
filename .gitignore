@@ -53,8 +53,20 @@ Thumbs.db
 
 # Project specific
 Modèle GCN/
+comm
 *.csv
 *.pt
 *.pth
 data/
+<<<<<<< HEAD
 models/
+=======
+# Exclure les modèles ML mais permettre app/models/ (schémas API)
+/models/
+*.bin
+*.safetensors
+# Permettre les schémas API
+!app/models/
+# Permettre le modèle hatecomment fine-tuné
+!app/services/hatecomment_bert/model/model.safetensors
+>>>>>>> cda1f63ffa39c1344ee5c876a2dfb835c641bbf5

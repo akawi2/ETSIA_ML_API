@@ -1,4 +1,4 @@
-# 🧠 API de Détection de Dépression avec LLM
+# 🧠 API de Détection de Dépression avec LLM + 🖼️ Analyse d'Images
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.109.0-green.svg)](https://fastapi.tiangolo.com/)
@@ -6,7 +6,10 @@
 [![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen.svg)](tests/)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](Dockerfile)
 
-API REST professionnelle pour la détection automatique de signes de dépression dans les textes, utilisant des Large Language Models (LLM).
+API REST professionnelle multi-modèles pour :
+- 📝 **Détection de dépression** dans les textes (LLM)
+- 🖼️ **Analyse de contenu sensible** dans les images (Vision + NLP)
+- ✍️ **Génération de contenu** pour le réseau social YANSNET (LLM)
 
 **Projet académique - X5 Semestre 9 ETSIA**
 
@@ -16,11 +19,25 @@ API REST professionnelle pour la détection automatique de signes de dépression
 
 ## 🎯 Résultats
 
+### Modèles de Détection de Dépression (Texte)
+
 | Modèle | Précision | Vitesse | Avantages |
 |--------|-----------|---------|-----------|
 | **LLM (GPT-4o-mini)** | **75%** | 0.3/s | Explications détaillées, cas ambigus |
 | **LLM (Llama 3.2 local)** | **75%** | 0.3/s | Gratuit, privé, offline |
 | **LLM (Claude)** | **75%** | 0.3/s | Haute qualité, nuancé |
+
+### 🆕 Modèle d'Analyse d'Images
+
+| Modèle | Type | Vitesse | Avantages |
+|--------|------|---------|-----------|
+| **Image Caption (GIT)** | Vision + NLP | 2-15s | Détection contenu sensible, multilingue |
+
+### 🆕 Générateur de Contenu YANSNET
+
+| Modèle | Type | Vitesse | Usage |
+|--------|------|---------|-------|
+| **Content Generator** | LLM | 2-3s/post | Génération posts/commentaires pour démos |
 
 ### Performance par Catégorie
 
@@ -66,10 +83,14 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
 # Health check
 curl http://localhost:8000/health
 
-# Prédiction simple
+# Analyse de texte
 curl -X POST http://localhost:8000/api/v1/predict \
   -H "Content-Type: application/json" \
   -d '{"text": "I feel so sad and hopeless"}'
+
+# 🆕 Analyse d'image
+curl -X POST http://localhost:8000/api/v1/predict-image \
+  -F "image=@path/to/image.jpg"
 
 # Documentation interactive
 # Ouvrir http://localhost:8000/docs
@@ -98,6 +119,16 @@ ETSIA_ML_API/
 │   │   │   ├── llm_predictor.py
 │   │   │   └── requirements.txt
 │   │   │
+│   │   ├── sensitive_image_caption/ # 🆕 Modèle analyse d'images
+│   │   │   ├── sensitive_image_caption_model.py
+│   │   │   ├── requirements.txt
+│   │   │   └── README.md
+│   │   │
+│   │   ├── yansnet_content_generator/ # 🆕 Générateur de contenu
+│   │   │   ├── yansnet_content_generator_model.py
+│   │   │   ├── requirements.txt
+│   │   │   └── README.md
+│   │   │
 │   │   └── [autres_modeles]/       # Modèles des autres étudiants
 │   │
 │   ├── routes/
@@ -110,6 +141,7 @@ ETSIA_ML_API/
 │   ├── API_CONTRACT.md             # Contrat d'API détaillé
 │   ├── DATA_SOURCES.md             # Sources de données
 │   ├── DEPLOYMENT.md               # Guide de déploiement
+│   ├── CONTENT_GENERATION_GUIDE.md # 🆕 Guide génération de contenu
 │   └── ADD_YOUR_MODEL.md           # ⭐ Guide pour ajouter un modèle
 │
 ├── tests/
@@ -250,6 +282,99 @@ Analyse plusieurs textes en batch.
 }
 ```
 
+#### 🆕 `POST /api/v1/predict-image`
+Analyse une image et détecte le contenu sensible.
+
+**Request:**
+```bash
+curl -X POST http://localhost:8000/api/v1/predict-image \
+  -F "image=@path/to/image.jpg"
+```
+
+**Response:**
+```json
+{
+  "prediction": "SÛR",
+  "confidence": 0.95,
+  "severity": "Aucune",
+  "reasoning": "✅ Contenu sûr - Aucun élément sensible détecté",
+  "caption_en": "a cat sitting on a table",
+  "caption_fr": "un chat assis sur une table",
+  "is_safe": true,
+  "model_used": "sensitive-image-caption"
+}
+```
+
+**Détecte :**
+- 🚫 Drogue et substances illégales
+- 🔫 Violence et armes
+- 🔞 Contenu sexuel
+- 💣 Contenus problématiques
+
+Voir [IMAGE_ANALYSIS_GUIDE.md](docs/IMAGE_ANALYSIS_GUIDE.md) pour la documentation complète.
+
+#### 🆕 `POST /api/v1/content/generate-post`
+Génère un post pour le forum étudiant YANSNET.
+
+**Request:**
+```json
+{
+  "post_type": "demande d'aide",
+  "topic": "les partiels stressants",
+  "sentiment": "négatif"
+}
+```
+
+**Response:**
+```json
+{
+  "content": "Bonjour à tous, je suis vraiment stressé par les partiels qui arrivent...",
+  "post_type": "demande d'aide",
+  "topic": "les partiels stressants",
+  "sentiment": "négatif",
+  "timestamp": "2025-01-16T10:30:00Z"
+}
+```
+
+#### 🆕 `POST /api/v1/content/generate-post-with-comments`
+Génère un post complet avec ses commentaires.
+
+**Request:**
+```json
+{
+  "post_type": "blague",
+  "topic": "les fêtes étudiantes",
+  "num_comments": 10
+}
+```
+
+**Response:**
+```json
+{
+  "post": {
+    "content": "Vous savez ce qui est drôle ? Les fêtes étudiantes...",
+    "post_type": "blague",
+    "topic": "les fêtes étudiantes",
+    "sentiment": "positif"
+  },
+  "comments": [
+    {
+      "content": "Haha trop vrai !",
+      "sentiment": "positif",
+      "comment_number": 1
+    }
+  ],
+  "total_comments": 10
+}
+```
+
+**Usage :**
+- Peupler l'interface YANSNET pour les démos
+- Tester les fonctionnalités du réseau social
+- Prototyper l'UI sans vrais utilisateurs
+
+Voir [CONTENT_GENERATION_GUIDE.md](docs/CONTENT_GENERATION_GUIDE.md) pour la documentation complète.
+
 Voir [API_CONTRACT.md](docs/API_CONTRACT.md) pour la documentation complète.
 
 ---
@@ -296,6 +421,26 @@ pytest tests/ --cov=app --cov-report=html
 
 # Test d'un endpoint spécifique
 pytest tests/test_api.py::test_predict_endpoint -v
+```
+
+---
+
+## 🔒 Workflow Git
+
+La branche `main` est **protégée**. Workflow obligatoire :
+
+1. Créer une branche : `git checkout -b feat/ma-feature`
+2. Développer et commiter
+3. Pousser : `git push origin feat/ma-feature`
+4. Créer une Pull Request sur GitHub
+
+**Voir [docs/GIT_WORKFLOW.md](docs/GIT_WORKFLOW.md) pour le guide complet.**
+
+### Installation des hooks Git (optionnel)
+
+```bash
+# Activer la protection locale
+git config core.hooksPath .githooks
 ```
 
 ---
