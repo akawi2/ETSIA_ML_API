@@ -1,8 +1,8 @@
 """
-Registre centralisé des modèles de détection
+Registre centralisé des modèles ML YANSNET
 """
 from typing import Dict, Optional, List
-from app.core.base_model import BaseDepressionModel
+from app.core.base_model import BaseMLModel
 from app.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -10,13 +10,19 @@ logger = setup_logger(__name__)
 
 class ModelRegistry:
     """
-    Registre singleton pour gérer tous les modèles disponibles.
+    Registre singleton pour gérer tous les modèles ML disponibles.
+    
+    Supporte différents types de modèles :
+    - Classification de texte (dépression, hate speech)
+    - Classification d'images (NSFW, contenu sensible)
+    - Systèmes de recommandation
+    - Génération de contenu
     
     Permet d'enregistrer, récupérer et lister les modèles dynamiquement.
     """
     
     _instance: Optional['ModelRegistry'] = None
-    _models: Dict[str, BaseDepressionModel] = {}
+    _models: Dict[str, BaseMLModel] = {}
     _default_model: Optional[str] = None
     
     def __new__(cls):
@@ -27,7 +33,7 @@ class ModelRegistry:
             cls._instance._default_model = None
         return cls._instance
     
-    def register(self, model: BaseDepressionModel, set_as_default: bool = False):
+    def register(self, model: BaseMLModel, set_as_default: bool = False):
         """
         Enregistre un nouveau modèle dans le registre.
         
@@ -39,8 +45,8 @@ class ModelRegistry:
             ValueError: Si le modèle est invalide
         """
         # Validation
-        if not isinstance(model, BaseDepressionModel):
-            raise ValueError(f"Le modèle doit hériter de BaseDepressionModel")
+        if not isinstance(model, BaseMLModel):
+            raise ValueError(f"Le modèle doit hériter de BaseMLModel")
         
         model_name = model.model_name
         
@@ -60,7 +66,7 @@ class ModelRegistry:
             self._default_model = model_name
             logger.info(f"  → Défini comme modèle par défaut")
     
-    def get(self, model_name: str) -> Optional[BaseDepressionModel]:
+    def get(self, model_name: str) -> Optional[BaseMLModel]:
         """
         Récupère un modèle par son nom.
         
@@ -72,7 +78,7 @@ class ModelRegistry:
         """
         return self._models.get(model_name)
     
-    def get_default(self) -> Optional[BaseDepressionModel]:
+    def get_default(self) -> Optional[BaseMLModel]:
         """
         Retourne le modèle par défaut.
         

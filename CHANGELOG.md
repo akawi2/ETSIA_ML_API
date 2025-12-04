@@ -1,6 +1,32 @@
-# 📝 Changelog - ETSIA_ML_API
+# 📝 Changelog - YANSNET Multi-Model ML API
 
 Toutes les modifications notables de ce projet seront documentées dans ce fichier.
+
+---
+
+## [1.2.0] - 2024-11-13
+
+### 🆕 Ajouté
+
+#### Routes Spécialisées Depression Detection
+- **POST `/api/v1/depression/detect`** - Détection simple de dépression
+- **POST `/api/v1/depression/batch-detect`** - Détection batch
+- **GET `/api/v1/depression/health`** - Health check spécialisé
+- **GET `/api/v1/depression/info`** - Informations détaillées
+- **GET `/api/v1/depression/examples`** - Exemples d'utilisation
+
+#### Documentation
+- **docs/DEPRESSION_API_ROUTES.md** - Guide complet des routes depression
+- **ROUTES_SUMMARY.md** - Résumé de toutes les routes (6 modèles)
+- **TROUBLESHOOTING.md** - Guide de dépannage
+- **test_depression_routes.py** - Tests automatiques
+
+### ✏️ Modifié
+
+#### Architecture
+- Tous les 6 modèles suivent maintenant le pattern `/api/v1/[model]/[action]`
+- Amélioration de la gestion d'erreurs avec messages plus explicites
+- Documentation mise à jour (QUICKSTART, TEST_ENDPOINTS, ENDPOINTS_SUMMARY)
 
 ---
 
@@ -50,7 +76,7 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 
 #### Documentation
 - **README.md**
-  - Titre mis à jour : "API de Détection de Dépression + Analyse d'Images"
+  - Titre mis à jour : "YANSNET Multi-Model ML API"
   - Nouvelle section "Modèle d'Analyse d'Images" dans les résultats
   - Exemple de test d'image ajouté
   - Documentation du nouveau endpoint `/predict-image`
@@ -59,7 +85,7 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 ### 🔧 Technique
 
 #### Architecture
-- Extension de `BaseDepressionModel` via `**kwargs` pour supporter les images
+- Extension de `BaseMLModel` via `**kwargs` pour supporter les images
 - Utilisation du `ModelRegistry` existant (pas de modification nécessaire)
 - Routes séparées dans `app/routes/image_api.py` pour maintenir la séparation des préoccupations
 
@@ -84,7 +110,7 @@ Toutes les modifications notables de ce projet seront documentées dans ce fichi
 ### ✨ Version Initiale
 
 #### Fonctionnalités
-- Architecture multi-modèles avec `BaseDepressionModel` et `ModelRegistry`
+- Architecture multi-modèles avec `BaseMLModel` et `ModelRegistry`
 - Modèle YANSNET LLM pour la détection de dépression dans les textes
 - Support de 3 providers LLM : GPT (OpenAI), Claude (Anthropic), Ollama (local)
 - API REST avec FastAPI
@@ -121,9 +147,9 @@ et ce projet adhère au [Versioning Sémantique](https://semver.org/lang/fr/).
 
 ## Liens Utiles
 
-- [Comparer les versions](https://github.com/votre-repo/ETSIA_ML_API/compare)
-- [Issues](https://github.com/votre-repo/ETSIA_ML_API/issues)
-- [Pull Requests](https://github.com/votre-repo/ETSIA_ML_API/pulls)
+- [Comparer les versions](https://github.com/votre-repo/YANSNET-ML-API/compare)
+- [Issues](https://github.com/votre-repo/YANSNET-ML-API/issues)
+- [Pull Requests](https://github.com/votre-repo/YANSNET-ML-API/pulls)
 
 ---
 
