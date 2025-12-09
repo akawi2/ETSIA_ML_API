@@ -43,13 +43,13 @@ Créer `app/services/votre_nom_modele/votre_nom_model.py` :
 Votre modèle de détection de dépression
 """
 from typing import Dict, Any, List
-from app.core.base_model import BaseDepressionModel
+from app.core.base_model import BaseMLModel
 from app.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
 
-class VotreNomModel(BaseDepressionModel):
+class VotreNomModel(BaseMLModel):
     """
     Description de votre modèle.
     
@@ -260,13 +260,13 @@ import torch
 import torch.nn as nn
 from transformers import AutoTokenizer, AutoModel
 from typing import Dict, Any, List
-from app.core.base_model import BaseDepressionModel
+from app.core.base_model import BaseMLModel
 from app.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
 
-class DupontGCNModel(BaseDepressionModel):
+class DupontGCNModel(BaseMLModel):
     """Modèle GCN avec embeddings BERT"""
     
     @property
@@ -421,7 +421,7 @@ def test_model_batch_predict():
 Avant de push votre modèle :
 
 - [ ] Dossier créé : `app/services/votre_nom_modele/`
-- [ ] Classe implémente `BaseDepressionModel`
+- [ ] Classe implémente `BaseMLModel`
 - [ ] Méthode `predict()` retourne le bon format
 - [ ] `requirements.txt` avec vos dépendances
 - [ ] Modèle enregistré dans `app/main.py`

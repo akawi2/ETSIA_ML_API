@@ -2,7 +2,7 @@
 Modèle YANSNET - Générateur de contenu pour le réseau social
 """
 from typing import Dict, Any, List
-from app.core.base_model import BaseDepressionModel
+from app.core.base_model import BaseMLModel
 from app.services.yansnet_llm.llm_predictor import get_llm_predictor
 from app.config import settings
 from app.utils.logger import setup_logger
@@ -12,7 +12,7 @@ import json
 logger = setup_logger(__name__)
 
 
-class YansnetContentGeneratorModel(BaseDepressionModel):
+class YansnetContentGeneratorModel(BaseMLModel):
     """
     Générateur de posts et commentaires pour peupler l'interface YANSNET.
     
@@ -77,7 +77,7 @@ class YansnetContentGeneratorModel(BaseDepressionModel):
     
     def predict(self, text: str, **kwargs) -> Dict[str, Any]:
         """
-        Interface requise par BaseDepressionModel.
+        Interface requise par BaseMLModel.
         
         Pour ce modèle, 'predict' génère du contenu au lieu de détecter.
         Le paramètre 'text' est ignoré, utilisez generate_post() à la place.

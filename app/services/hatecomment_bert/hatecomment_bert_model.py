@@ -8,12 +8,12 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification, pipe
 from pathlib import Path
 import os
 
-from app.core.base_model import BaseDepressionModel
+from app.core.base_model import BaseMLModel
 from app.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
-class HateCommentBertModel(BaseDepressionModel):
+class HateCommentBertModel(BaseMLModel):
     """
     Modèle BERT multilingue fine-tuné pour la détection de hate speech
     avec post-processing amélioré

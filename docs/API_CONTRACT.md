@@ -1,6 +1,6 @@
-# 📋 Contrat d'API - Détection de Dépression
+# 📋 Contrat d'API - YANSNET Multi-Model ML API
 
-Documentation complète de l'API REST pour la détection de dépression avec LLM.
+Documentation complète de l'API REST multi-modèles pour le réseau social YANSNET.
 
 ---
 

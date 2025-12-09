@@ -6,13 +6,13 @@ from typing import Dict, Any, List, Optional
 import torch
 from PIL import Image
 from transformers import ViTForImageClassification, ViTImageProcessor
-from app.core.base_model import BaseDepressionModel
+from app.core.base_model import BaseMLModel
 from app.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
 
-class CensureModel(BaseDepressionModel):
+class CensureModel(BaseMLModel):
     """
     Modèle de détection de contenu NSFW dans les images.
     

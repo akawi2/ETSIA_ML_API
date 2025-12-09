@@ -8,13 +8,13 @@ import re
 import torch
 from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration, pipeline
-from app.core.base_model import BaseDepressionModel
+from app.core.base_model import BaseMLModel
 from app.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
 
-class SensitiveImageCaptionModel(BaseDepressionModel):
+class SensitiveImageCaptionModel(BaseMLModel):
     """
     Modèle de détection de contenu sensible dans les images.
     

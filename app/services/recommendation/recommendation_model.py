@@ -3,13 +3,13 @@ Modèle de recommandation de posts basé sur le filtrage collaboratif user-user
 """
 from typing import Dict, Any, List
 import numpy as np
-from app.core.base_model import BaseDepressionModel
+from app.core.base_model import BaseMLModel
 from app.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
 
 
-class RecommendationModel(BaseDepressionModel):
+class RecommendationModel(BaseMLModel):
     """
     Modèle de recommandation de posts utilisant le filtrage collaboratif user-user
     """

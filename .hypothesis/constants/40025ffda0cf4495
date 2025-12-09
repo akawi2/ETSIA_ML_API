@@ -1,0 +1,4 @@
+# file: C:\Users\frann\PycharmProjects\ETSIA_ML_API\app\core\base_model.py
+# hypothesis_version: 6.148.6
+
+['Modèle ML YANSNET', 'author', 'description', 'error', 'healthy', 'images', 'model', 'name', 'status', 'tags', 'test', 'texts', 'unhealthy', 'version']
