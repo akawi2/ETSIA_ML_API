@@ -1,0 +1,56 @@
+[
+  {
+    "post_id": 1,
+    "context": "**Titre : \"Les cours en amphi : un cauchemar quotidien\"**\n\n**Bonjour à tous,**\n\nJe me sens obligé de partager mon sentiment de frustration et de désespoir face à notre situation scolaire. Chacun d'entre vous sait sans doute ce que je vais évoquer : les co",
+    "post_type": "une confession",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 1,
+        "content": "**Réponse : \"Soutien et compréhension partagée\"**\n\nJe comprends parfaitement ton sentiment de frustration face aux cours en amphi. Ce scénario ressemble à une situation cauchemardesque, n'est-ce pas? Je pense que nous sommes tous d'accord pour dire que le",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 2,
+        "content": "Je ne peux pas vous fournir un commentaire sur le sujet demandé.",
+        "sentiment": "négatif"
+      }
+    ]
+  },
+  {
+    "post_id": 2,
+    "context": "**Titre : \"L'indignité du wifi du campus, un scandale ! \"**\n\nBonjour à tous,\n\nJe ne sais pas comment je vais me mettre dans ce post, mais franchement, j'ai atteint mon niveau de tolérance ! J'ai toujours pensé que l'université était un endroit où nous pou",
+    "post_type": "un coup de gueule",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 3,
+        "content": "**Réponse : \"C'est un peu comme s'ils pensaient que les étudiants n'ont pas besoin d'internet pour réussir...\"**\n\nJ'ai bien peur que ce post ne soit pas un scoop ! Je m'appelle même chanceux de bénéficier d'un wifi qui fonctionne, alors que mes camarades ",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 4,
+        "content": "Je comprends votre colère ! Le wifi de notre campus est vraiment un scandale ! Je me souviens encore de la dernière fois que j'ai essayé de regarder un cours en ligne pendant le petit déjeuner et que le réseau m'a abandonné au milieu d'une vidéo. Mais, sé",
+        "sentiment": "neutre"
+      }
+    ]
+  },
+  {
+    "post_id": 3,
+    "context": "**Titre : \"Les secrets de la vie en classes avec nos profs...\"**\n\nBonjour à tous,\n\nJe sais que je vais peut-être me faire des ennemis, mais je dois partager ceci pour que chacun sache ce qui se passe vraiment en arrière-plan. J'ai décidé d'aborder le suje",
+    "post_type": "une confession",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 5,
+        "content": "**Mon commentaire :** \n\"Je comprends que tu veuilles partager tes pensées, mais avant de mettre les profs en boîte, tu devrais peut-être faire une réflexion personnelle... J'ai eu des profs qui se sont vraiment investis, qui ont pris le temps d'écouter et",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 6,
+        "content": "Je ne suis pas sûr que j'ai envie de partager ce que je sais sur les secrets de la vie en classes avec nos profs. En réalité, nous passons une bonne partie de notre temps à attendre que les cours commencent et à réfléchir à ce que nous allons dire après p",
+        "sentiment": "neutre"
+      }
+    ]
+  }
+]

@@ -11,12 +11,13 @@ pydantic-settings>=2.1.0
 # Utilities
 python-dotenv>=1.0.0
 python-multipart>=0.0.6
+Pillow>=10.0.0
+httpx>=0.26.0
 
 # Testing
 pytest>=7.4.0
 pytest-asyncio>=0.21.0
 pytest-cov>=4.1.0
-httpx>=0.26.0
 hypothesis>=6.92.0
 
 # ============================================================================
@@ -27,6 +28,10 @@ hypothesis>=6.92.0
 openai>=1.10.0
 anthropic>=0.18.0
 requests>=2.31.0
+
+# HateComment BERT - Modèle de détection de hate speech
+# Dépendances spécifiques dans: app/services/hatecomment_bert/requirements.txt
+# Installation: pip install -r app/services/hatecomment_bert/requirements.txt
 
 # Autres modèles (à ajouter par les étudiants)
 # Exemple pour un modèle GCN:

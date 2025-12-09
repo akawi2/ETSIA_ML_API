@@ -1,14 +1,15 @@
 """
 Point d'entrée de l'application FastAPI - Architecture Multi-Modèles
 """
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.config import settings
-from app.routes import router, image_router
+from app.routes import router, hatecomment_router, image_router, content_router, recommendation_router, censure_router
 from app.routes.depression_api import router as depression_router
 from app.models.schemas import HealthResponse
 from app.core.model_registry import registry
+from app.services.recommendation.recommendation_service import recommend_service
 from app.utils.logger import setup_logger
 from datetime import datetime
 
@@ -34,8 +35,13 @@ app.add_middleware(
 
 # Inclure les routes
 app.include_router(router)
+app.include_router(hatecomment_router)
 app.include_router(image_router)
+app.include_router(content_router)
+app.include_router(recommendation_router)
+app.include_router(censure_router)
 app.include_router(depression_router)
+
 
 
 @app.on_event("startup")
@@ -123,8 +129,41 @@ async def startup_event():
     except Exception as e:
         logger.error(f"✗ Erreur lors de l'enregistrement du modèle d'images: {e}")
         logger.error(f"  Vérifiez que les dépendances sont installées (transformers, torch, PIL)")
+
+    # 4. Générateur de Contenu YANSNET
+    try:
+        from app.services.yansnet_content_generator import YansnetContentGeneratorModel
+        registry.register(YansnetContentGeneratorModel())
+        logger.info("✓ Générateur de contenu YANSNET enregistré")
+    except Exception as e:
+        logger.error(f"✗ Erreur lors de l'enregistrement du générateur: {e}")
+        logger.error(f"  Vérifiez que le LLM est configuré dans .env")
+
+    # 5. Modèle HateComment BERT
+    try:
+        from app.services.hatecomment_bert import HateCommentBertModel
+        registry.register(HateCommentBertModel())
+        logger.info("✓ Modèle HateComment BERT enregistré")
+    except Exception as e:
+        logger.error(f"✗ Erreur lors de l'enregistrement du modèle HateComment BERT: {e}")
     
-    # 4. Autres modèles à ajouter ici
+    # 6. Système de Recommandation
+    try:
+        from app.services.recommendation import RecommendationModel
+        registry.register(RecommendationModel())
+        logger.info("✓ Système de recommandation enregistré")
+    except Exception as e:
+        logger.error(f"✗ Erreur lors de l'enregistrement du système de recommandation: {e}")
+    
+    # 7. Modèle de Détection NSFW
+    try:
+        from app.services.model_censure import CensureModel
+        registry.register(CensureModel())
+        logger.info("✓ Modèle de détection NSFW enregistré")
+    except Exception as e:
+        logger.error(f"✗ Erreur lors de l'enregistrement du modèle NSFW: {e}")
+    
+    # 8. Autres modèles à ajouter ici
     # Exemple pour un futur étudiant:
     # try:
     #     from app.services.etudiant2_gcn import Etudiant2GCNModel
@@ -150,6 +189,7 @@ async def startup_event():
     logger.info("="*70)
 
 
+
 @app.on_event("shutdown")
 async def shutdown_event():
     """Événement à l'arrêt"""
@@ -165,7 +205,7 @@ async def shutdown_event():
 async def root():
     """Page d'accueil"""
     return {
-        "message": "API de Détection de Dépression",
+        "message": "ETSIA ML API - Architecture Multi-Modèles",
         "version": settings.API_VERSION,
         "docs": "/docs",
         "health": "/health"
@@ -192,6 +232,23 @@ async def health():
             "available": list(models_list.keys()),
             "health": models_health
         }
+    }
+
+
+@app.get(
+    "/recommend",
+    response_model=dict,
+    summary="Recommendation",
+    description="Propose une recommendation de posts"
+)
+async def recommend(userId: int = Query(...)):
+    recommendations = recommend_service(userId)
+    
+    return {
+        "user_id": userId,
+        "version": settings.API_VERSION,
+        "timestamp": datetime.utcnow().isoformat(),
+        "recommendations": recommendations, 
     }
 
 

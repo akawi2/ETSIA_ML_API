@@ -9,6 +9,7 @@
 API REST professionnelle multi-modèles pour :
 - 📝 **Détection de dépression** dans les textes (LLM)
 - 🖼️ **Analyse de contenu sensible** dans les images (Vision + NLP)
+- ✍️ **Génération de contenu** pour le réseau social YANSNET (LLM)
 
 **Projet académique - X5 Semestre 9 ETSIA**
 
@@ -31,6 +32,12 @@ API REST professionnelle multi-modèles pour :
 | Modèle | Type | Vitesse | Avantages |
 |--------|------|---------|-----------|
 | **Image Caption (GIT)** | Vision + NLP | 2-15s | Détection contenu sensible, multilingue |
+
+### 🆕 Générateur de Contenu YANSNET
+
+| Modèle | Type | Vitesse | Usage |
+|--------|------|---------|-------|
+| **Content Generator** | LLM | 2-3s/post | Génération posts/commentaires pour démos |
 
 ### Performance par Catégorie
 
@@ -117,6 +124,11 @@ ETSIA_ML_API/
 │   │   │   ├── requirements.txt
 │   │   │   └── README.md
 │   │   │
+│   │   ├── yansnet_content_generator/ # 🆕 Générateur de contenu
+│   │   │   ├── yansnet_content_generator_model.py
+│   │   │   ├── requirements.txt
+│   │   │   └── README.md
+│   │   │
 │   │   └── [autres_modeles]/       # Modèles des autres étudiants
 │   │
 │   ├── routes/
@@ -129,6 +141,7 @@ ETSIA_ML_API/
 │   ├── API_CONTRACT.md             # Contrat d'API détaillé
 │   ├── DATA_SOURCES.md             # Sources de données
 │   ├── DEPLOYMENT.md               # Guide de déploiement
+│   ├── CONTENT_GENERATION_GUIDE.md # 🆕 Guide génération de contenu
 │   └── ADD_YOUR_MODEL.md           # ⭐ Guide pour ajouter un modèle
 │
 ├── tests/
@@ -300,6 +313,68 @@ curl -X POST http://localhost:8000/api/v1/predict-image \
 
 Voir [IMAGE_ANALYSIS_GUIDE.md](docs/IMAGE_ANALYSIS_GUIDE.md) pour la documentation complète.
 
+#### 🆕 `POST /api/v1/content/generate-post`
+Génère un post pour le forum étudiant YANSNET.
+
+**Request:**
+```json
+{
+  "post_type": "demande d'aide",
+  "topic": "les partiels stressants",
+  "sentiment": "négatif"
+}
+```
+
+**Response:**
+```json
+{
+  "content": "Bonjour à tous, je suis vraiment stressé par les partiels qui arrivent...",
+  "post_type": "demande d'aide",
+  "topic": "les partiels stressants",
+  "sentiment": "négatif",
+  "timestamp": "2025-01-16T10:30:00Z"
+}
+```
+
+#### 🆕 `POST /api/v1/content/generate-post-with-comments`
+Génère un post complet avec ses commentaires.
+
+**Request:**
+```json
+{
+  "post_type": "blague",
+  "topic": "les fêtes étudiantes",
+  "num_comments": 10
+}
+```
+
+**Response:**
+```json
+{
+  "post": {
+    "content": "Vous savez ce qui est drôle ? Les fêtes étudiantes...",
+    "post_type": "blague",
+    "topic": "les fêtes étudiantes",
+    "sentiment": "positif"
+  },
+  "comments": [
+    {
+      "content": "Haha trop vrai !",
+      "sentiment": "positif",
+      "comment_number": 1
+    }
+  ],
+  "total_comments": 10
+}
+```
+
+**Usage :**
+- Peupler l'interface YANSNET pour les démos
+- Tester les fonctionnalités du réseau social
+- Prototyper l'UI sans vrais utilisateurs
+
+Voir [CONTENT_GENERATION_GUIDE.md](docs/CONTENT_GENERATION_GUIDE.md) pour la documentation complète.
+
 Voir [API_CONTRACT.md](docs/API_CONTRACT.md) pour la documentation complète.
 
 ---
@@ -346,6 +421,26 @@ pytest tests/ --cov=app --cov-report=html
 
 # Test d'un endpoint spécifique
 pytest tests/test_api.py::test_predict_endpoint -v
+```
+
+---
+
+## 🔒 Workflow Git
+
+La branche `main` est **protégée**. Workflow obligatoire :
+
+1. Créer une branche : `git checkout -b feat/ma-feature`
+2. Développer et commiter
+3. Pousser : `git push origin feat/ma-feature`
+4. Créer une Pull Request sur GitHub
+
+**Voir [docs/GIT_WORKFLOW.md](docs/GIT_WORKFLOW.md) pour le guide complet.**
+
+### Installation des hooks Git (optionnel)
+
+```bash
+# Activer la protection locale
+git config core.hooksPath .githooks
 ```
 
 ---
