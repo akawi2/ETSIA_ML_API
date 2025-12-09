@@ -1,0 +1,4 @@
+# file: C:\Users\frann\PycharmProjects\ETSIA_ML_API\app\routes\api.py
+# hypothesis_version: 6.148.6
+
+[100, 400, 404, 500, '...', '/api/v1', '/batch-predict', '/batch-predict-image', '/models', '/predict', '/predict-image', 'Analyser un texte', 'Analyser une image', 'Erreur serveur', 'Image à analyser', 'Images à analyser', 'Lister les modèles', 'Modèle non trouvé', 'Prédiction', 'Requête invalide', 'confidence', 'default', 'description', 'model', 'model_used', 'models', 'prediction', 'processing_time', 'reasoning', 'results', 'severity', 'timestamp', 'total', 'total_processed']

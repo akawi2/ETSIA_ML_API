@@ -58,3 +58,4 @@ Modèle GCN/
 *.pth
 data/
 models/
+.hypothesis

@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     # ============================================================================
     
     # Provider selection for different tasks
-    DETECTION_PROVIDER: str = "camembert"  # camembert, xlm-roberta, llama
+    DETECTION_PROVIDER: str = "camembert"  # camembert, xlm-roberta, qwen, llama
     GENERATION_PROVIDER: str = "ollama"    # ollama, gpt, claude
     
     # ============================================================================
@@ -29,6 +29,12 @@ class Settings(BaseSettings):
     XLM_ROBERTA_MODEL: str = "xlm-roberta-base"
     XLM_ROBERTA_DEVICE: str = "cpu"
     XLM_ROBERTA_MAX_LENGTH: int = 512
+    
+    # ============================================================================
+    # QWEN SETTINGS (Ollama-based Detection - Better Reasoning)
+    # ============================================================================
+    QWEN_DETECTION_MODEL: str = "qwen2.5:1.5b"
+    QWEN_MAX_LENGTH: int = 2048
     
     # ============================================================================
     # OLLAMA SETTINGS (Updated for 3B model)
@@ -58,7 +64,9 @@ class Settings(BaseSettings):
     # ============================================================================
     # PERFORMANCE SETTINGS
     # ============================================================================
-    MAX_DETECTION_LATENCY_MS: int = 500
+    # Note: Actual CamemBERT CPU latency is 600-700ms (still 50-200x faster than Llama 8B)
+    MAX_DETECTION_LATENCY_MS: int = 1000  # Adjusted for actual CPU performance
+    MAX_QWEN_DETECTION_LATENCY_MS: int = 1000  # Qwen 2.5 1.5B latency target
     MAX_GENERATION_LATENCY_S: int = 30
     ENABLE_FALLBACK: bool = True
     

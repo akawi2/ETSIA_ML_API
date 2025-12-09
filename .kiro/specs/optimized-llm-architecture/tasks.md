@@ -4,13 +4,19 @@
 
 
 
+
   - Create `EnhancedModelRegistry` class supporting multiple model types
   - Add configuration for detection and generation providers
   - Implement model routing logic based on request type
   - Add environment variable support for model selection
   - _Requirements: 3.1, 3.2, 3.4_
 
-- [ ] 2. Implement CamemBERT depression detection model
+- [x] 2. Implement CamemBERT depression detection model
+
+
+
+
+
   - Create `CamemBERTDepressionModel` class extending `BaseMLModel`
   - Implement model loading from HuggingFace
   - Add text preprocessing for French language
@@ -19,7 +25,10 @@
   - Add severity classification logic (Aucune, Faible, Moyenne, Élevée, Critique)
   - _Requirements: 1.1, 1.2, 1.5_
 
-- [ ] 2.1 Write property test for CamemBERT latency
+- [x] 2.1 Write property test for CamemBERT latency
+
+
+
   - **Property 1: Detection latency bound**
   - **Validates: Requirements 1.1**
 
@@ -46,6 +55,22 @@
 - [ ]* 3.1 Write property test for multilingual accuracy
   - **Property 3: Multilingual accuracy equivalence**
   - **Validates: Requirements 1.3**
+
+- [x] 3.2 Implement Qwen 2.5 1.5B detection model (Ollama-based)
+
+
+  - Create `QwenDepressionModel` class extending `BaseMLModel`
+  - Implement model loading via Ollama API
+  - Add prompt engineering for depression detection
+  - Implement `predict()` method with confidence scoring and reasoning
+  - Implement `batch_predict()` for efficient batch processing
+  - Add severity classification logic (Aucune, Faible, Moyenne, Élevée, Critique)
+  - Configure timeout handling (1000ms max)
+  - _Requirements: 1.1, 1.2, 3.1_
+
+- [ ]* 3.3 Write property test for Qwen latency
+  - **Property 1 (adapted): Qwen detection latency bound**
+  - **Validates: Requirements 1.1** (with adjusted 1000ms threshold)
 
 - [ ] 4. Optimize Llama content generator for 3B model
   - Update `YansnetContentGeneratorModel` to use Llama 3.2 3B
@@ -75,7 +100,13 @@
   - **Property 14: Timeout enforcement**
   - **Validates: Requirements 6.2**
 
-- [ ] 6. Update API endpoints for hybrid architecture
+- [x] 6. Update API endpoints for hybrid architecture
+
+
+
+
+
+
   - Modify `/api/v1/depression/detect` to use new registry
   - Modify `/api/v1/depression/batch-detect` to use new registry
   - Update response models to include `model_used` field
@@ -83,11 +114,14 @@
   - Add health check for each model type
   - _Requirements: 7.1, 7.3_
 
-- [ ] 6.1 Write property test for API interface consistency
+- [x] 6.1 Write property test for API interface consistency
+
+
   - **Property 8: API interface consistency**
   - **Validates: Requirements 3.3**
 
-- [ ] 6.2 Write property test for backward compatibility
+- [x] 6.2 Write property test for backward compatibility
+
   - **Property 16: Backward compatibility**
   - **Validates: Requirements 7.1**
 
@@ -160,6 +194,8 @@
   - **Property 19: Memory release on idle**
   - **Validates: Requirements 8.3**
 
+
+
 - [ ] 11. Update configuration and environment setup
   - Update `.env.example` with new configuration options
   - Update `app/config.py` with new settings
@@ -171,10 +207,10 @@
 - [ ] 12. Create model download and setup scripts
   - Create script to download CamemBERT from HuggingFace
   - Create script to download XLM-RoBERTa from HuggingFace
+  - Create script to pull Qwen 2.5 1.5B via Ollama
   - Create script to pull Llama 3.2 3B via Ollama
   - Add model verification (checksums)
-  - Update setup documentation
-  - _Requirements: 2.3, 2.5_
+  - Update setups: 2.3, 2.5_
 
 - [ ] 13. Update documentation
   - Update README with new architecture overview

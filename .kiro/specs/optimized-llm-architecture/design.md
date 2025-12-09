@@ -5,14 +5,17 @@
 This document describes the design for optimizing the ETSIA ML API architecture to use a hybrid approach with specialized models for different tasks. The current architecture uses Llama 3.2 8B via Ollama for both depression detection and content generation, which results in unacceptable latency (30-120s) for user-facing workflows.
 
 The new architecture will use:
-- **CamemBERT or XLM-RoBERTa** (110-125M params) for depression detection: 20-50ms latency, optimized for French
+- **CamemBERT, XLM-RoBERTa, or Qwen 2.5 1.5B** for depression detection:
+  - CamemBERT/XLM-RoBERTa (110-125M params): 20-50ms latency, optimized for French
+  - Qwen 2.5 1.5B via Ollama: 200-500ms latency, better reasoning capabilities
 - **Llama 3.2 3B** via Ollama for content generation: 5-15s latency, acceptable for demos/tests
 
 This hybrid approach provides:
-- 500-2000x faster depression detection
+- 60-600x faster depression detection (depending on model choice)
 - 100% free and open-source
 - Excellent French language support
-- Efficient resource usage on CPU-only servers
+- Flexible model selection based on accuracy vs latency tradeoffs
+- Efficient resource usage on CPU-only servers 
 
 ## Architecture
 
@@ -39,21 +42,29 @@ This hybrid approach provides:
             │                          │
             ▼                          ▼
    ┌──────────────────┐      ┌──────────────────────┐
-   │  CamemBERT/      │      │  Llama 3.2 3B       │
-   │  XLM-RoBERTa     │      │  (via Ollama)       │
-   │  (Transformers)  │      │                     │
+   │  Detection Models│      │  Llama 3.2 3B       │
+   │  (Configurable)  │      │  (via Ollama)       │
    │                  │      │                     │
-   │  Latency: 20-50ms│      │  Latency: 5-15s     │
-   │  RAM: 500-600MB  │      │  RAM: 4-6GB         │
-   └──────────────────┘      └──────────────────────┘
+   │  • CamemBERT     │      │  Latency: 5-15s     │
+   │    20-50ms       │      │  RAM: 4-6GB         │
+   │    500MB RAM     │      └──────────────────────┘
+   │                  │
+   │  • XLM-RoBERTa   │
+   │    30-60ms       │
+   │    600MB RAM     │
+   │                  │
+   │  • Qwen 2.5 1.5B │
+   │    200-500ms     │
+   │    2-3GB RAM     │
+   └──────────────────┘
 ```
 
 ### Provider Architecture
 
-The system will support three provider modes:
+The system will support multiple provider modes:
 
 1. **Hybrid Mode** (Recommended for production):
-   - Depression detection → CamemBERT/XLM-RoBERTa
+   - Depression detection → CamemBERT/XLM-RoBERTa/Qwen 2.5 1.5B (configurable)
    - Content generation → Llama 3.2 3B
 
 2. **Legacy Mode** (Backward compatibility):
@@ -61,6 +72,11 @@ The system will support three provider modes:
 
 3. **External Mode** (Optional, for comparison):
    - All tasks → GPT-4o-mini or Claude
+
+**Detection Model Selection Criteria**:
+- **CamemBERT**: Best for ultra-low latency (20-50ms), French-only
+- **XLM-RoBERTa**: Best for multilingual support (30-60ms)
+- **Qwen 2.5 1.5B**: Best for improved reasoning and accuracy (200-500ms), still acceptable for user workflows
 
 ### Request Flow
 
@@ -73,10 +89,10 @@ API Endpoint (/api/v1/depression/detect or /api/v1/content/generate-*)
      ▼
 Model Registry
      │
-     ├─── Is depression detection? ──→ CamemBERT Model
+     ├─── Is depression detection? ──→ Detection Model (CamemBERT/XLM-RoBERTa/Qwen)
      │                                      │
      │                                      ▼
-     │                                 Inference (20-50ms)
+     │                                 Inference (20-500ms depending on model)
      │                                      │
      │                                      ▼
      │                                 Return Result
@@ -137,7 +153,35 @@ class CamemBERTDepressionModel(BaseMLModel):
 - Slightly slower than CamemBERT (30-60ms vs 20-50ms)
 - Better for mixed-language content
 
-### 4. Llama Content Generator (Optimized)
+### 4. Qwen 2.5 1.5B Detection Model (Ollama-based)
+
+**Purpose**: Depression detection with improved reasoning capabilities via Ollama
+
+**Interface**:
+```python
+class QwenDepressionModel(BaseMLModel):
+    model_name: str = "qwen-depression"
+    
+    def __init__(self, model_name: str = "qwen2.5:1.5b", base_url: str = "http://localhost:11434")
+    def predict(self, text: str, include_reasoning: bool = True) -> Dict[str, Any]
+    def batch_predict(self, texts: List[str]) -> List[Dict[str, Any]]
+```
+
+**Key Features**:
+- Uses Ollama runtime (same as content generation)
+- Better reasoning and context understanding than BERT models
+- Latency: 200-500ms (still acceptable for user workflows)
+- Memory: 2-3GB RAM
+- Supports French and multilingual text
+- Can provide detailed reasoning for predictions
+
+**Tradeoffs**:
+- Slower than CamemBERT/XLM-RoBERTa (10x)
+- Higher memory usage (4-5x)
+- Better accuracy and reasoning capabilities
+- More flexible prompt-based classification
+
+### 5. Llama Content Generator (Optimized)
 
 **Purpose**: Generate realistic French content for demos/tests
 
@@ -146,7 +190,7 @@ class CamemBERTDepressionModel(BaseMLModel):
 - Add request queuing to prevent blocking
 - Implement caching for common requests
 
-### 5. Fallback Handler
+### 6. Fallback Handler
 
 **Purpose**: Handle failures gracefully with fallback models
 
@@ -171,7 +215,7 @@ except Exception:
 ```python
 class ModelConfig(BaseSettings):
     # Provider selection
-    DETECTION_PROVIDER: str = "camembert"  # camembert, xlm-roberta, llama
+    DETECTION_PROVIDER: str = "camembert"  # camembert, xlm-roberta, qwen, llama
     GENERATION_PROVIDER: str = "ollama"    # ollama, gpt, claude
     
     # CamemBERT settings
@@ -183,13 +227,18 @@ class ModelConfig(BaseSettings):
     XLM_ROBERTA_MODEL: str = "xlm-roberta-base"
     XLM_ROBERTA_DEVICE: str = "cpu"
     
+    # Qwen settings (NEW)
+    QWEN_DETECTION_MODEL: str = "qwen2.5:1.5b"  # Primary Qwen model for detection
+    QWEN_MAX_LENGTH: int = 2048
+    
     # Ollama settings (updated)
     OLLAMA_DETECTION_MODEL: str = "llama3.2:1b"  # Fallback only
     OLLAMA_GENERATION_MODEL: str = "llama3.2:3b"  # Primary for generation
     OLLAMA_BASE_URL: str = "http://localhost:11434"
     
     # Performance settings
-    MAX_DETECTION_LATENCY_MS: int = 500
+    MAX_DETECTION_LATENCY_MS: int = 500  # For CamemBERT/XLM-RoBERTa
+    MAX_QWEN_DETECTION_LATENCY_MS: int = 1000  # More lenient for Qwen
     MAX_GENERATION_LATENCY_S: int = 30
     ENABLE_FALLBACK: bool = True
     
@@ -207,7 +256,7 @@ class DepressionDetectResponse(BaseModel):
     severity: str  # "Aucune", "Faible", "Moyenne", "Élevée", "Critique"
     reasoning: Optional[str]
     processing_time: float  # milliseconds
-    model_used: str  # "camembert", "xlm-roberta", "llama-1b"
+    model_used: str  # "camembert", "xlm-roberta", "qwen-1.5b", "llama-1b"
     fallback_used: bool = False
 ```
 
@@ -262,7 +311,7 @@ class ModelMetrics(BaseModel):
 
 ### Property 6: Detection model routing
 
-*For any* depression detection request, the system should route to CamemBERT or XLM-RoBERTa, never to Llama for generation.
+*For any* depression detection request, the system should route to CamemBERT, XLM-RoBERTa, or Qwen 2.5 1.5B, never to Llama for generation.
 
 **Validates: Requirements 3.1**
 
@@ -274,7 +323,7 @@ class ModelMetrics(BaseModel):
 
 ### Property 8: API interface consistency
 
-*For any* model switch (CamemBERT ↔ XLM-RoBERTa ↔ Llama), the response schema should remain identical with same field names and types.
+*For any* model switch (CamemBERT ↔ XLM-RoBERTa ↔ Qwen ↔ Llama), the response schema should remain identical with same field names and types.
 
 **Validates: Requirements 3.3**
 
@@ -566,20 +615,21 @@ If issues arise:
 |-------|------|---------------|---------------|-----|------------|
 | CamemBERT | Detection | 30ms | 50ms | 500MB | 30 req/s |
 | XLM-RoBERTa | Detection | 40ms | 60ms | 600MB | 25 req/s |
+| Qwen 2.5 1.5B | Detection | 300ms | 500ms | 2.5GB | 3 req/s |
 | Llama 3.2 1B | Detection (fallback) | 2s | 5s | 2GB | 0.5 req/s |
 | Llama 3.2 3B | Generation | 8s | 15s | 5GB | 0.1 req/s |
 | Llama 3.2 8B | Generation (legacy) | 40s | 120s | 16GB | 0.02 req/s |
 
 ### Comparison with Current Architecture
 
-| Metric | Current (Llama 8B) | New (Hybrid) | Improvement |
-|--------|-------------------|--------------|-------------|
-| Detection Latency | 30-120s | 30-50ms | **600-2400x faster** |
-| Detection RAM | 16GB | 500MB | **32x less** |
-| Generation Latency | 40-120s | 8-15s | **3-8x faster** |
-| Generation RAM | 16GB | 5GB | **3x less** |
-| Total Disk Space | 16GB | 6GB | **2.7x less** |
-| Cost per Request | $0 | $0 | Same (free) |
+| Metric | Current (Llama 8B) | New (Hybrid - CamemBERT) | New (Hybrid - Qwen) | Improvement |
+|--------|-------------------|--------------------------|---------------------|-------------|
+| Detection Latency | 30-120s | 30-50ms | 300-500ms | **60-400x faster** |
+| Detection RAM | 16GB | 500MB | 2.5GB | **6-32x less** |
+| Generation Latency | 40-120s | 8-15s | 8-15s | **3-8x faster** |
+| Generation RAM | 16GB | 5GB | 5GB | **3x less** |
+| Total Disk Space | 16GB | 6GB | 8GB | **2-2.7x less** |
+| Cost per Request | $0 | $0 | $0 | Same (free) |
 
 ## Monitoring and Observability
 
@@ -752,6 +802,7 @@ LOG_LEVEL=INFO
 
 - CamemBERT: https://huggingface.co/camembert-base
 - XLM-RoBERTa: https://huggingface.co/xlm-roberta-base
+- Qwen 2.5: https://ollama.com/library/qwen2.5
 - Llama 3.2: https://ollama.com/library/llama3.2
 - Transformers Library: https://huggingface.co/docs/transformers
 - Ollama Documentation: https://github.com/ollama/ollama

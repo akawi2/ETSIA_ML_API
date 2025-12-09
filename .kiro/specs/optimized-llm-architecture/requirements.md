@@ -9,6 +9,7 @@ Ce document définit les exigences pour l'optimisation de l'architecture LLM du 
 - **System**: L'API ETSIA ML qui fournit des services de détection de dépression et de génération de contenu
 - **CamemBERT**: Modèle BERT pré-entraîné spécialisé pour la langue française (110M paramètres)
 - **XLM-RoBERTa**: Modèle RoBERTa multilingue supportant 100 langues (125M paramètres)
+- **Qwen 2.5**: Famille de modèles de langage d'Alibaba Cloud (1.5B, 3B, 7B paramètres)
 - **Llama 3.2**: Famille de modèles de langage de Meta (1B, 3B, 8B paramètres)
 - **Ollama**: Runtime local pour exécuter des LLM
 - **Workflow utilisateur**: Flux d'interaction où l'utilisateur attend une réponse immédiate
@@ -49,7 +50,7 @@ Ce document définit les exigences pour l'optimisation de l'architecture LLM du 
 
 #### Acceptance Criteria
 
-1. WHEN the System receives a depression detection request THEN the System SHALL route the request to CamemBERT or XLM-RoBERTa
+1. WHEN the System receives a depression detection request THEN the System SHALL route the request to CamemBERT, XLM-RoBERTa, or Qwen 2.5 1.5B
 2. WHEN the System receives a content generation request THEN the System SHALL route the request to Llama 3.2 3B via Ollama
 3. WHEN the System switches between models THEN the System SHALL maintain consistent API interfaces
 4. WHEN the System configuration changes THEN the System SHALL allow model selection via environment variables

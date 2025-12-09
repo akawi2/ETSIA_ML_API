@@ -1,0 +1,4 @@
+# file: C:\Users\frann\PycharmProjects\ETSIA_ML_API\app\routes\image_api.py
+# hypothesis_version: 6.148.6
+
+[400, 404, 500, '/api/v1', '/batch-predict-image', '/predict-image', "Analyse d'Images", 'Analyser une image', 'Images à analyser', 'RGB', 'caption_en', 'caption_fr', 'confidence', 'image/', 'image_index', 'is_safe', 'model_used', 'prediction', 'reasoning', 'results', 'severity', 'total_processed']

@@ -1,0 +1,4 @@
+# file: C:\Users\frann\PycharmProjects\ETSIA_ML_API\app\config.py
+# hypothesis_version: 6.148.6
+
+[512, 1000, '*', '.env', '2.0.0', 'ETSIA ML API', 'INFO', 'camembert', 'camembert-base', 'cpu', 'gpt', 'gpt-4o-mini', 'llama3.2', 'llama3.2:1b', 'llama3.2:3b', 'ollama', 'xlm-roberta-base']
