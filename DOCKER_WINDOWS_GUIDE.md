@@ -2,25 +2,49 @@
 
 ## 🎯 **Système Unifié**
 
-Le projet utilise maintenant **un seul Dockerfile** intelligent qui s'adapte automatiquement au CPU ou GPU selon vos besoins.
+Le projet utilise maintenant **un seul Dockerfile** intelligent qui s'adapte automatiquement au CPU ou GPU selon vos besoins, avec **PostgreSQL** pour les métriques et **Ollama** pour les modèles LLM.
+
+## 🏗️ **Architecture des Services**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Docker Network                            │
+│                                                              │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────┐  │
+│  │  PostgreSQL  │  │    Ollama    │  │   API (FastAPI)  │  │
+│  │  (Métriques) │  │  (LLM/Qwen)  │  │   CPU ou GPU     │  │
+│  │  Port: 5432  │  │  Port: 11434 │  │   Port: 8000     │  │
+│  └──────────────┘  └──────────────┘  └──────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ## 🚀 **Déploiement Rapide**
 
-### **Option 1: CPU (Recommandé pour débuter)**
+### **Option 1: Docker Compose (Recommandé)**
+```powershell
+# Démarrer tous les services (PostgreSQL + Ollama + API)
+docker-compose up -d
+
+# Télécharger les modèles Ollama
+.\scripts\setup_ollama_models.bat
+```
+
+### **Option 2: Script PowerShell - CPU**
 ```powershell
 .\docker-deploy.ps1 cpu
 ```
-- **Port**: 8000
+- **Port API**: 8000
+- **Port PostgreSQL**: 5432
+- **Port Ollama**: 11434
 - **URL**: http://localhost:8000
 - **Documentation**: http://localhost:8000/docs
 
-### **Option 2: GPU (Performance maximale)**
+### **Option 3: Script PowerShell - GPU**
 ```powershell
 .\docker-deploy.ps1 gpu
 ```
-- **Port**: 8001  
+- **Port API**: 8001  
 - **URL**: http://localhost:8001
-- **Documentation**: http://localhost:8001/docs
 - **Prérequis**: NVIDIA GPU + Docker GPU support
 
 ## 🛠️ **Commandes Disponibles**
@@ -152,13 +176,91 @@ docker run --rm --gpus all nvidia/cuda:12.1-base-ubuntu22.04 nvidia-smi
 # Ou changer le port dans le script
 ```
 
+## 🗄️ **Services Docker**
+
+### **PostgreSQL (Métriques)**
+```yaml
+# Stockage des métriques de performance
+Container: etsia-postgres
+Port: 5432
+Database: etsia_metrics
+User: etsia
+```
+
+**Accès à la base de données:**
+```powershell
+# Via Docker
+docker exec -it etsia-postgres psql -U etsia -d etsia_metrics
+
+# Requêtes utiles
+SELECT * FROM v_model_stats_24h;  # Stats 24h
+SELECT * FROM v_active_alerts;     # Alertes actives
+```
+
+### **Ollama (LLM)**
+```yaml
+# Modèles LLM locaux
+Container: ollama-server
+Port: 11434
+Modèles: qwen2.5:1.5b, llama3.2:3b, llama3.2:1b
+```
+
+**Gestion des modèles:**
+```powershell
+# Lister les modèles
+docker exec ollama-server ollama list
+
+# Télécharger un modèle
+docker exec ollama-server ollama pull qwen2.5:1.5b
+
+# Tester un modèle
+docker exec ollama-server ollama run qwen2.5:1.5b "Bonjour"
+```
+
+## 📊 **Endpoints de Métriques**
+
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/v1/metrics/health` | Health check PostgreSQL |
+| `GET /api/v1/metrics/summary` | Résumé global des métriques |
+| `GET /api/v1/metrics/models` | Statistiques par modèle |
+| `GET /api/v1/metrics/errors` | Erreurs récentes |
+| `GET /api/v1/metrics/alerts` | Alertes actives |
+| `GET /api/v1/metrics/prometheus` | Format Prometheus |
+
 ## 📚 **Ressources**
 
 - **Documentation API**: http://localhost:8000/docs
 - **Health Check**: http://localhost:8000/health
 - **Modèles disponibles**: http://localhost:8000/api/v1/models
-- **Logs**: `.\docker-deploy.ps1 logs`
+- **Métriques**: http://localhost:8000/api/v1/metrics/summary
+- **Détection dépression**: http://localhost:8000/api/v1/depression/detect
+- **Logs**: `docker-compose logs -f`
+
+## 🔧 **Variables d'Environnement**
+
+Créez un fichier `.env` basé sur `.env.example`:
+
+```bash
+# Provider de détection (camembert, qwen, xlm-roberta)
+DETECTION_PROVIDER=qwen
+
+# PostgreSQL
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_USER=etsia
+POSTGRES_PASSWORD=etsia_secure_password
+POSTGRES_DB=etsia_metrics
+
+# Ollama
+OLLAMA_BASE_URL=http://ollama:11434
+QWEN_DETECTION_MODEL=qwen2.5:1.5b
+
+# Monitoring
+ENABLE_METRICS=true
+LOG_LATENCY=true
+```
 
 ---
 
-**🎉 Votre API ETSIA ML est maintenant optimisée pour Windows avec un système Docker unifié !**
+**🎉 Votre API ETSIA ML est maintenant optimisée pour Windows avec PostgreSQL, Ollama et un système Docker unifié !**

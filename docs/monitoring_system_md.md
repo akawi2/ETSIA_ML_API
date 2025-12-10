@@ -289,4 +289,60 @@ Ce document recense en fonction du modèle, les métriques et les critères d'é
 | `GET /api/v1/models` | Liste des modèles chargés |
 | `GET /api/v1/depression/health` | Health check détection dépression |
 | `GET /api/v1/depression/health/all` | Health check tous les modèles de détection |
-| `GET /api/v1/metrics` | Métriques Prometheus (à implémenter) |
+| `GET /api/v1/metrics/health` | Health check du système de métriques |
+| `GET /api/v1/metrics/summary` | Résumé global des métriques |
+| `GET /api/v1/metrics/models` | Statistiques détaillées par modèle |
+| `GET /api/v1/metrics/models/{name}/latency` | Percentiles de latence par modèle |
+| `GET /api/v1/metrics/errors` | Erreurs récentes |
+| `GET /api/v1/metrics/alerts` | Alertes actives |
+| `POST /api/v1/metrics/alerts/{id}/resolve` | Résoudre une alerte |
+| `GET /api/v1/metrics/prometheus` | Métriques au format Prometheus |
+
+---
+
+## BASE DE DONNÉES POSTGRESQL
+
+### Tables
+
+| Table | Description |
+|-------|-------------|
+| `model_predictions` | Toutes les prédictions effectuées |
+| `model_errors` | Erreurs rencontrées lors des prédictions |
+| `model_health_checks` | Historique des health checks |
+| `latency_percentiles` | Percentiles de latence agrégés |
+| `throughput_metrics` | Métriques de débit |
+| `alerts` | Alertes générées par le système |
+
+### Vues
+
+| Vue | Description |
+|-----|-------------|
+| `v_model_stats_24h` | Statistiques des dernières 24h par modèle |
+| `v_error_rates_1h` | Taux d'erreur par modèle (dernière heure) |
+| `v_active_alerts` | Alertes actives triées par sévérité |
+
+### Configuration Docker
+
+```yaml
+# docker-compose.yml
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: etsia
+      POSTGRES_PASSWORD: etsia_secure_password
+      POSTGRES_DB: etsia_metrics
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+```
+
+### Variables d'environnement
+
+```bash
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_USER=etsia
+POSTGRES_PASSWORD=etsia_secure_password
+POSTGRES_DB=etsia_metrics
+```

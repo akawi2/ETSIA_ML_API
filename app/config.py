@@ -71,6 +71,15 @@ class Settings(BaseSettings):
     ENABLE_FALLBACK: bool = True
     
     # ============================================================================
+    # POSTGRESQL SETTINGS (Metrics Database)
+    # ============================================================================
+    POSTGRES_HOST: str = "postgres"
+    POSTGRES_PORT: str = "5432"
+    POSTGRES_USER: str = "etsia"
+    POSTGRES_PASSWORD: str = "etsia_secure_password"
+    POSTGRES_DB: str = "etsia_metrics"
+    
+    # ============================================================================
     # MONITORING SETTINGS
     # ============================================================================
     ENABLE_METRICS: bool = True
