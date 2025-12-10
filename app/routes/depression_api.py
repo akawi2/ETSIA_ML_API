@@ -6,7 +6,9 @@ from typing import Optional, List
 from pydantic import BaseModel, Field
 from app.core.model_registry import registry
 from app.utils.logger import setup_logger
+from app.config import settings
 import time
+import uuid
 
 logger = setup_logger(__name__)
 
@@ -198,6 +200,25 @@ async def detect_depression(request: DepressionDetectRequest) -> DepressionDetec
             f"[{model_used}]"
         )
         
+        # Enregistrer la métrique de prédiction
+        if settings.ENABLE_METRICS:
+            try:
+                from app.core.metrics import record_prediction_async
+                await record_prediction_async(
+                    model_name=model_used,
+                    provider="camembert" if "camembert" in model_used.lower() else "qwen" if "qwen" in model_used.lower() else "ollama",
+                    endpoint="/api/v1/depression/detect",
+                    prediction=result["prediction"],
+                    confidence=result.get("confidence"),
+                    severity=result.get("severity"),
+                    latency_ms=processing_time * 1000,
+                    fallback_used=fallback_used,
+                    input_length=len(request.text),
+                    request_id=str(uuid.uuid4())
+                )
+            except Exception as metrics_error:
+                logger.debug(f"Erreur enregistrement métrique (non bloquant): {metrics_error}")
+        
         return DepressionDetectResponse(
             prediction=result["prediction"],
             confidence=float(result["confidence"]),
@@ -212,6 +233,22 @@ async def detect_depression(request: DepressionDetectRequest) -> DepressionDetec
         raise
     except Exception as e:
         logger.error(f"Erreur détection dépression: {e}")
+        
+        # Enregistrer l'erreur
+        if settings.ENABLE_METRICS:
+            try:
+                from app.core.metrics import record_error_async
+                await record_error_async(
+                    model_name=model.model_name if model else "unknown",
+                    provider="unknown",
+                    error_type=type(e).__name__,
+                    error_message=str(e),
+                    endpoint="/api/v1/depression/detect",
+                    input_length=len(request.text)
+                )
+            except Exception:
+                pass
+        
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Erreur de détection: {str(e)}"

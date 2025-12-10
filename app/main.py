@@ -7,6 +7,7 @@ from fastapi.responses import JSONResponse
 from app.config import settings
 from app.routes import router, hatecomment_router, image_router, content_router, recommendation_router, censure_router
 from app.routes.depression_api import router as depression_router
+from app.routes.metrics_api import router as metrics_router
 from app.models.schemas import HealthResponse
 from app.core.model_registry import registry
 from app.services.recommendation.recommendation_service import recommend_service
@@ -41,6 +42,7 @@ app.include_router(content_router)
 app.include_router(recommendation_router)
 app.include_router(censure_router)
 app.include_router(depression_router)
+app.include_router(metrics_router)
 
 
 
@@ -51,6 +53,16 @@ async def startup_event():
     logger.info(f"{settings.API_TITLE} v{settings.API_VERSION}")
     logger.info("Architecture Multi-Modèles")
     logger.info("="*70)
+    
+    # Connexion à la base de données PostgreSQL pour les métriques
+    if settings.ENABLE_METRICS:
+        try:
+            from app.core.metrics.database import db
+            await db.connect()
+            logger.info("✓ Connexion PostgreSQL établie (métriques)")
+        except Exception as e:
+            logger.warning(f"⚠️ Impossible de se connecter à PostgreSQL: {e}")
+            logger.warning("  Les métriques seront désactivées")
     
     # Enregistrer les modèles disponibles
     logger.info("\n📦 Enregistrement des modèles...")
@@ -194,6 +206,15 @@ async def startup_event():
 async def shutdown_event():
     """Événement à l'arrêt"""
     logger.info("Arrêt de l'API...")
+    
+    # Fermer la connexion PostgreSQL
+    if settings.ENABLE_METRICS:
+        try:
+            from app.core.metrics.database import db
+            await db.disconnect()
+            logger.info("✓ Connexion PostgreSQL fermée")
+        except Exception as e:
+            logger.error(f"Erreur fermeture PostgreSQL: {e}")
 
 
 @app.get(

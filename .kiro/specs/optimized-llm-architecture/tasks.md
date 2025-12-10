@@ -129,13 +129,17 @@
   - **Property 17: Response format preservation**
   - **Validates: Requirements 7.3**
 
-- [ ] 7. Implement metrics and monitoring system
+- [x] 7. Implement metrics and monitoring system
   - Create `ModelMetrics` class for tracking performance
   - Add latency logging for all requests
   - Add error rate tracking per model
   - Implement throughput calculation (requests/second)
   - Create metrics endpoint `/api/v1/metrics`
   - Add structured logging with model identifiers
+  - Add PostgreSQL database for metrics storage (Docker)
+  - Create init_db.sql with tables, views, and functions
+  - Implement MetricsService with async PostgreSQL support
+  - Add Prometheus-compatible metrics endpoint
   - _Requirements: 5.1, 5.3, 5.5_
 
 - [ ]* 7.1 Write property test for latency logging
