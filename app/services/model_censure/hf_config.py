@@ -1,0 +1,3 @@
+
+HF_MODEL_REPO = "genie10/ETSIA_CENSURE"
+HF_TOKEN = None

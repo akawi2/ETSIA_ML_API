@@ -1,13 +1,19 @@
 """
-Interface de base pour tous les modèles de détection de dépression
+Interface de base pour tous les modèles ML de YANSNET
 """
 from abc import ABC, abstractmethod
 from typing import Dict, Any, List, Optional
 
 
-class BaseDepressionModel(ABC):
+class BaseMLModel(ABC):
     """
-    Interface que tous les modèles doivent implémenter.
+    Interface générique que tous les modèles ML doivent implémenter.
+    
+    Supporte différents types de modèles :
+    - Classification de texte (dépression, hate speech, etc.)
+    - Classification d'images (NSFW, contenu sensible, etc.)
+    - Systèmes de recommandation
+    - Génération de contenu
     
     Chaque étudiant doit créer une classe qui hérite de celle-ci
     et implémente toutes les méthodes abstraites.
@@ -38,7 +44,7 @@ class BaseDepressionModel(ABC):
     @property
     def description(self) -> str:
         """Description du modèle (optionnel)"""
-        return "Modèle de détection de dépression"
+        return "Modèle ML YANSNET"
     
     @property
     def tags(self) -> List[str]:
@@ -46,29 +52,34 @@ class BaseDepressionModel(ABC):
         return []
     
     @abstractmethod
-    def predict(self, text: str, **kwargs) -> Dict[str, Any]:
+    def predict(self, **kwargs) -> Dict[str, Any]:
         """
-        Prédit si le texte indique de la dépression.
+        Effectue une prédiction avec le modèle.
         
         Args:
-            text: Texte à analyser
-            **kwargs: Paramètres additionnels spécifiques au modèle
+            **kwargs: Paramètres spécifiques au modèle
+                - text: str (pour modèles de texte)
+                - image: PIL.Image (pour modèles d'images)
+                - user_id: int (pour systèmes de recommandation)
+                - etc.
         
         Returns:
             Dict avec AU MINIMUM:
             {
-                "prediction": str,  # "DÉPRESSION" ou "NORMAL"
+                "prediction": str,  # Résultat de la prédiction
                 "confidence": float,  # 0.0 à 1.0
                 "severity": str,  # "Aucune", "Faible", "Moyenne", "Élevée", "Critique"
                 "reasoning": str (optionnel)  # Explication
             }
+            
+            Le format exact dépend du type de modèle.
         
         Raises:
             Exception: Si la prédiction échoue
         """
         pass
     
-    def batch_predict(self, texts: List[str], **kwargs) -> List[Dict[str, Any]]:
+    def batch_predict(self, **kwargs) -> List[Dict[str, Any]]:
         """
         Prédiction batch (implémentation par défaut).
         
@@ -76,13 +87,23 @@ class BaseDepressionModel(ABC):
         le traitement batch.
         
         Args:
-            texts: Liste de textes
-            **kwargs: Paramètres additionnels
+            **kwargs: Paramètres spécifiques au modèle
+                - texts: List[str] (pour modèles de texte)
+                - images: List[PIL.Image] (pour modèles d'images)
+                - user_ids: List[int] (pour systèmes de recommandation)
+                - etc.
         
         Returns:
             Liste de résultats (même format que predict)
         """
-        return [self.predict(text, **kwargs) for text in texts]
+        # Implémentation par défaut : traitement séquentiel
+        # Les modèles peuvent override pour optimiser
+        if 'texts' in kwargs:
+            return [self.predict(text=text) for text in kwargs['texts']]
+        elif 'images' in kwargs:
+            return [self.predict(image=img) for img in kwargs['images']]
+        else:
+            raise NotImplementedError("batch_predict doit être implémenté pour ce type de modèle")
     
     def get_info(self) -> Dict[str, Any]:
         """

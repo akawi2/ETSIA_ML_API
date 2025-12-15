@@ -2,7 +2,7 @@
 Modèle YANSNET - Détection de dépression avec LLM
 """
 from typing import Dict, Any, List
-from app.core.base_model import BaseDepressionModel
+from app.core.base_model import BaseMLModel
 from app.services.yansnet_llm.llm_predictor import get_llm_predictor
 from app.config import settings
 from app.utils.logger import setup_logger
@@ -10,7 +10,7 @@ from app.utils.logger import setup_logger
 logger = setup_logger(__name__)
 
 
-class YansnetLLMModel(BaseDepressionModel):
+class YansnetLLMModel(BaseMLModel):
     """
     Modèle de détection de dépression utilisant des LLM.
     
