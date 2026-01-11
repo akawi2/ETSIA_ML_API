@@ -147,14 +147,14 @@ class LocalLLMPredictor(BaseLLMPredictor):
         try:
             import requests
             
+            # Construire le prompt complet
+            full_prompt = f"{SYSTEM_PROMPT}\n\n{USER_PROMPT_TEMPLATE.format(text=text)}"
+            
             response = requests.post(
-                f"{self.base_url}/api/chat",
+                f"{self.base_url}/api/generate",
                 json={
                     "model": self.model,
-                    "messages": [
-                        {"role": "system", "content": SYSTEM_PROMPT},
-                        {"role": "user", "content": USER_PROMPT_TEMPLATE.format(text=text)}
-                    ],
+                    "prompt": full_prompt,
                     "stream": False,
                     "format": "json",
                     "options": {
@@ -166,7 +166,7 @@ class LocalLLMPredictor(BaseLLMPredictor):
             )
             response.raise_for_status()
             
-            result = json.loads(response.json()['message']['content'])
+            result = json.loads(response.json()['response'])
             logger.debug(f"Prédiction Local: {result['prediction']} (confiance: {result['confidence']})")
             return result
             

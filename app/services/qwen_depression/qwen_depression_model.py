@@ -61,7 +61,7 @@ Reponds UNIQUEMENT avec un JSON valide dans ce format exact:
 {{
     "prediction": "DEPRESSION" ou "NORMAL",
     "confidence": un nombre entre 0.0 et 1.0,
-    "severity": "Aucune", "Faible", "Moyenne", "Elevee" ou "Critique",
+    "severity": "Aucune", "Faible", "Moyenne", "Élevée" ou "Critique",
     "reasoning": "explication courte de ton analyse"
 }}
 
@@ -180,7 +180,7 @@ JSON:"""
                 # Validate and normalize
                 prediction = result.get("prediction", "NORMAL").upper()
                 if "DEPR" in prediction:
-                    prediction = "DEPRESSION"
+                    prediction = "DÉPRESSION"  # Avec accent pour l'API
                 else:
                     prediction = "NORMAL"
                 
@@ -188,7 +188,7 @@ JSON:"""
                 confidence = max(0.0, min(1.0, confidence))
                 
                 severity = result.get("severity", "Aucune")
-                valid_severities = ["Aucune", "Faible", "Moyenne", "Elevee", "Critique"]
+                valid_severities = ["Aucune", "Faible", "Moyenne", "Élevée", "Critique"]
                 if severity not in valid_severities:
                     severity = self._classify_severity(confidence, prediction)
                 
@@ -211,7 +211,7 @@ JSON:"""
         text_lower = response_text.lower()
         
         if "depression" in text_lower or "deprime" in text_lower:
-            prediction = "DEPRESSION"
+            prediction = "DÉPRESSION"  # Avec accent pour l'API
             confidence = 0.7
         else:
             prediction = "NORMAL"
@@ -228,13 +228,13 @@ JSON:"""
     
     def _classify_severity(self, confidence: float, prediction: str) -> str:
         """Classify depression severity based on confidence."""
-        if prediction != "DEPRESSION":
+        if prediction not in ["DEPRESSION", "DÉPRESSION"]:
             return "Aucune"
         
         if confidence >= 0.9:
             return "Critique"
         elif confidence >= 0.75:
-            return "Elevee"
+            return "Élevée"
         elif confidence >= 0.6:
             return "Moyenne"
         else:

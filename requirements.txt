@@ -16,6 +16,13 @@ httpx>=0.26.0
 
 # Database (PostgreSQL for metrics)
 asyncpg>=0.29.0
+psycopg2-binary>=2.9.9
+
+# Cache (Redis for recommendations)
+redis>=5.0.0
+
+# Data processing
+pandas>=2.0.0
 
 # Testing
 pytest>=7.4.0
