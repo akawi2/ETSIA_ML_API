@@ -43,7 +43,8 @@ class HateCommentBertModel(BaseMLModel):
         
         # Chemin du modèle
         if model_path is None:
-            model_path = os.path.join(os.path.dirname(__file__), "model")
+            # Utiliser le modèle fine-tuné par défaut
+            model_path = os.path.join(os.path.dirname(__file__), "model_finetuned")
         
         self.model_path = model_path
         

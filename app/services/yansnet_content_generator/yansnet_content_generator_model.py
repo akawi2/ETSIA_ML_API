@@ -312,14 +312,14 @@ class YansnetContentGeneratorModel(BaseMLModel):
         """Appel LLM local pour génération de texte"""
         import requests
         
+        # Construire le prompt complet
+        full_prompt = f"{system_prompt}\n\n{user_prompt}"
+        
         response = requests.post(
-            f"{settings.OLLAMA_BASE_URL}/api/chat",
+            f"{settings.OLLAMA_BASE_URL}/api/generate",
             json={
-                "model": settings.OLLAMA_MODEL,
-                "messages": [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
+                "model": settings.OLLAMA_GENERATION_MODEL,
+                "prompt": full_prompt,
                 "stream": False,
                 "options": {
                     "temperature": 0.9,
@@ -330,7 +330,7 @@ class YansnetContentGeneratorModel(BaseMLModel):
         )
         response.raise_for_status()
         
-        return response.json()['message']['content'].strip()
+        return response.json()['response'].strip()
     
     def health_check(self) -> Dict[str, Any]:
         """Vérifie que le générateur est opérationnel"""

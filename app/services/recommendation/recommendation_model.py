@@ -34,15 +34,22 @@ class RecommendationModel(BaseMLModel):
     def tags(self) -> List[str]:
         return ["recommendation", "collaborative-filtering", "user-user", "posts"]
     
-    def __init__(self, db_config: Dict[str, str] = None):
+    def __init__(
+        self, 
+        db_config: Dict[str, str] = None,
+        redis_config: Dict[str, Any] = None,
+        use_cache: bool = True
+    ):
         """
-        Initialise le modèle de recommandation
+        Initialise le modèle de recommandation avec cache
         
         Args:
             db_config: Configuration de la base de données PostgreSQL
+            redis_config: Configuration Redis pour le cache
+            use_cache: Activer/désactiver le cache
         """
         try:
-            logger.info("Initialisation du système de recommandation...")
+            logger.info("Initialisation du système de recommandation avec cache...")
             
             self.db_config = db_config or {
                 'host': 'localhost',
@@ -52,14 +59,25 @@ class RecommendationModel(BaseMLModel):
                 'port': '5432'
             }
             
+            self.redis_config = redis_config or {
+                'host': 'localhost',
+                'port': 6379,
+                'db': 0,
+                'ttl': 3600
+            }
+            
+            self.use_cache = use_cache
+            
             # Importer le recommender
             try:
                 from .recommendation_service import UserUserRecommender
                 self.recommender = UserUserRecommender(
                     min_similarity=0.1,
-                    db_config=self.db_config
+                    db_config=self.db_config,
+                    redis_config=self.redis_config,
+                    use_cache=self.use_cache
                 )
-                logger.info("  → UserUserRecommender chargé")
+                logger.info("  → UserUserRecommender avec cache chargé")
             except ImportError as e:
                 logger.warning(f"  → UserUserRecommender non disponible: {e}")
                 self.recommender = None

@@ -80,6 +80,15 @@ class Settings(BaseSettings):
     POSTGRES_DB: str = "etsia_metrics"
     
     # ============================================================================
+    # REDIS SETTINGS (Cache for Recommendations)
+    # ============================================================================
+    REDIS_HOST: str = "localhost"
+    REDIS_PORT: int = 6379
+    REDIS_DB: int = 0
+    REDIS_CACHE_TTL: int = 3600  # 1 heure
+    ENABLE_CACHE: bool = True
+    
+    # ============================================================================
     # MONITORING SETTINGS
     # ============================================================================
     ENABLE_METRICS: bool = True

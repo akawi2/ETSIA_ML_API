@@ -22,14 +22,6 @@ tests/
 .pytest_cache/
 .coverage
 
-<<<<<<< HEAD
-# Documentation
-docs/
-*.md
-
-# Modèle GCN (ne pas inclure dans l'image)
-Modèle GCN/
-=======
 # Documentation (garder seulement les essentiels)
 docs/
 *.md
@@ -47,7 +39,6 @@ adjust_*.py
 integrate_*.py
 enhanced_*.py
 cleanup_*.py
->>>>>>> cda1f63ffa39c1344ee5c876a2dfb835c641bbf5
 
 # Environment
 .env
@@ -56,3 +47,31 @@ cleanup_*.py
 # Logs
 *.log
 logs/
+
+# Data files
+data/
+*.csv
+*.json
+!app/data/*.json
+
+# Models
+models/
+*.pth
+*.pt
+*.bin
+*.onnx
+
+# Misc
+.hypothesis/
+.kiro/
+.githooks/
+CHANGELOG.md
+CLEANUP_SUMMARY.md
+FINAL_TEST_REPORT.md
+IMPLEMENTATION_CACHE_FR.md
+INTEGRATION_SUMMARY.md
+QWEN_FIX_REPORT.md
+ROUTES_SUMMARY.md
+DOCKER_TEST_GUIDE.md
+DOCKER_WINDOWS_GUIDE.md
+QUICKSTART.md

@@ -326,3 +326,163 @@ async def recommendation_examples():
             "info": 'curl http://localhost:8000/api/v1/recommendation/info'
         }
     }
+
+
+# ============================================================================
+# ROUTES DE GESTION DU CACHE
+# ============================================================================
+
+class CacheStatsResponse(BaseModel):
+    """Réponse des statistiques du cache"""
+    status: str = Field(..., description="État du cache")
+    redis_connected: bool = Field(..., description="Redis connecté")
+    metadata: Optional[dict] = Field(None, description="Métadonnées du cache")
+    individual_posts_cached: Optional[int] = Field(None, description="Nombre de posts en cache")
+    cache_ttl: Optional[int] = Field(None, description="TTL du cache en secondes")
+
+
+class CacheRefreshResponse(BaseModel):
+    """Réponse du rafraîchissement du cache"""
+    success: bool = Field(..., description="Succès de l'opération")
+    message: str = Field(..., description="Message de résultat")
+    posts_cached: Optional[int] = Field(None, description="Nombre de posts mis en cache")
+
+
+@router.get(
+    "/cache/stats",
+    response_model=CacheStatsResponse,
+    summary="Statistiques du cache",
+    description="Récupère les statistiques du cache Redis"
+)
+async def get_cache_stats():
+    """Récupère les statistiques du cache de recommandations"""
+    try:
+        model = registry.get("recommendation-system")
+        if not model:
+            raise HTTPException(
+                status_code=404,
+                detail="Système de recommandation non disponible"
+            )
+        
+        # Récupérer les stats via le recommender
+        if hasattr(model, 'recommender') and model.recommender:
+            stats = model.recommender.get_cache_stats()
+            return CacheStatsResponse(**stats)
+        else:
+            return CacheStatsResponse(
+                status="unavailable",
+                redis_connected=False
+            )
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Erreur récupération stats cache: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Erreur: {str(e)}"
+        )
+
+
+@router.post(
+    "/cache/refresh",
+    response_model=CacheRefreshResponse,
+    summary="Rafraîchir le cache",
+    description="Force le rafraîchissement du cache depuis la base de données"
+)
+async def refresh_cache():
+    """Force le rafraîchissement du cache depuis la DB"""
+    try:
+        logger.info("Demande de rafraîchissement du cache...")
+        
+        model = registry.get("recommendation-system")
+        if not model:
+            raise HTTPException(
+                status_code=404,
+                detail="Système de recommandation non disponible"
+            )
+        
+        # Rafraîchir via le recommender
+        if hasattr(model, 'recommender') and model.recommender:
+            success = model.recommender.refresh_cache()
+            
+            if success:
+                posts_count = len(model.recommender.posts_df) if model.recommender.posts_df is not None else 0
+                return CacheRefreshResponse(
+                    success=True,
+                    message="Cache rafraîchi avec succès",
+                    posts_cached=posts_count
+                )
+            else:
+                return CacheRefreshResponse(
+                    success=False,
+                    message="Échec du rafraîchissement du cache"
+                )
+        else:
+            raise HTTPException(
+                status_code=503,
+                detail="Recommender non disponible"
+            )
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Erreur rafraîchissement cache: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Erreur: {str(e)}"
+        )
+
+
+@router.delete(
+    "/cache/invalidate",
+    response_model=CacheRefreshResponse,
+    summary="Invalider le cache",
+    description="Invalide complètement le cache (sera rechargé au prochain appel)"
+)
+async def invalidate_cache():
+    """Invalide complètement le cache"""
+    try:
+        logger.info("Demande d'invalidation du cache...")
+        
+        model = registry.get("recommendation-system")
+        if not model:
+            raise HTTPException(
+                status_code=404,
+                detail="Système de recommandation non disponible"
+            )
+        
+        # Invalider via le cache service
+        if hasattr(model, 'recommender') and model.recommender:
+            if hasattr(model.recommender, 'cache_service') and model.recommender.cache_service:
+                success = model.recommender.cache_service.invalidate_all()
+                
+                if success:
+                    return CacheRefreshResponse(
+                        success=True,
+                        message="Cache invalidé avec succès"
+                    )
+                else:
+                    return CacheRefreshResponse(
+                        success=False,
+                        message="Échec de l'invalidation du cache"
+                    )
+            else:
+                raise HTTPException(
+                    status_code=503,
+                    detail="Service de cache non disponible"
+                )
+        else:
+            raise HTTPException(
+                status_code=503,
+                detail="Recommender non disponible"
+            )
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Erreur invalidation cache: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Erreur: {str(e)}"
+        )
