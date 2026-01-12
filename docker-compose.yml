@@ -1,5 +1,38 @@
 services:
-  # PostgreSQL pour les métriques et le monitoring
+  # ============================================================================
+  # MONITORING SYSTEM (GA4-Bridge + FastAPI App)
+  # ============================================================================
+  
+  ga4-bridge:
+    build: ./ga4_bridge
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./metrics_catalog.json:/app/metrics_catalog.json
+    environment:
+      - GA4_MEASUREMENT_ID=${GA4_MEASUREMENT_ID}
+      - GA4_API_SECRET=${GA4_API_SECRET}
+    command: uvicorn main:app --host 0.0.0.0 --port 5000
+    networks:
+      - api-network
+
+  fastapi-app:
+    build: ./fastapi_app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ga4-bridge
+    environment:
+      - BRIDGE_URL=http://ga4-bridge:5000/log_metric
+    env_file:
+      - .env
+    networks:
+      - api-network
+
+  # ============================================================================
+  # ML INFRASTRUCTURE (PostgreSQL + Ollama + ML API)
+  # ============================================================================
+
   postgres:
     image: postgres:16-alpine
     container_name: etsia-postgres
@@ -21,6 +54,8 @@ services:
       start_period: 10s
     networks:
       - api-network
+    profiles:
+      - ml
 
   # Redis pour le cache des recommandations
   redis:
@@ -40,6 +75,8 @@ services:
       start_period: 5s
     networks:
       - api-network
+    profiles:
+      - ml
 
   # Ollama service for LLM inference (Qwen 2.5 1.5B + Llama 3.2 3B)
   ollama:
@@ -58,16 +95,9 @@ services:
       start_period: 30s
     networks:
       - api-network
-    # Optional: Uncomment for GPU support
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: 1
-    #           capabilities: [gpu]
+    profiles:
+      - ml
 
-  # API avec support CPU uniquement (production légère)
   api:
     build: 
       context: .
@@ -77,7 +107,7 @@ services:
     image: etsia-ml-api:cpu
     container_name: etsia-ml-api-cpu
     ports:
-      - "8000:8000"
+      - "8001:8000"
     env_file:
       - .env
     environment:
@@ -109,7 +139,8 @@ services:
           memory: 8G
         reservations:
           memory: 2G
-
+    profiles:
+      - ml
 
   # API avec support GPU (performance optimale)
   api-gpu:
@@ -121,7 +152,7 @@ services:
     image: etsia-ml-api:gpu
     container_name: etsia-ml-api-gpu
     ports:
-      - "8001:8000"
+      - "8002:8000"
     env_file:
       - .env
     environment:
@@ -132,6 +163,8 @@ services:
     restart: unless-stopped
     depends_on:
       ollama:
+        condition: service_healthy
+      postgres:
         condition: service_healthy
       redis:
         condition: service_healthy
@@ -157,7 +190,7 @@ services:
               count: 1
               capabilities: [gpu]
     profiles:
-      - gpu
+      - ml
 
 volumes:
   postgres-data:
