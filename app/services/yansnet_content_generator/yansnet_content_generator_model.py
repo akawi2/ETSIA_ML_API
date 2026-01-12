@@ -3,11 +3,13 @@ Modèle YANSNET - Générateur de contenu pour le réseau social
 """
 from typing import Dict, Any, List
 from app.core.base_model import BaseMLModel
+from app.core.monitoring import emit_metric
 from app.services.yansnet_llm.llm_predictor import get_llm_predictor
 from app.config import settings
 from app.utils.logger import setup_logger
 import random
 import json
+import time
 
 logger = setup_logger(__name__)
 
@@ -108,6 +110,8 @@ class YansnetContentGeneratorModel(BaseMLModel):
         if not self._initialized:
             raise RuntimeError(f"{self.model_name} n'est pas initialisé")
         
+        start_time = time.time()
+        
         # Sélection aléatoire si non spécifié
         post_type = post_type or random.choice(self.POST_TYPES)
         topic = topic or random.choice(self.TOPICS)
@@ -134,6 +138,27 @@ class YansnetContentGeneratorModel(BaseMLModel):
             # Appeler le LLM
             content = self._call_llm(system_prompt, user_prompt)
             
+            # Calculer la latence
+            latency_ms = int((time.time() - start_time) * 1000)
+            
+            # Calculer des métriques de qualité
+            tokens_generated = len(content.split())
+            ttr = self._calculate_ttr(content)
+            
+            # Émettre les métriques de monitoring
+            emit_metric(
+                service="content_generation",
+                event_name="generate_content",
+                model_name=settings.OLLAMA_GENERATION_MODEL if settings.LLM_PROVIDER == "local" else settings.LLM_PROVIDER,
+                params={
+                    "latency": latency_ms,
+                    "tokens_generated": tokens_generated,
+                    "ttr": ttr,
+                    "post_type": post_type,
+                    "sentiment": sentiment
+                }
+            )
+            
             return {
                 "prediction": "POST_GENERATED",  # Pour compatibilité interface
                 "confidence": 1.0,
@@ -146,6 +171,18 @@ class YansnetContentGeneratorModel(BaseMLModel):
             
         except Exception as e:
             logger.error(f"Erreur génération post: {e}")
+            
+            # Émettre métrique d'erreur
+            latency_ms = int((time.time() - start_time) * 1000)
+            emit_metric(
+                service="content_generation",
+                event_name="generate_content_error",
+                model_name=settings.OLLAMA_GENERATION_MODEL if settings.LLM_PROVIDER == "local" else settings.LLM_PROVIDER,
+                params={
+                    "latency": latency_ms,
+                    "error": str(e)[:100]
+                }
+            )
             raise
     
     def generate_comment(
@@ -355,3 +392,21 @@ class YansnetContentGeneratorModel(BaseMLModel):
                 "model": self.model_name,
                 "error": str(e)
             }
+
+    
+    def _calculate_ttr(self, text: str) -> float:
+        """
+        Calcule le Type-Token Ratio (diversité lexicale).
+        
+        Args:
+            text: Texte à analyser
+            
+        Returns:
+            TTR (0-1, plus élevé = plus diversifié)
+        """
+        words = text.lower().split()
+        if not words:
+            return 0.0
+        
+        unique_words = set(words)
+        return len(unique_words) / len(words)

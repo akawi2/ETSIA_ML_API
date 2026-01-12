@@ -7,6 +7,7 @@ Uses CamemBERT (110M parameters) for 20-50ms latency on CPU.
 from typing import Dict, Any, List, Optional
 import time
 from app.core.base_model import BaseMLModel
+from app.core.monitoring import emit_metric
 from app.config import settings
 from app.utils.logger import setup_logger
 
@@ -281,10 +282,35 @@ class CamemBERTDepressionModel(BaseMLModel):
                     text, prediction, confidence, severity
                 )
             
+            # Émettre les métriques de monitoring
+            emit_metric(
+                service="depression_detection",
+                event_name="detect_depression",
+                model_name="camembert-base",
+                params={
+                    "latency": int(processing_time),
+                    "confidence": float(confidence),
+                    "severity": severity,
+                    "is_depression": prediction == "DÉPRESSION"
+                }
+            )
+            
             return result
             
         except Exception as e:
             logger.error(f"Erreur de prédiction {self.model_name}: {e}")
+            
+            # Émettre métrique d'erreur
+            processing_time = (time.time() - start_time) * 1000
+            emit_metric(
+                service="depression_detection",
+                event_name="detect_depression_error",
+                model_name="camembert-base",
+                params={
+                    "latency": int(processing_time),
+                    "error": str(e)[:100]
+                }
+            )
             raise
     
     def _generate_reasoning(

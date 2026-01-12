@@ -409,7 +409,7 @@ python scripts/test_monitoring_integration.py
 - ✅ Health check du GA4-Bridge (port 5000)
 - ✅ Health check de l'API principale (port 8001)
 - ✅ Émission directe de métriques au Bridge
-- ✅ Détection de dépression avec monitoring automatique
+- ✅ Détection de dépression avec monitoring automatique (CamemBERT et Qwen)
 - ✅ Détection de hate speech avec monitoring automatique (via `HateCommentBertMonitored`)
 - ✅ Déclenchement d'alertes (métriques hors seuil)
 

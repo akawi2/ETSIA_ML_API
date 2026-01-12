@@ -21,17 +21,19 @@ API REST professionnelle multi-modèles pour :
 
 ### Modèles de Détection de Dépression (Texte)
 
-| Modèle | Précision | Vitesse | Avantages |
-|--------|-----------|---------|-----------|
-| **LLM (GPT-4o-mini)** | **75%** | 0.3/s | Explications détaillées, cas ambigus |
-| **LLM (Llama 3.2 local)** | **75%** | 0.3/s | Gratuit, privé, offline |
-| **LLM (Claude)** | **75%** | 0.3/s | Haute qualité, nuancé |
+| Modèle | Précision | Vitesse | Avantages | Monitoring |
+|--------|-----------|---------|-----------|------------|
+| **CamemBERT** | **80%** | 20-50ms | Rapide, optimisé français | ✅ Intégré |
+| **Qwen 2.5 1.5B** | **75%** | 200-500ms | Meilleur raisonnement, multilingue | ✅ Intégré |
+| **LLM (GPT-4o-mini)** | **75%** | 300ms | Explications détaillées, cas ambigus | ⚠️ Via API |
+| **LLM (Llama 3.2 local)** | **75%** | 300ms | Gratuit, privé, offline | ⚠️ Via API |
+| **LLM (Claude)** | **75%** | 300ms | Haute qualité, nuancé | ⚠️ Via API |
 
 ### 🆕 Modèle d'Analyse d'Images
 
-| Modèle | Type | Vitesse | Avantages |
-|--------|------|---------|-----------|
-| **Image Caption (GIT)** | Vision + NLP | 2-15s | Détection contenu sensible, multilingue |
+| Modèle | Type | Vitesse | Avantages | Monitoring |
+|--------|------|---------|-----------|------------|
+| **Image Caption (GIT)** | Vision + NLP | 2-15s | Détection contenu sensible, multilingue | ✅ Intégré |
 
 ### 🆕 Générateur de Contenu YANSNET
 

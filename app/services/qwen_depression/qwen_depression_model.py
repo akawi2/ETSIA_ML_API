@@ -10,6 +10,7 @@ import json
 import re
 import httpx
 from app.core.base_model import BaseMLModel
+from app.core.monitoring import emit_metric
 from app.config import settings
 from app.utils.logger import setup_logger
 
@@ -295,13 +296,50 @@ JSON:"""
             if not include_reasoning:
                 result.pop("reasoning", None)
             
+            # Émettre les métriques de monitoring
+            emit_metric(
+                service="depression_detection",
+                event_name="detect_depression",
+                model_name="qwen2.5:1.5b",
+                params={
+                    "latency": int(processing_time),
+                    "confidence": float(result["confidence"]),
+                    "severity": result["severity"],
+                    "is_depression": result["prediction"] == "DÉPRESSION"
+                }
+            )
+            
             return result
             
         except httpx.TimeoutException:
             logger.error(f"Timeout lors de l'inference Qwen")
+            
+            # Émettre métrique d'erreur
+            processing_time = (time.time() - start_time) * 1000
+            emit_metric(
+                service="depression_detection",
+                event_name="detect_depression_error",
+                model_name="qwen2.5:1.5b",
+                params={
+                    "latency": int(processing_time),
+                    "error": "Timeout"
+                }
+            )
             raise RuntimeError("Timeout de l'inference")
         except Exception as e:
             logger.error(f"Erreur de prediction Qwen: {e}")
+            
+            # Émettre métrique d'erreur
+            processing_time = (time.time() - start_time) * 1000
+            emit_metric(
+                service="depression_detection",
+                event_name="detect_depression_error",
+                model_name="qwen2.5:1.5b",
+                params={
+                    "latency": int(processing_time),
+                    "error": str(e)[:100]
+                }
+            )
             raise
     
     def batch_predict(

@@ -127,7 +127,7 @@ Configuration JSON définissant les règles d'alerte pour chaque service.
 ### 2. Depression Detection
 
 **Service**: `depression_detection`  
-**Modèles**: `camembert-base`, `qwen2.5:1.5b`
+**Modèles**: `camembert-base`, `qwen2.5:1.5b` (✅ Tous avec monitoring intégré)
 
 **Métriques**:
 | Métrique | Type | Seuil | Description |
@@ -135,9 +135,14 @@ Configuration JSON définissant les règles d'alerte pour chaque service.
 | `latency` | int (ms) | > 500 (CamemBERT)<br>> 1000 (Qwen) | Temps de réponse |
 | `confidence` | float (0-1) | < 0.60 | Confiance de prédiction |
 | `severity` | string | - | Niveau de sévérité |
+| `is_depression` | bool | - | Résultat de détection |
 | `ram_usage` | int (MB) | > 2048 (CamemBERT)<br>> 4096 (Qwen) | Utilisation mémoire |
 | `precision` | float (0-1) | < 0.80 | Précision du modèle |
 | `recall` | float (0-1) | < 0.85 | Rappel du modèle |
+
+**Événements**:
+- `detect_depression` : Prédiction réussie
+- `detect_depression_error` : Erreur lors de la prédiction (timeout, exception)
 
 **Alertes**:
 - 🔴 **Critique**: Precision < 0.80, Recall < 0.85, FNR > 0.10
@@ -167,16 +172,22 @@ Configuration JSON définissant les règles d'alerte pour chaque service.
 ### 4. Image Captioning
 
 **Service**: `image_captioning`  
-**Modèle**: `git-large`
+**Modèle**: `blip-base` (✅ Monitoring intégré)
 
 **Métriques**:
 | Métrique | Type | Seuil | Description |
 |----------|------|-------|-------------|
 | `latency` | int (ms) | > 2000 | Temps de traitement |
+| `is_sensitive` | bool | - | Contenu sensible détecté |
+| `caption_length` | int | - | Nombre de mots dans la légende |
 | `bleu_score` | float (0-1) | < 0.25 | Qualité de la légende |
 | `keyword_coverage` | float (0-1) | < 0.75 | Couverture des mots-clés |
 | `precision` | float (0-1) | < 0.85 | Précision |
 | `recall` | float (0-1) | < 0.90 | Rappel |
+
+**Événements**:
+- `caption_image` : Analyse réussie (sensible ou sûr)
+- `caption_image_error` : Erreur lors de l'analyse
 
 **Alertes**:
 - 🔴 **Critique**: FNR > 0.05

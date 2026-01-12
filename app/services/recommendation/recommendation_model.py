@@ -2,8 +2,10 @@
 Modèle de recommandation de posts basé sur le filtrage collaboratif user-user
 """
 from typing import Dict, Any, List
+import time
 import numpy as np
 from app.core.base_model import BaseMLModel
+from app.core.monitoring import emit_metric
 from app.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -108,6 +110,8 @@ class RecommendationModel(BaseMLModel):
         if user_id is None:
             raise ValueError("user_id est requis pour les recommandations")
         
+        start_time = time.time()
+        
         try:
             top_n = kwargs.get('top_n', 10)
             available_posts = kwargs.get('available_posts', None)
@@ -145,6 +149,25 @@ class RecommendationModel(BaseMLModel):
                     for post_id in available_posts[:top_n]
                 ]
             
+            # Calculer la latence
+            latency_ms = int((time.time() - start_time) * 1000)
+            
+            # Calculer le score moyen
+            avg_score = np.mean([rec['score'] for rec in formatted_recommendations]) if formatted_recommendations else 0.0
+            
+            # Émettre les métriques de monitoring
+            emit_metric(
+                service="recommendation",
+                event_name="generate_recommendations",
+                model_name="collaborative-filtering",
+                params={
+                    "latency": latency_ms,
+                    "recommendations_count": len(formatted_recommendations),
+                    "avg_score": float(avg_score),
+                    "user_id": user_id
+                }
+            )
+            
             return {
                 "prediction": "RECOMMANDATIONS",
                 "confidence": 1.0,
@@ -157,6 +180,19 @@ class RecommendationModel(BaseMLModel):
             
         except Exception as e:
             logger.error(f"Erreur lors de la génération de recommandations: {e}")
+            
+            # Émettre métrique d'erreur
+            latency_ms = int((time.time() - start_time) * 1000)
+            emit_metric(
+                service="recommendation",
+                event_name="generate_recommendations_error",
+                model_name="collaborative-filtering",
+                params={
+                    "latency": latency_ms,
+                    "error": str(e)[:100],
+                    "user_id": user_id
+                }
+            )
             raise
     
     def batch_predict(self, texts: List[str] = None, user_ids: List[int] = None, **kwargs) -> List[Dict[str, Any]]:

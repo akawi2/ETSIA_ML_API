@@ -194,15 +194,17 @@ class MonModele(BaseMLModel):
 ### 4. Image Captioning
 
 **Service**: `image_captioning`  
-**Event**: `caption_image`  
-**Model**: `git-large`
+**Event**: `caption_image`, `caption_image_error`  
+**Model**: `blip-base`
 
 **Métriques**:
 ```python
 {
     "latency": 1200,             # ms
-    "bleu_score": 0.35,          # 0-1
-    "keyword_coverage": 0.80,    # 0-1
+    "is_sensitive": False,       # bool - contenu sensible détecté
+    "caption_length": 8,         # int - nombre de mots dans la légende
+    "bleu_score": 0.35,          # 0-1 (optionnel)
+    "keyword_coverage": 0.80,    # 0-1 (optionnel)
     "precision": 0.85,           # 0-1 (si disponible)
     "recall": 0.90               # 0-1 (si disponible)
 }
@@ -354,7 +356,59 @@ class CamemBERTDepressionModel(BaseMLModel):
             raise
 ```
 
-### Exemple 2 : Content Generator
+### Exemple 2 : Image Captioning
+
+```python
+from app.core.monitoring import emit_metric
+import time
+
+class SensitiveImageCaptionModel(BaseMLModel):
+    def predict(self, image=None, **kwargs) -> Dict[str, Any]:
+        start_time = time.time()
+        
+        try:
+            # Génération de la légende
+            caption_en = self._generate_caption(image)
+            
+            # Détection de contenu sensible
+            is_sensitive = self._detect_sensitive_content(caption_en)
+            
+            # Calculer la latence
+            latency_ms = int((time.time() - start_time) * 1000)
+            
+            # Émettre les métriques
+            emit_metric(
+                service="image_captioning",
+                event_name="caption_image",
+                model_name="blip-base",
+                params={
+                    "latency": latency_ms,
+                    "is_sensitive": is_sensitive,
+                    "caption_length": len(caption_en.split())
+                }
+            )
+            
+            return {
+                "prediction": "SENSIBLE" if is_sensitive else "SÛR",
+                "caption_en": caption_en,
+                "is_safe": not is_sensitive
+            }
+            
+        except Exception as e:
+            latency_ms = int((time.time() - start_time) * 1000)
+            emit_metric(
+                service="image_captioning",
+                event_name="caption_image_error",
+                model_name="blip-base",
+                params={
+                    "latency": latency_ms,
+                    "error": str(e)[:100]
+                }
+            )
+            raise
+```
+
+### Exemple 3 : Content Generator
 
 ```python
 from app.core.monitoring import emit_metric
