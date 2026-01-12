@@ -1,0 +1,246 @@
+[
+  {
+    "service": "hate_comment",
+    "metric": "precision",
+    "threshold": 0.80,
+    "operator": "<",
+    "priority": "Critique",
+    "description": "Alerte de baisse de précision"
+  },
+  {
+    "service": "hate_comment",
+    "metric": "f1_score",
+    "threshold": 0.88,
+    "operator": "<",
+    "priority": "Moyenne",
+    "description": "Alerte de diminution F1 score"
+  },
+  {
+    "service": "hate_comment",
+    "metric": "recall",
+    "threshold": 0.85,
+    "operator": "<",
+    "priority": "Haute",
+    "description": "Alerte de baisse de Recall"
+  },
+  {
+    "service": "hate_comment",
+    "metric": "false_positive_rate",
+    "threshold": 0.10,
+    "operator": ">",
+    "priority": "Critique",
+    "description": "Alertes faux positifs élevés"
+  },
+  {
+    "service": "hate_comment",
+    "metric": "false_negative_rate",
+    "threshold": 0.15,
+    "operator": ">",
+    "priority": "Critique",
+    "description": "Alerte de faux négatifs élevés"
+  },
+  {
+    "service": "hate_comment",
+    "metric": "latency",
+    "threshold": 500,
+    "operator": ">",
+    "priority": "Moyenne",
+    "description": "Alerte temps de réponse lent"
+  },
+  {
+    "service": "image_captioning",
+    "metric": "precision",
+    "threshold": 0.85,
+    "operator": "<",
+    "priority": "Moyenne",
+    "description": "Alerte de baisse de précision"
+  },
+  {
+    "service": "image_captioning",
+    "metric": "recall",
+    "threshold": 0.90,
+    "operator": "<",
+    "priority": "Moyenne",
+    "description": "Alerte de baisse de Recall"
+  },
+  {
+    "service": "image_captioning",
+    "metric": "false_positive_rate",
+    "threshold": 0.08,
+    "operator": ">",
+    "priority": "Moyenne",
+    "description": "Alerte faux positifs élevés"
+  },
+  {
+    "service": "image_captioning",
+    "metric": "false_negative_rate",
+    "threshold": 0.05,
+    "operator": ">",
+    "priority": "Critique",
+    "description": "Alerte faux négatifs élevés"
+  },
+  {
+    "service": "image_captioning",
+    "metric": "latency",
+    "threshold": 2000,
+    "operator": ">",
+    "priority": "Moyenne",
+    "description": "Alerte temps de réponse lent (pipeline complet)"
+  },
+  {
+    "service": "image_captioning",
+    "metric": "bleu_score",
+    "threshold": 0.25,
+    "operator": "<",
+    "priority": "Haute",
+    "description": "Alerte qualité de légende faible"
+  },
+  {
+    "service": "image_captioning",
+    "metric": "keyword_coverage",
+    "threshold": 0.75,
+    "operator": "<",
+    "priority": "Moyenne",
+    "description": "Alerte couverture mots-clés"
+  },
+  {
+    "service": "depression_detection",
+    "metric": "precision",
+    "threshold": 0.80,
+    "operator": "<",
+    "priority": "Critique",
+    "description": "Alerte de baisse de précision"
+  },
+  {
+    "service": "depression_detection",
+    "metric": "recall",
+    "threshold": 0.85,
+    "operator": "<",
+    "priority": "Critique",
+    "description": "Alerte de baisse de Recall (Risque critique)"
+  },
+  {
+    "service": "depression_detection",
+    "metric": "false_positive_rate",
+    "threshold": 0.15,
+    "operator": ">",
+    "priority": "Haute",
+    "description": "Alerte faux positifs élevés"
+  },
+  {
+    "service": "depression_detection",
+    "metric": "false_negative_rate",
+    "threshold": 0.10,
+    "operator": ">",
+    "priority": "Critique",
+    "description": "Alerte faux négatifs élevés (Sécurité)"
+  },
+  {
+    "service": "depression_detection",
+    "model": "camembert-base",
+    "metric": "latency",
+    "threshold": 500,
+    "operator": ">",
+    "priority": "Moyenne",
+    "description": "Alerte temps de réponse lent (CamemBERT)"
+  },
+  {
+    "service": "depression_detection",
+    "model": "qwen2.5:1.5b",
+    "metric": "latency",
+    "threshold": 1000,
+    "operator": ">",
+    "priority": "Moyenne",
+    "description": "Alerte temps de réponse lent (Qwen)"
+  },
+  {
+    "service": "depression_detection",
+    "metric": "confidence",
+    "threshold": 0.60,
+    "operator": "<",
+    "priority": "Moyenne",
+    "description": "Alerte confiance moyenne faible"
+  },
+  {
+    "service": "depression_detection",
+    "metric": "fallback_rate",
+    "threshold": 0.05,
+    "operator": ">",
+    "priority": "Moyenne",
+    "description": "Alerte taux de fallback élevé"
+  },
+  {
+    "service": "depression_detection",
+    "model": "camembert-base",
+    "metric": "ram_usage",
+    "threshold": 2048,
+    "operator": ">",
+    "priority": "Haute",
+    "description": "Alerte mémoire élevée (CamemBERT > 2GB)"
+  },
+  {
+    "service": "depression_detection",
+    "model": "qwen2.5:1.5b",
+    "metric": "ram_usage",
+    "threshold": 4096,
+    "operator": ">",
+    "priority": "Haute",
+    "description": "Alerte mémoire élevée (Qwen > 4GB)"
+  },
+  {
+    "service": "content_generation",
+    "metric": "latency",
+    "threshold": 30000,
+    "operator": ">",
+    "priority": "Moyenne",
+    "description": "Alerte temps de génération lent (>30s)"
+  },
+  {
+    "service": "content_generation",
+    "metric": "failure_rate",
+    "threshold": 0.05,
+    "operator": ">",
+    "priority": "Haute",
+    "description": "Alerte taux d'échec élevé"
+  },
+  {
+    "service": "content_generation",
+    "metric": "inappropriate_content_rate",
+    "threshold": 0.01,
+    "operator": ">",
+    "priority": "Critique",
+    "description": "Alerte contenu inapproprié"
+  },
+  {
+    "service": "content_generation",
+    "metric": "timeout_rate",
+    "threshold": 0.03,
+    "operator": ">",
+    "priority": "Haute",
+    "description": "Alerte timeout"
+  },
+  {
+    "service": "content_generation",
+    "metric": "ram_usage",
+    "threshold": 8192,
+    "operator": ">",
+    "priority": "Haute",
+    "description": "Alerte mémoire élevée (>8GB)"
+  },
+  {
+    "service": "content_generation",
+    "metric": "ttr",
+    "threshold": 0.40,
+    "operator": "<",
+    "priority": "Faible",
+    "description": "Alerte diversité lexicale faible"
+  },
+  {
+    "service": "content_generation",
+    "metric": "repetition_rate",
+    "threshold": 0.10,
+    "operator": ">",
+    "priority": "Faible",
+    "description": "Alerte répétitions excessives"
+  }
+]

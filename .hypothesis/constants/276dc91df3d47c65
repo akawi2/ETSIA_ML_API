@@ -1,0 +1,4 @@
+# file: C:\Users\frann\PycharmProjects\ETSIA_ML_API\app\core\__init__.py
+# hypothesis_version: 6.148.6
+
+['BaseMLModel', 'ModelRegistry', 'registry']

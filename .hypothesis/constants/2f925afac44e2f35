@@ -1,0 +1,4 @@
+# file: C:\Users\frann\PycharmProjects\ETSIA_ML_API\app\services\camembert_depression\camembert_depression_model.py
+# hypothesis_version: 6.148.6
+
+[0.0, 0.02, 0.6, 0.75, 0.9, 768, 1000, 5000, '1.0.0', 'Aucune', 'Critique', 'DÉPRESSION', 'Faible', 'Moyenne', 'NORMAL', 'bert', 'camembert', 'camembert-depression', 'confidence', 'depression', 'device', 'error', 'fast', 'french', 'healthy', 'huggingface', 'llm_model', 'llm_provider', 'model', 'prediction', 'processing_time', 'pt', 'reasoning', 'severity', 'status', 'test_latency_ms', 'test_prediction', 'unhealthy', 'version', 'Élevée', 'Équipe YANSNET', '✓ Modèle réchauffé']

@@ -1,0 +1,4 @@
+# file: C:\Users\frann\PycharmProjects\ETSIA_ML_API\app\models\__init__.py
+# hypothesis_version: 6.148.6
+
+['BatchPredictRequest', 'BatchPredictResponse', 'ErrorResponse', 'HealthResponse', 'PredictRequest', 'PredictResponse', 'PredictionEnum', 'SeverityEnum']

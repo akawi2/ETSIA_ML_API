@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Hook pour empêcher les push directs sur main
+# Installation: git config core.hooksPath .githooks
+
+protected_branch='main'
+current_branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+
+if [ $current_branch = $protected_branch ]; then
+    echo "🚫 ERREUR: Push direct sur '$protected_branch' interdit!"
+    echo ""
+    echo "Workflow correct:"
+    echo "  1. Créer une branche: git checkout -b feat/ma-feature"
+    echo "  2. Pousser la branche: git push origin feat/ma-feature"
+    echo "  3. Créer une Pull Request sur GitHub"
+    echo ""
+    echo "Voir docs/GIT_WORKFLOW.md pour plus d'infos"
+    exit 1
+fi
+
+exit 0

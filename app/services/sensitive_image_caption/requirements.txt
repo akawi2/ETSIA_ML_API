@@ -1,0 +1,13 @@
+# Dépendances spécifiques au modèle de détection de contenu sensible
+
+# Vision et génération de légendes
+transformers>=4.30.0
+torch>=2.0.0
+torchvision>=0.15.0
+Pillow>=9.5.0
+
+# Traduction
+sentencepiece>=0.1.99
+
+# Utilitaires
+regex>=2023.0.0

@@ -1,0 +1,4 @@
+# file: C:\Users\frann\PycharmProjects\ETSIA_ML_API\app\main.py
+# hypothesis_version: 6.148.6
+
+[500, 8000, ' [DÉFAUT]', '*', ',', '-', '/', '/docs', '/health', '/redoc', '0.0.0.0', '=', "Arrêt de l'API...", 'Health check', "Page d'accueil", '__main__', 'app.main:app', 'available', 'detail', 'docs', 'error', 'health', 'healthy', 'is_default', 'message', 'models', 'shutdown', 'startup', 'status', 'timestamp', 'total', 'version']

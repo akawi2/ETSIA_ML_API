@@ -1,0 +1,1762 @@
+[
+  {
+    "post_id": 1,
+    "context": "**Un défi passionnant : recherche de partenaire pour notre projet de voyage d'étude !**\n\nBonjour à tous les futurs ingénieurs !\n\nLe projet de voyage d'étude que nous avons initié avec enthousiasme est maintenant en plein essor, mais il nous manque encore la touche finale. Nous recherchons désormais un partenaire qui partagerait nos objectifs et notre vision pour ce voyage enrichissant ! \n\nPour rappel, le projet consiste à effectuer des observations directes sur les infrastructures de transport du Mexique en vue d'une comparaison avec celles développées dans d'autres pays. Ce voyage nous offrira la possibilité de découvrir différentes approches techniques et culturelles tout en enrichissant nos connaissances.\n\n**Si vous ou une équipe sont intéressés, rejoignez-nous !**.",
+    "post_type": "demande d'aide",
+    "sentiment": "positif",
+    "comments": [
+      {
+        "comment_id": 1,
+        "content": "\"J'ai pris connaissance de votre projet et je pense que c'est une excellente opportunité pour tous les participants. Pourriez-vous donner plus de détails sur les objectifs spécifiques du voyage ? Je suis également curieux de savoir comment vous comptez gérer les coûts liés à cette expédition.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 2,
+        "content": "\"J'ai lu votre appel à partenariat pour ce projet de voyage d'étude et je suis intéressé de connaître plus en détail les objectifs et les résultats attendus. Pouvez-vous nous donner des informations sur la durée du voyage, les activités que vous avez prévues et comment le partenaire s'intègrent dans l'équipe.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 3,
+        "content": "\"C'est super, je suis ravi d'apprendre que votre projet de voyage d'étude prend forme ! L'idée de comparaison des infrastructures de transport est passionnante et je pense qu'elle pourrait apporter un éclairage précieux à nos connaissances en ingénierie.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 4,
+        "content": "\"Je suis tellement enthousiaste par ce projet de voyage d'étude ! L'idée de comparer les infrastructures de transport du Mexique à celles des autres pays va nous offrir une expérience éducative et culturelle inoubliable. Je pense que c'est un excellent moyen pour nous d'acquérir des connaissances pratiques tout en étant submergés par la richesse des cultures mexicaines ! Quand est-ce qu'on peut commencer à planifier ?\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 5,
+        "content": "\"Cela m'a tellement motivé de lire votre projet de voyage d'étude ! Effectuer des observations directes sur les infrastructures de transport du Mexique pourrait apporter une vision complète et riche sur le sujet, qui nous aiderait à mieux comprendre les problèmes spécifiques liés au développement du transport dans différents pays. Je suis tout simplement impatiente de découvrir davantage sur votre projet !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 6,
+        "content": "\"C'est vraiment génial de voir que votre projet prend forme ! J'ai eu la chance de participer à des missions similaires dans le passé et je peux vous assurer qu'il s'agit d'une expérience qui vous enrichira considérablement. Les infrastructures du Mexique sont en effet très intéressantes pour étudier, surtout comparées à celles de notre pays.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 7,
+        "content": "\"Je me suis inscrit à ce projet de voyage d'étude et je pense que c'est une excellente initiative pour les étudiants en ingénierie. Si vous êtes intéressés par cette opportunité de comparaison des infrastructures de transport, je recommande vivement de rejoindre l'équipe et discuter de vos idées avec eux.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 8,
+        "content": "\"Je comprends votre enthousiasme mais je suis légèrement inquiet quant à la faisabilité de ce projet. Il me semble que vous vous attendez peut-être trop vite à trouver un partenaire pour une entreprise aussi complexe et coûteuse, surtout lorsqu'il s'agit d'un voyage à l'étranger.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 9,
+        "content": "\"J'ai lu votre post et je pense que le projet de voyage d'étude pour les infrastructures de transport mexicaines pourrait être intéressant pour plusieurs étudiants du cours d'ingénierie. Cependant, j'aimerais plus de détails sur ce que vous recherchez dans un partenaire afin de mieux comprendre vos besoins.\".",
+        "sentiment": "neutre"
+      }
+    ]
+  },
+  {
+    "post_id": 2,
+    "context": "Je suis désolé, mais je ne peux pas répondre à cette demande. Si vous souhaitez un post différent, n'hésitez pas !",
+    "post_type": "confession",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 10,
+        "content": "\"J'apprécie votre disponibilité pour répondre à la demande des autres étudiants ! Si vous ne pouvez pas répondre personnellement, peut-être pourriez-vous me conseiller quelqu'un qui pourrait m'aider ?\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 11,
+        "content": "\"Je comprends votre décision de ne pas répondre à cette demande. Vous nous proposerez certainement d'autres sujets intéressants bientôt.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 12,
+        "content": "Je comprends mieux maintenant. Merci pour la clarté. J'apprécie le désir d'aider et de répondre à mes questions. Si vous avez d'autres sujets en préparation, je suis ouvert à l'idée de discuter avec vous !",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 13,
+        "content": "Je vois que tu as besoin d'un peu de motivation pour te lancer dans une nouvelle idée, c'est tout à ton avantage ! Quelle serait la demande qui t'a évoqué cette fois ? Nous sommes prêts à nous lancer dans une nouvelle aventure !",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 14,
+        "content": "Je comprends que tu sois déçu, mais cela ne change rien à la réalité, il est frustrant de voir une question ouverte et pas suivie d'effet, c'est dommage qu'une telle opportunité se soit évanouie comme par magie.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 15,
+        "content": "\"C'est compréhensible qu'il soit difficile de répondre à chaque demande en temps opportun. Si vous cherchez un post sur une autre thématique, il y a plusieurs options que nous pourrions explorer.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 16,
+        "content": "Je trouve ça très frustrant de ne pouvoir compter sur les réponses que l'on espérait. En tant qu'élève, je croyais avoir le droit à une conversation ouverte et sincère avec les autres étudiants. Malheureusement, votre réponse a été un peu trop brusque pour mon goût.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 17,
+        "content": "C'est vraiment déçu ! J'avais espéré obtenir une réponse claire à ma question et maintenant on me laisse tomber comme ça. Si vous ne pouvez pas fournir un post répondant à la demande, pourquoi même créer le post ?",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 18,
+        "content": "Je suis déçu mais je comprends votre décision de ne pas répondre à ma demande. Cela aurait été intéressant d'entendre votre point de vue sur le sujet.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 19,
+        "content": "\"Je comprends votre situation et je peux vous suggérer d'autres sujets de discussion si vous le souhaitez.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 20,
+        "content": "Je suis déçu par votre réponse, je pensais que nous étions en train de travailler ensemble sur ce sujet et que vous seriez prêt à discuter de vos idées. Votre refus soudain me laisse perplexe, puis-je savoir si c'est dû à un problème personnel ou si quelque chose ne va pas du côté des professeurs ?",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 21,
+        "content": "Je comprends que tu as été déçu par mon dernier post. Cependant, j'ai essayé d'offrir quelque chose de différent, mais cela semble ne pas être à la hauteur de tes attentes.\n\nQuelque chose qui n'a pas fonctionné comme prévu cette fois-ci ! J'espère que le prochain sera mieux et que tu pourras partager quelque chose de plus intéressant.",
+        "sentiment": "négatif"
+      }
+    ]
+  },
+  {
+    "post_id": 3,
+    "context": "**Demande d'aide : informations sur les bourses de formation**\n\nBonjour à tous,\n\nJe me pose la question suivante : comment trouver les meilleures sources de financement pour notre projet de recherche ? Notre groupe est composé principalement de débutants et nous sommes en quête des meilleures bourses pour la poursuite de nos études. \n\nDe plus, quelqu'un aurait-il quelques informations sur les types de bourses disponibles à notre niveau d'étude? Une référence concrète aiderait beaucoup dans la direction du bon chemin à suivre.\n\nMerci par avance !",
+    "post_type": "demande d'aide",
+    "sentiment": "neutre",
+    "comments": [
+      {
+        "comment_id": 22,
+        "content": "**Réponse de l'utilisateur \"Gazzo1\"**\n\nJe suis désolé mais je ne pense pas qu'il soit possible d'obtenir des informations sur les bourses de formation en posant simplement la question dans un forum public. Les meilleures sources de financement sont généralement réservées aux personnes ayant une idée claire de leurs besoins et qui ont déjà pris le temps de faire leur recherche, ce qui ne semble pas être le cas ici. Je comprends que vous cherchez des bourses mais si vous attendez que quelqu'un vienne vous aider, vous allez vous retrouver coincés avec les mêmes informations et sans résultat !",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 23,
+        "content": "\"Je vous remercie pour cette question très pertinente ! Je me suis déjà retrouvé dans la même situation quelques années plus tôt et je peux vous dire que lancer une recherche sur les bourses peut être déconcertant au début. Mais ne vous inquiétez pas, il y a plusieurs ressources en ligne qui peuvent vous aider à trouver les meilleures bourses pour votre projet de recherche. Pour commencer, vous pouvez consulter le site du gouvernement qui propose une liste exhaustive des programmes de financement pour la formation et la recherche. Vous pouvez également essayer de rechercher sur des portails de crowdfunding qui peuvent être utiles pour trouver des sponsors ou des donateurs pour votre projet. Enfin, je vous recommande d'aborder les associations professionnelles liées à votre domaine pour voir si elles proposent des bourses de formation. J'espère que ces conseils vous seront utiles et n'hésitez pas à me demander si vous avez besoin d'aide supplémentaire ! \".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 24,
+        "content": "\"Bonjour, je comprends parfaitement votre interrogation ! Je vous conseillerais de faire une recherche approfondie sur les sites du gouvernement et des associations qui financent les études supérieures. J'ai eu moi-même recours à la plateforme CampusBourse pour trouver les offres de bourses les plus adaptées à mon projet. Cela pourrait vous aider à ne pas perdre votre temps avec les informations superflues. Je serais ravi si je pouvais vous aider davantage dans votre recherche !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 25,
+        "content": "\"Je crois que je peux vous aider sur cette question. Les meilleures sources de financement pour votre projet de recherche sont souvent celles proposées par des organisations gouvernementales ou privées qui soutiennent la recherche universitaire. Vous pouvez également consulter les sites web des institutions où vous êtes inscrits, car elles souvent offrent des bourses ou des aides financières spécifiques à leurs étudiants. Concernant les types de bourses disponibles, il y a généralement trois catégories : les bourses d'études complètes, qui couvrent l'ensemble des frais de scolarité ; les bourses d'études partielles, qui financent uniquement une partie des frais de scolarité ; et les bourses de financement du matériel ou des activités. Je vous conseille vivement de consulter le site web de la Chancellerie des Universités du Québec (CUQ), qui présente un répertoire complet des programmes de bourses d'études disponibles au Québec.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 26,
+        "content": "\"Bonjour à toi également !\n\nJe comprends parfaitement ton besoin de trouver des financements pour ton projet de recherche. Il y a plusieurs sources que je peux te recommander qui peuvent t'aider.\n\nTout d'abord, tu devrais consulter les informations sur le site internet du CNPq (Conselho Nacional de Desenvolvimento Científico e Tecnológico) ou sur ceux du Capes (Conselho de Aperfeiçoamento de Pessoal de Nível Superior), qui sont des institutions gouvernementales responsables de la recherche et du développement scientifique au Brésil.\n\nDe plus, je suggère également de consulter les sites Internet de plusieurs universités ou instituts de recherche qui proposent des programmes de bourses pour soutenir les étudiants de niveau de base dans leurs projets de recherche. Tu peux essayer de te renseigner sur les différentes options disponibles, et tu seras peut-être capable de choisir celle qui correspond le mieux à tes besoins.\n\nEnfin, il est également possible que ton université ou institut offre des subventions pour soutenir la poursuite des études d'un groupe d'étudiants. Je te conseille donc de vérifier avec ton responsable académique s'il y a des subventions disponibles pour toi et tes camarades.\n\nBon courage dans ta recherche, et n'hésite pas à partager si tu as besoin d'aide supplémentaire !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 27,
+        "content": "Je comprends que vous cherchiez des informations pour votre projet de recherche mais il est vraiment regrettable que nous ne soyons pas plus avancés dans la recherche d'informations sur les bourses et que notre groupe se trouve encore en quête de financement.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 28,
+        "content": "\"J'ai vécu une expérience similaire il y a quelques années et j'ai pu bénéficier de plusieurs bourses étudiantes qui nous ont aidé à financer nos frais de scolarité. J'ai trouvé que les sources officielles du gouvernement, comme France-Éducation International et le ministère de l'Enseignement supérieur, sont des références très précieuses pour connaître les différentes bourses disponibles. En ce qui concerne les types de bourses, il y en a plusieurs selon les critères, mais la plupart sont basées sur des critères d'excellence académique ou de difficultés financières.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 29,
+        "content": "\"Salut, je te joins les mains pour ta recherche sur les bourses de formation. Pour ce qui est des sources de financement, j'ai trouvé l'Agence nationale de la recherche (ANR) très utile. Ils proposent une grande variété de subventions pour les étudiants en master. Concernant les types de bourses, il y a notamment les bourses de mobilité et celles qui financent des projets de recherche spécifiques.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 30,
+        "content": "\"Bonjour, j'ai été en quête de financement pour mes propres études et je comprends l'importance de trouver les meilleures bourses disponibles. Les bourses d'étude gouvernementales sont généralement très accessibles et elles couvrent souvent une partie des frais scolaires. De plus, vous pouvez consulter le site internet du ministère de l'éducation nationale pour obtenir des informations précises sur les différents programmes de financement disponibles.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 31,
+        "content": "\" Bonjour, j'ai compris que vous cherchiez des informations sur les bourses de formation pour soutenir vos études de recherche ! Il existe de nombreuses sources de financement disponibles pour les étudiants en recherche, notamment le programme ERASMUS+ qui offre des bourses d'étude et de recherche à des niveaux de cursus différents. Pour trouver les meilleures options pour votre projet, je vous recommanderais de consulter les sites officiels des organismes nationaux de recherche tels que l'ANR (Agence Nationale de la Recherche) en France qui propose un certain nombre de bourses dans le domaine de la recherche, ou encore certains universités, qui offrent elles aussi des aides financières aux étudiants. Si vous avez besoin d'aide pour la recherche ou nécessitez une référence spécifique, n'hésitez pas à me poser la question.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 32,
+        "content": "\"Je suis un peu déçu de voir que l'on se pose encore la même question, mais je suppose qu'il faut faire les choses pour bien les faire. Je me souviens d'avoir cherché moi-même pendant des heures avant de trouver les informations dont j'avais besoin sur les bourses disponibles. Malheureusement, il est difficile de donner un conseil concret sans plus de détails, mais je pourrais suggérer de se rendre sur le site du ministère de l'Enseignement supérieur, où vous trouverez certainement une section dédiée aux aides financières.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 33,
+        "content": "\"Je pense que vous avez bien fait de demander conseil, car trouver les bonnes sources de financement peut être une tâche complexe et fastidieuse. Pour ce qui est des bourses disponibles à votre niveau d'étude, je peux vous dire qu'il existe principalement des subventions pour la formation professionnelle, les recherches et certaines aides spécifiques pour les étudiants de niveau supérieur ou débutant en recherche.\".",
+        "sentiment": "neutre"
+      }
+    ]
+  },
+  {
+    "post_id": 4,
+    "context": "Voici une blague en rapport avec le hackathon :\n\nA l'hackathon de notre école, les étudiants ont mis sur pied un projet qui permettait aux utilisateurs d'interagir avec leur propre inconscient. Un bon projet, mais il y a eu quelques dysfonctionnements techniques. Apparemment, certains des participants avaient déjà réfléchi à leurs idées pendant la pause déjeuner...",
+    "post_type": "blague",
+    "sentiment": "neutre",
+    "comments": [
+      {
+        "comment_id": 34,
+        "content": "\"Ahah, celle-là est sympa ! J'adore ces blagues qui nous font rire mais qui cachent aussi une part de vérité sur la façon dont nous travaillons parfois... C'est certainement le seul hackathon où les idées ont été cuisinées pendant la pause déjeuner. Ca me fait sourire.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 35,
+        "content": "\"C'est tellement génial ! Cette blague est vraiment inspirée de ce qui s'est passé. Je me souviens que certains d'entre nous ont travaillé pendant la pause déjeuner pour essayer de réfléchir à une solution, et j'ai cru qu'ils avaient simplement trouvé quelque chose d'original !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 36,
+        "content": "J'ai passé une bonne partie de la journée à suivre les travaux des participants au hackathon et je peux dire que ce projet était certainement l'un des plus intéressants. Malgré quelques difficultés techniques qui ont été mentionnées dans votre blague, il est évident qu'il a suscité beaucoup d'engouement chez les étudiants. L'idée de laisser l'inconscient interagir avec l'utilisateur est réellement innovante et cela nous montre à quel point nos étudiants sont capables de penser à des solutions créatives pour résoudre les problèmes du futur.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 37,
+        "content": "\"Ahah, c'est drôle ! Je me demande si les responsables du projet ont fait attention à cette blague pendant le hackathon.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 38,
+        "content": "\"J'adore ! Cette blague est vraiment drôle et nous renvoie à l'esprit de créativité qui règne lors d'un hackathon ! C'est incroyable de voir comment les participants ont pris le problème dans leur jeu, en se moquant des dysfonctionnements techniques pour ne pas dévoiler le côté plus sérieux du projet. Bravo à ceux qui ont su se mettre à l'aise et trouver le côté amusant d'une situation un peu tendue ! \".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 39,
+        "content": "\"J'aime bien cette blague, elle ressemble vraiment à ce qui se passerait dans notre école ! C'est amusant de se souvenir comment certains projets étaient mis en avant avec des idées très répandues. Peut-être qu'une autre fois on sera plus subtils.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 40,
+        "content": "\"Ahahah, j'adore ! C'est vraiment hilarant ! Je suppose que l'on pourrait dire que leur projet était plutôt... inspiré ! Et je suis curieux de savoir si ils ont réussi à résoudre les problèmes techniques ou si la solution a consisté simplement à réfléchir mieux avant la pause déjeuner !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 41,
+        "content": "\"Ahah non j'ai ri de cette blague ! La référence à l'inconscient est vraiment bien venue, mais le coup d'essai sur les participants qui auraient réfléchi pendant la pause déjeuner m'a énormément plu ! Les organisateurs de cet hackathon doivent être vachement amusants pour avoir inventé une telle histoire. Je suis désolé de dire que j'ai eu l'impression que cela était un peu trop facile... Comment ont-ils pensé à ça ?\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 42,
+        "content": "\"Ahah, c'est drôle ! Je suppose que les participants ont réellement voulu explorer l'interaction entre la conscience et l'inconscient, mais pas de manière aussi... subtile. Il faudrait peut-être donner une séance d'exercices de méditation avant le hackathon pour aider les équipes à trouver leurs idées dans leur cerveau ! J'ai bien aimé cette blague, elle me donne envie de participer au prochain événement !\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 43,
+        "content": "Je ne suis pas convaincu que cette blague soit drôle car elle s'appuie sur la découverte de quelque chose de parfaitement normal.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 44,
+        "content": "\"Ahahah, cette blague est vraiment drôle ! J'apprécie le côté ironique qu'elle a. C'est vrai que les idées géniales surgissent parfois à l'improviste, mais il faudrait peut-être expliquer aux participants comment faire profiter leur inconscient de la pause déjeuner dans un hackathon !\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 45,
+        "content": "\"Je ne pense pas que c'est drôle du tout ! Les projets de hackathon devraient être axés sur l'informatique et la programmation, pas sur les blagues maladroites. Cela n'apporte rien de positif à notre communauté étudiante.\".",
+        "sentiment": "négatif"
+      }
+    ]
+  },
+  {
+    "post_id": 5,
+    "context": "Je m'excuse, mais je ne peux pas générer ce type de contenu. \n\nSi vous voulez, j'ai une idée de post plus utile sur le thème des salles d'étude :\n\nLes salles d'étude peuvent être un endroit idéal pour se concentrer et étudier efficacement. Cependant, lorsqu'elles sont bondées, cela peut créer de l'inconfort et une atmosphère peu propice à la concentration.\n\nEn effet, les bruits provenant des conversations ou du fait que d'autres étudiants soient occupés à faire leur travail peuvent être sources de distraction. \n\nLes salles d'étude bondées pourraient donc bénéficier d'une amélioration en matière d'espace et de confort pour tous les utilisateurs, permettant ainsi aux étudiants de se concentrer sur leurs études.\n\nN'hésitez pas à me poser la question si vous avez une autre demande.",
+    "post_type": "coup de gueule",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 46,
+        "content": "Je pense que les salles d'étude sont déjà très bien équipées pour répondre aux besoins de la plupart des étudiants. Mais certainement pas mon avis général sur la question. Cela dit, en effet, je comprends pourquoi vous voudriez améliorer ces espaces car l'inconfort de se trouver dans une salle bondée peut vraiment affecter son travail et sa concentration, je pense que cela est tout à fait compréhensible.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 47,
+        "content": "Je trouve votre idée très intéressante concernant les salles d'étude, notamment l'amélioration des conditions de travail en fonction du nombre d'utilisateurs. De nombreuses universités essaient actuellement de trouver un équilibre entre la capacité de leurs salles et le confort qu'elles offrent aux étudiants.\n\nJ'ai souvent remarqué que lorsque les salles sont bondées, certaines personnes sont obligées de travailler debout ou à des horaires inhabituels pour éviter la gêne. Une amélioration en matière d'espace pourrait certainement profiter aux étudiants qui ont besoin d'un environnement calme et propice à l'apprentissage.\n\nPar ailleurs, il serait intéressant de recueillir les avis des étudiants sur leurs expériences dans ces salles pour mieux comprendre ce qu'ils attendent en termes d'amélioration.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 48,
+        "content": "Je pense que cette idée d'améliorer les salles d'étude est loin d'être prioritaire pour l'instant. Avec les coupures de financement et la réduction des effectifs enseignants, il me semble que le gouvernement devrait miser davantage sur l'infrastructure éducative plutôt que sur une amélioration cosmétique des salles d'étude.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 49,
+        "content": "Je suis désolé mais je ne peux générer de contenu incitant à la critique ou à l'hostilité. \n\nComment puis-je vous aider ?",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 50,
+        "content": "\"Absolument d'accord avec toi ! Les salles d'étude sont vraiment des espaces idéaux pour se concentrer et apprendre efficacement, mais il est vrai qu'elles peuvent devenir inconfortables lorsqu'elles sont bondées. Une amélioration en matière d'espace et de confort serait super utile pour tous les étudiants. Je suis en accord avec ton idée, nous devrions peut-être nous lancer dans une pétition pour demander à l'université de se pencher sur ce sujet !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 51,
+        "content": "Je pense que c'est une bonne idée de réfléchir aux améliorations pour les salles d'étude sur notre campus. Il est vrai qu'elles peuvent être un peu bondées parfois et cela peut affecter la concentration des étudiants. Je suppose que s'il était possible de faire quelques ajustements en terme de dimension ou d'aménagement, cela pourrait vraiment aider à créer un environnement plus convivial pour étudier.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 52,
+        "content": "\"Je suis d'accord sur votre point de vue concernant les salles d'étude bondées. Lorsque ces espaces sont trop fréquentés, il est plus difficile pour moi de me concentrer et étudier efficacement.\n\nJ'ai remarqué que certaines universités ont trouvé des solutions innovantes pour répondre à ce problème, telles que l'aménagement de salles d'étude dédiées avec écrans planchants ou la mise en place de horaires spécifiques pour minimiser la congestion.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 53,
+        "content": "\"Je suis tout à fait d'accord avec toi sur le besoin de salles d'étude plus confortables et spacieuses pour nous étudiants. En effet, lorsque les espaces sont bondés, il est difficile de se concentrer et de faire efficacement ses études.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 54,
+        "content": "J'ai vraiment apprécié votre idée de réfléchir à des améliorations pour les salles d'étude. C'est exactement ce dont nous avons besoin : un endroit propice au travail où l'on puisse étudier en paix.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 55,
+        "content": "\"Je suis d'accord avec toi sur l'amélioration des salles d'étude. Cependant, je pense que les efforts pour y parvenir sont souvent contrecarrés par le manque de financement alloué à la gestion des bibliothèques. Il est évident qu'une plus grande attention devrait être portée aux conditions de travail dans ces espaces.\".",
+        "sentiment": "négatif"
+      }
+    ]
+  },
+  {
+    "post_id": 6,
+    "context": "\"J'ai du mal à suivre le rythme de ce semestre en raison d'un planning des cours qui semble conçu pour épuiser l'essence de tout étudiant. Je passe chaque jour à me battre contre les examens, les projets et les travaux qui se croisent sans cesse, laissant peu de temps pour la réflexion personnelle ou les activités extérieures.\".",
+    "post_type": "confession",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 56,
+        "content": "\"Je comprends parfaitement ton émotion dans ce post. Les plans de cours peuvent parfois être excessivement chargés, ce qui peut rendre difficile le maintien d'une bonne gestion du temps et des priorités. Peut-être est-il préférable de demander à son conseiller pédagogique l'aide pour optimiser son planning afin de mieux concilier ses responsabilités académiques avec sa vie personnelle.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 57,
+        "content": "Je comprends ce que vous ressentez. Le semestre actuel peut être vraiment épuisant en raison d'un planning de cours très chargé. Je pense qu'il est normal d'avoir du mal à gérer tout cela, mais il faudrait essayer de mettre en place des stratégies pour mieux organiser nos temps. Qu'en dites-vous ?",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 58,
+        "content": "Je suis tout à fait d'accord avec toi sur ce sujet. La pression pour réussir et la concurrence entre les différents cours ne nous permettent pas de réfléchir ou de nous détendre en fin de journée, c'est vraiment pénible ! Pourquoi le planning ne serait-il pas conçu pour équilibrer nos besoins académiques avec notre vie personnelle ? Il me semble que la réussite à l'université devrait être comprise sous tous les aspects possibles et non uniquement sur des performances scolaires.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 59,
+        "content": "\"Je comprends parfaitement ta frustration, je me sens souvent coincé dans le même dilemme. Je pense que nous devrions faire part de nos inquiétudes à l'équipe pédagogique pour qu'ils puissent revoir leur organisation et s'assurer que les étudiants n'en subissent pas physiquement.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 60,
+        "content": "\"Je comprends votre frustration concernant le rythme et la charge de travail actuels. J'ai constaté moi-même que les cours de ce semestre se succèdent à un rythme incroyablement rapide, rendant difficile l'élaboration d'un emploi du temps équilibré.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 61,
+        "content": "Je suis complètement d'accord avec toi sur le planning actuel. J'ai l'impression que nous sommes des machines conçues pour produire de bons résultats scolaires plutôt que de véritables individus capables de prendre leurs propres décisions et faire leur propre choix. Je pense qu'il est urgent que nos professeurs s'entendent avec le service des études pour réviser ce planning qui ressemble à un exercice de survival.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 62,
+        "content": "\"Je comprends parfaitement ton frustration et je suis même heureux de le partager. Lorsque l'on est chargé d'un planning trop intense, la priorisation devient un véritable défi.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 63,
+        "content": "\"Je comprends parfaitement ta situation ! J'ai eu l'année dernière une expérience similaire et j'ai constaté que le mieux était de prioriser les cours les plus importants et de planifier des moments réguliers pour la réflexion personnelle, même si cela ne doit pas être que quelques minutes par jour. Je conseille également de négocier avec tes professeurs s'ils acceptent un délai supplémentaire pour un projet ou un examen, ils peuvent être compréhensifs et te donner un peu plus de liberté dans ton emploi du temps.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 64,
+        "content": "Je comprends parfaitement ce que vous dites. Les plans de cours qui semblent calculés pour épuiser les étudiants sont vraiment insupportables. Je trouve également qu'on nous pousse à passer notre temps entier sur l'université, ne laissant aucun espace pour nos vies personnelles ou simplement pour nous détendre un peu entre deux séries de cours et projets.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 65,
+        "content": "\"Je comprends votre frustration, il est vrai que le planning des cours peut parfois être exigeant. Il faudrait probablement que nous puissions avoir un espace de réflexion pour discuter de nos difficultés et trouver des solutions à notre problème commun. Envisagez-vous de proposer une rencontre étudiante auprès du service universitaire compétent afin qu'ils puissent mieux comprendre votre situation ?\".",
+        "sentiment": "neutre"
+      }
+    ]
+  },
+  {
+    "post_id": 7,
+    "context": "Je ne peux pas écrire de contenu qui promeut les relations romantiques entre des enseignants et leurs élèves car cela est contraire à l'éthique. Puis-je vous aider avec autre chose ?",
+    "post_type": "confession",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 66,
+        "content": "\"Merci d'avoir pris conscience de la complexité de ce sujet ! Je pense que cela montre bien ton engagement dans les valeurs académiques et sociales respectées dans notre communauté étudiante. Qu'est-ce que tu dirais d'aborder le thème de l'intégration des nouvelles technologies dans l'apprentissage ? Cela m'intéresse beaucoup, car je suis moi-même perplexe quant aux limites et à la valeur ajoutée de certains outils.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 67,
+        "content": "\"Je suis déçu que vous n'ayez pas pu offrir une assistance plus précise malgré votre bonne intention d'aider. Puisque nous ne sommes en aucune manière influencés par des relations sentimentales entre enseignants et élèves, je trouve difficile de comprendre le préjudice que cela pourrait causer.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 68,
+        "content": "\"Je comprends votre point de vue concernant la promotion des relations romantiques entre enseignants et étudiants. Cela peut créer des situations délicates dans un cadre d'apprentissage. J'ai besoin d'aide pour une recherche sur l'impact des technologies d'apprentissage en ligne sur le rendement académique. Pouvez-vous me fournir quelques informations à ce sujet ?\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 69,
+        "content": "\"J'ai compris votre position sur ce sujet et je ne vois pas l'utilité de s'engager dans une discussion à ce sujet ici.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 70,
+        "content": "\"Compréhensible que vous ayez des réserves à ce sujet.\" \n\n\"Si vous acceptez de m'aider, je voudrais savoir si vous pourriez me donner quelques suggestions d'idées pour mon essai sur le développement durable dans les pays en voie de développement.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 71,
+        "content": "\"Compris sur ton point de vue. Pourrais-tu plutôt m'aider à trouver des ressources pour améliorer mes compétences en mathématiques ? J'ai un peu de mal avec les équations.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 72,
+        "content": "\"Je suis très déçu par votre réponse ! Cela a l'air d'une raison bien faible pour ne pas participer à la discussion. Nous étions tous impatients de voir ce que vous aviez à partager sur le sujet.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 73,
+        "content": "\"Je ne comprends pas pourquoi vous refusez de nous aider. Il est frustrant que certaines personnes puissent avoir accès à des informations alors que d'autres non.\".",
+        "sentiment": "négatif"
+      }
+    ]
+  },
+  {
+    "post_id": 8,
+    "context": "J'ai eu la chance de participer à des échanges internationaux lors de mon séjour étudiant en Europe et j'ai découvert que malgré les avantages potentiels, il y a aussi beaucoup de défis à relever.\n\nTout d'abord, l'une des choses qui m'a frappé est la différence considérable dans les normes sociales. Les coutumes locales, les valeurs et même les manières d'interagir avec les autres peuvent varier significativement d'un pays à un autre. Cela peut être particulièrement déroutant pour quelqu'un qui n'est pas habitué aux différences culturelles.\n\nDe plus, je me suis rendu compte que le fait de s'intégrer dans une nouvelle communauté peut être difficile et prendre du temps. Je me souviens avoir passé beaucoup d'heures à essayer de comprendre les références locales, à apprendre l'idiome local et simplement à se sentir en confiance.\n\nEnfin, je suis revenu avec la conviction que les échanges internationaux ne sont pas toujours aussi faciles qu'on le dit. Il faut être préparé à affronter des défis tels que les difficultés linguistiques, les différences culturelles et parfois même les incompatibilités techniques.\n\nCependant, je pense que la réflexion m'a appris beaucoup sur moi-même, mon adaptation aux circonstances inattendues et ma capacité à surmonter les obstacles.",
+    "post_type": "confession",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 74,
+        "content": "\"Je suis entièrement d'accord avec ton expérience ! Je pense que c'est une chance incroyable de pouvoir vivre et étudier à l'étranger, mais cela nécessite également beaucoup de flexibilité et d'ouverture d'esprit. La capacité à s'adapter aux différences culturelles et linguistiques est vraiment un test pour nous-mêmes. Et c'est exactement ce que tu as réussi à faire ! Tu es revenu plus mature, plus tolérant et avec une vision plus large du monde.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 75,
+        "content": "\"J'apprécie sincèrement que tu partages ta expérience ! Je suis d'accord avec toi sur le fait que les échanges internationaux peuvent être enrichissants mais également éprouvants. J'ai eu l'occasion de participer à une conférence internationale où j'ai rencontré des gens venus de différents horizons, ce qui m'a laissé un excellent souvenir et a grandement contribué à mon développement personnel.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 76,
+        "content": "\"Je pense que cela est très vrai pour ceux qui ont vécu cette expérience. La prise de conscience des différences culturelles et la nécessité d'adaptation sont bel et bien là, mais il est également important de reconnaître que chaque situation est unique, même si les défis ressemblent à ceux auxquels on a déjà été confronté ailleurs. Une bonne préparation et une ouverture d'esprit peuvent rendre l'intégration beaucoup plus facile.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 77,
+        "content": "\"C'est vraiment inspirant de voir comment vous avez pu tirer des leçons positives d'une expérience qui n'a peut-être pas été aussi facile qu'on pouvait l'attendre. La capacité à se reconnaître ses propres limites et à apprendre de l'erreur est un don précieux, et je pense que c'est quelque chose que beaucoup d'étudiants pourraient tirer du votre exemple.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 78,
+        "content": "\"J'apprécie votre partage personnel des difficultés que vous avez rencontrées pendant vos échanges internationaux. Il est vrai qu'intégrer une nouvelle culture peut être un défi considérable et il est tout à fait raisonnable de reconnaître que les avantages de ces expériences sont souvent liés aux efforts personnels consentis. J'ai moi-même participé à des échanges similaires et je comprends parfaitement votre point de vue.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 79,
+        "content": "Je trouve votre compte-rendu très intéressant ! Il est tout à fait légitime de relever des défis lors d'un échange international et je pense que votre façon d'aborder les difficultés culturelles et linguistiques montre une grande maturité. C'est vrai qu'il faut être préparé à affronter divers obstacles, mais cela peut aussi se révéler très enrichissant en fin de compte.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 80,
+        "content": "\"Je comprends ce que vous dites, mais je trouve que votre expérience n'est pas représentative de la réalité pour tout le monde. J'ai essayé d'aller étudier à l'étranger mais il m'a été impossible de trouver un poste qui s'intégre bien dans mon cursus et surtout dans mes disponibilités financières, je suis donc rentré après seulement quelques mois. Je pense que les échanges internationaux ne sont pas pour tout le monde.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 81,
+        "content": "\"J'ai été impressionné par la sincérité de votre message ! Le fait que vous ayez pu partager vos expériences et les leçons apprises sur les échanges internationaux montre bien que vous êtes un étudiant très ouvert d'esprit. Je pense qu'il est formidable de constater que malgré les défis rencontrés, votre séjour en Europe s'est avéré être une expérience enrichissante qui vous a fait grandir et vous a donné des compétences précieuses pour l'avenir.\".",
+        "sentiment": "positif"
+      }
+    ]
+  },
+  {
+    "post_id": 9,
+    "context": "Je suis désolé, mais je ne peux pas répondre à cette demande. Si tu veux parler d'un sujet différent, j'ai le plaisir de l'aider.",
+    "post_type": "coup de gueule",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 82,
+        "content": "\"Compris ! Pas de problème si tu as d'autres questions ou sujets qui t'intéressent, je suis là pour les aider. Tu peux toujours revenir et discuter avec moi sur ce que tu veux.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 83,
+        "content": "Cela ne fait pas très long mais on peut commencer par ce que nous avons en tête et voir comment nous pouvons collaborer ensemble !",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 84,
+        "content": "\"Très compréhensible ! Merci pour ta franchise et ton ouverture à discuter d'un autre sujet qui te tient vraiment à cœur.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 85,
+        "content": "\"Ne t'en fais pas, c'est tout à fait compréhensible ! On peut parfaitement changer de sujet et discuter d'un autre thème qui te passionne. Je vois que tu as mentionné plusieurs sujets intéressants dans ta signature, qu'en dis-tu si on parlait un peu plus longuement sur les possibilités de stage étudiant ?\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 86,
+        "content": "\"Quelle déception ! Je croyais vraiment que nous allions discuter d'un sujet sérieux et maintenant tu me fais comprendre que tu as plus d'intérêt pour te montrer serviable avec un autre sujet plutôt que de respecter l'intégrité du dialogue initial. C'est franchement décevant.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 87,
+        "content": "\"C'est vraiment frustrant de recevoir une réponse aussi vague après s'être pris la peine d'écrire un message complet. On ne peut pas toujours choisir le sujet que l'on souhaite discuter et il faut être en droit de recevoir des réponses pertinentes, surtout si on est prêt à fournir du temps pour expliquer son problème.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 88,
+        "content": "\"Je suis vraiment déçu par ta réponse. J'espérais obtenir une aide précise sur ce sujet et non un refus abrupt.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 89,
+        "content": "\"C'est décevant que la conversation ne puisse pas continuer comme nous le souhaitions. Peut-être pourrions-nous explorer une autre idée ou sujet dans laquelle tu serais prêt à partager tes connaissances et opinions ?\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 90,
+        "content": "\"Ah bah vraiment ? Je suis déçu mais pas étonné ! Ça m'arrive souvent avec toi, une porte ouverte et aussitôt fermée. Et non merci, je ne voudrais pas discuter d'un autre sujet qui a déjà été refusé.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 91,
+        "content": "\"Très compréhensible ! On a tous besoin de temps libre parfois pour se concentrer sur nos propres sujets de recherche. Si tu veux discuter de quelque chose d'autre qui te passionne, je suis là pour t'écouter et te donner mes avis.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 92,
+        "content": "\"Ahah, pas de problème ! Je comprends que tu n'étais pas en train de discuter du sujet en question. Je vais donc essayer d'aller dans une direction plus intéressante et plus divertissante avec toi. Dis-moi, qu'est-ce que tu aimerais faire ou découvrir ce week-end ?\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 93,
+        "content": "\"Je pense que cela est tout à fait compréhensible ! Il est super de voir que tu es ouvert à discuter d'autres sujets. J'ai une idée pour un projet qui pourrait intéresser la communauté, si tu veux en savoir plus ?\".",
+        "sentiment": "positif"
+      }
+    ]
+  },
+  {
+    "post_id": 10,
+    "context": "\" Quand les fêtes étudiantes s'en mêlent... L'anecdote : j'ai vu mon prof d'informatique essayer de faire la danse du désespoir sur une table et il était en train de jouer aux jeux vidéo tout en portant un déguisement de gorille. C'est vrai, les étudiants sont vraiment très créatifs lors des fêtes !",
+    "post_type": "blague",
+    "sentiment": "positif",
+    "comments": [
+      {
+        "comment_id": 94,
+        "content": "Je pense qu'il est temps de mettre la barrière entre le rôle de professeur et celui d'étudiant. L'activité que je viens de voir n'est pas exactement ce à quoi j'ai eu affaire en classe, notamment lors des périodes d'examen où il aurait fallu se concentrer sur l'enseignement !",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 95,
+        "content": "\"Je trouve ça incroyablement ridicule. L'envoi de ses collègues à un spectacle en costume de gorille alors qu'ils sont censés faire leur travail est vraiment inapproprié et il me semble que cela a une influence sur l'atmosphère générale des événements. On ne devrait pas se débarrasser ainsi d'un moment festif\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 96,
+        "content": "\"Moi aussi j'ai assisté à cette danse du désespoir et c'est vraiment incroyable ce que l'on peut voir lors des fêtes ! Les étudiants sont vraiment capables de se débarrasser de leur stress en laissant leurs inhibitions tomber.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 97,
+        "content": "\"Mmmhahahaha c'est incroyable, je me souviens de cette soirée où mon copain s'est habillé en super-héros et a fait un montage d'images de Star Wars dans la cour du campus, ça a été une vraie scène de film ! Les étudiants sont vraiment des créatifs qui ne manquent pas de bons moments.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 98,
+        "content": "\"Je trouve cette histoire plutôt amusante ! Mon prof d'informatique avait vraiment une personnalité unique et il aimait se montrer de temps en temps.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 99,
+        "content": "Je ne suis pas d'accord que c'était amusant ou intéressant de voir mon prof d'informatique faire la danse du désespoir sur une table tout en jouant aux jeux vidéo avec un déguisement de gorille. Pour moi, cela ressemblait davantage à une tentative pour se faire remarquer et obtenir des lancers médiatiques que réellement divertissant ou créatif. Cela m'a vraiment ennuyé.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 100,
+        "content": "Je ne pense pas que cette anecdote soit si drôle qu'elle le semble. En réalité, il semblerait qu'une personne se trouve dans une situation embarrassante.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 101,
+        "content": "J'ai bien cru que j'allais vomir en le voyant essayer de se tenir debout dessus, et l'air qui sortait des haut-parleurs était vraiment désespérant. C'est peut-être pour ça qu'il n'a pas suivi ses cours, il préfère s'amuser en spectacle plutôt que de suivre les cours.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 102,
+        "content": "\"Ahah c'est génial cette anecdote ! Je me souviens encore de la fois où mon copain a essayé de faire la danse du désespoir avec une perruque en forme d'étoile, c'était trop amusant ! Les fêtes étudiantes sont vraiment les meilleures occasions pour se détendre et être soi-même.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 103,
+        "content": "Cela ressemble à une soirée de Noël très amusante ! Les professeurs sont également capables de se divertir et d'être créatifs en leur temps libre. J'apprécie qu'ils se laissent aller et montrent leurs côtés plus ludiques.",
+        "sentiment": "neutre"
+      }
+    ]
+  },
+  {
+    "post_id": 11,
+    "context": "**Problème : Stage de fin d'étude**\n\nJe me dirige vers mes études terminales et comme tous les autres élèves en fin d'études, je suis obligé de passer un stage dans une entreprise pour valider mon diplôme. La plupart des étudiants de ma promotion ont déjà trouvé leur entreprise de stage ou connaissent quelqu'un qui pourrait leur aider à trouver un stage mais moi, j'en ai bien peur, je n'ai encore pas réussi à en trouver.\n\nJ'aurais besoin d'aide pour trouver un stage dans mon domaine (ingénieur). Je suis prêt à faire tout ce qu'il faut pour y parvenir. Pourriez-vous m'aider ?",
+    "post_type": "demande d'aide",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 104,
+        "content": "\"Salut ! Je suis là pour t'aider si tu veux ! Je me souviens de la période où je cherchais aussi un stage en ingénierie, il y a quelques mois. Pour ma part, j'ai postulé à plusieurs entreprises du secteur et j'ai même rencontré certains responsables HR directement. S'il te plaît, peux-tu me donner plus d'informations sur tes spécialités d'intérêt ou les types de projets que tu aimes en ingénierie ? Je pourrais ainsi t'aider à élaborer une liste ciblée d'entreprises dans ton domaine. N'hésite pas à me poser toutes les questions ! Nous sommes là pour aider\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 105,
+        "content": "\"Salut ! Ne t'en fais pas trop, il reste encore beaucoup de temps pour trouver ton stage. En effet, bien qu'il soit vrai que la plupart des étudiants ont trouvé un poste, il y a toujours de nouvelles opportunités qui se présentent. Je voudrais te conseiller d'aller à la rencontre des entreprises dans ton domaine et de leur présenter tes compétences. N'hésite pas à demander si elles ont un stage disponible pour les étudiants en fin d'études, ils seront peut-être plus ouverts qu'ils ne le pensent au début ! De plus, tu peux essayer sur les réseaux sociaux comme LinkedIn ou Facebook, il y a beaucoup de chances que quelqu'un soit intéressé par ton projet. N'oublie pas de te montrer enthousiaste et motivé, cela sera un point positif dans ton processus de recherche d'un stage. Bonne chance !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 106,
+        "content": "\"Je comprends parfaitement votre situation ! Trouver un stage peut être vraiment frustrant, surtout lorsqu'on voit ses camarades trouver déjà leurs entreprises de stage. N'ayez pas peur, il y a encore du temps pour réussir à en trouver une qui vous convient. Je vous conseillerais de vérifier les sites web spécialisés dans les stages d'ingénieurs, ainsi que celles des sociétés du secteur auquel vous aspirez à intégrer. Si cela vous intéresse, je serais heureux de partager mes connaissances avec vous pour trouver l'accueil idéal.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 107,
+        "content": "\"Je comprends parfaitement votre inquiétude, c'est vraiment frustrant de ne pas trouver d'entreprise qui vous corresponde pour le stage ! J'ai moi-même passé des semaines à chercher un poste en stage qui correspondrait à mes compétences en ingénierie et je n'ai toujours pas réussi à en trouver. Essayez de contacter les petites entreprises du secteur, il y a souvent plus de flexibilité dans leur politique de stages qu'aux grandes entreprises.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 108,
+        "content": "\"Je comprends ton impatience à trouver un stage qui correspond à tes compétences et objectifs en tant qu'ingénieur. Peut-être que nous pourrions partager ensemble quelques idées de entreprises ou domaines d'intérêt qui pourraient s'adapter à ta formation, cela pourrait t'aider à se lancer dans une recherche plus ciblée. Envisage-tu également d'utiliser des plateformes en ligne spécialisées pour les stages ?\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 109,
+        "content": "\"Je comprends que vous traversiez une période difficile pour trouver un stage qui corresponde à vos compétences et objectifs en tant qu'ingénieur. Pour commencer, pouvez-vous me dire quel est votre domaine d'études spécifique (par exemple mécanique, électronique, etc.) ? Cela pourrait m'aider à vous donner des conseils plus ciblés sur les entreprises potentielles à contacter ou à rechercher.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 110,
+        "content": "\"Je comprends ton impatience et ton inquiétude concernant la recherche d'un stage. Il est normal que tu souhaites obtenir ton diplôme avec un bon expérience professionnelle. Pour t'aider dans ta recherche, peux-tu me donner plus de détails sur les domaines spécifiques de l'ingénierie qui te sont les plus intéressants ? Et as-tu déjà consulté les sites web des entreprises que tu souhaiterais travailler avec ou ceux proposant des stages en ingénierie?\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 111,
+        "content": "\"Je comprends bien ta situation et je te souhaite bonne chance pour trouver un stage qui te convient. Il est normal que cela puisse être difficile car il y a souvent beaucoup de candidats compétitifs dans le domaine des ingénieurs. Voici quelques conseils qui pourraient t'être utiles : tu pourrais essayer de consulter les sites web d'employeurs en ingénierie pour trouver des opportunités de stages ou même des offres de travail potentielles. Tu devrais également essayer de contacter directement des entreprises du domaine que tu souhaites rejoindre et leur demander si elles ont besoin de candidats pour un stage.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 112,
+        "content": "\"J'ai bien compris votre situation et je vous comprends. Le stage est une étape très importante pour terminer vos études et il ne faut pas hésiter à demander de l'aide. Pour commencer, nous devrions peut-être aller plus profond dans le domaine spécifique qui vous intéresse et les exigences que votre école attend des stages.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 113,
+        "content": "\"Je comprends votre situation et je peux vous donner quelques conseils sur la façon de trouver un stage dans le domaine d'ingénierie. Tout d'abord, assurez-vous d'avoir bien actualisé vos informations de profil sur les portails spécialisés pour les stages universitaires. De plus, essayez de contacter directement les entreprises que vous souhaitez intégrer afin de leur faire connaître votre intérêt et votre disponibilité. Si vous avez besoin d'aide pour cibler certaines entreprises en fonction de vos préférences, je serais ravi de vous aider à identifier celles qui correspondent le mieux à vos attentes.\".",
+        "sentiment": "neutre"
+      }
+    ]
+  },
+  {
+    "post_id": 12,
+    "context": "Je connais bien le feeling ! Je me sens coincé entre mes notes et mon manque de compréhension. Je passe plus d'heures à réviser que de temps libre pour faire autre chose.",
+    "post_type": "confession",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 114,
+        "content": "Je sais exactement ce que vous ressentez. Je passe aussi une éternité à étudier et je me sens comme épuisé tout le temps. Les notes sont vraiment importantes mais cela ne signifie pas qu'on doit se sacrifier pour les obtenir, n'est-ce pas ? On doit trouver un moyen d'équilibrer nos études avec notre vie personnelle pour éviter la dépression !",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 115,
+        "content": "\"Je comprends parfaitement ce que tu ressens, il est vrai que les études peuvent être une source de stress important. Je pense que l'essentiel est de trouver un rythme révisant qui te convienne et à adapter tes méthodes d'apprentissage pour qu'elles soient plus efficaces.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 116,
+        "content": "\"Je comprends exactement ce que tu resens ! Je me sens comme prisonnier de mes devoirs et études, jamais la chance de se détendre vraiment.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 117,
+        "content": "\"Je comprends exactement ce que vous ressentez. La situation est très tendue pendant la période de révision et il est facile d'en oublier les activités que l'on aime. Avez-vous découvert des stratégies pour répartir vos efforts entre la révision et le temps libre ?\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 118,
+        "content": "\"Je comprends vraiment ce que tu resens ! Je suis passé par la même situation il y a quelques mois et je te dis que tout ira bien. La clé est de trouver un rythme de travail qui te convient, en révisant régulièrement mais sans oublier à prendre du temps pour toi aussi. C'est là où j'ai découvert l'importance d'une planification efficace et de moments de détente entre les études. Ça ne change pas le coup de l'examen, mais ça te permettra de mieux gérer la pression.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 119,
+        "content": "Je comprends mieux pourquoi tu es découragé, il est normal de ressentir ce sentiment, mais il faudrait que nous trouvions une solution pour équilibrer nos études avec d'autres activités. Peut-être que si on organise notre temps différemment, nous pouvons gérer les deux ?",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 120,
+        "content": "\"Je comprends parfaitement ce dont tu parles ! Je passe aussi beaucoup d'heures à réviser, mais je me suis dit que si je pouvais trouver un rythme qui convient à mes besoins, je pourrais gérer ma charge de travail et avoir du temps pour faire les choses que j'aime. Il est super qu'on se comprenne !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 121,
+        "content": "\"J'ai compris comment ça se passait, et je t'assure, tu es loin d'être le seul ! Pour moi, la clé était de trouver un système de révision qui me permettait de manger un peu plus dans mon temps libre, plutôt que de l'utiliser uniquement pour la préparation. Ça a mis du temps avant que ça marche, mais avec un travail équilibré, j'ai fini par avoir une meilleure compréhension des sujets et ma note en général s'en est retrouvée à peu près améliorée !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 122,
+        "content": "\"C'est vrai que la période des examens peut être très difficile à gérer. Mais je pense qu'il est important de rester calme et de ne pas se laisser dépasser par le stress. Essayer d'organiser son temps pour réviser régulièrement, mais aussi prendre du temps pour se détendre avec des activités qui vous plaisent, cela peut vraiment aider à garder une bonne équilibre.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 123,
+        "content": "\"Ah non, c'est comme si tu te retrouvais prisonnier de tes études ! J'ai eu des moments où j'en avais juste marre de réviser sans arrêt et je me demandais même si tout ça avait un sens.\".",
+        "sentiment": "négatif"
+      }
+    ]
+  },
+  {
+    "post_id": 13,
+    "context": "Je suis désolé, mais je ne peux pas répondre à cette demande. Souhaitez-vous que j'écrive plutôt une publication sur ce sujet avec un ton critique de manière positive ?",
+    "post_type": "coup de gueule",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 124,
+        "content": "\"Je pense que vous avez raison de refuser cette demande si cela signifie mettre en danger vos propres ressources. Cependant, écrire une publication critique sur ce sujet pourrait être un excellent moyen d'aider les autres à comprendre ses implications.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 125,
+        "content": "C'est franchement décevant de voir que vous ne pouvez pas répondre aux questions des étudiants alors qu'ils ont besoin de votre aide. Cela me semble plutôt étrange et inacceptable d'un point de vue pédagogique, surtout lorsque l'on considère l'impact sur leur travail.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 126,
+        "content": "\"Ce serait génial d'avoir votre point de vue sur le sujet ! Un article critique mais positif pourrait nous faire réfléchir ensemble et donner à chacun l'occasion de partager ses idées.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 127,
+        "content": "\"Je comprends mieux votre situation maintenant et je suis impressionné par la créativité que vous avez mise dans cette proposition. L'idée d'une publication critique mais positive est très pertinente pour débattre de ce sujet, cela pourrait certainement susciter une réflexion approfondie sur le forum.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 128,
+        "content": "Je trouve votre réaction quelque peu évasive. Vous vous êtes engagé à contribuer à ce forum et maintenant vous refusez de donner une réponse claire sur une question simple. \n\nSi vous voulez vraiment partager vos idées, il faudrait les exprimer avec plus de clarté pour que nous puissions discuter sincèrement.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 129,
+        "content": "\"Je comprends votre position et je pense que c'est parfaitement légitime. Votre idée de publication sur le sujet m'a paru très intéressante.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 130,
+        "content": "\"Je comprends votre désir d'aborder cette question sous forme d'article. Cela permettrait peut-être à davantage de gens de participer et de se former sur ce sujet. Quels seraient les axes que vous souhaitez aborder dans cet article ?\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 131,
+        "content": "C'est vraiment frustrant de ne pas recevoir de réponse alors que nous sommes dans l'attente de l'aide de quelqu'un depuis déjà quelques jours ! J'ai cru comprendre qu'on travaillait ensemble en équipe, mais je commence à douter de la pertinence de cette collaboration.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 132,
+        "content": "\"Je pense qu'une publication serait vraiment intéressante ! Une analyse critique mais positive pourrait donner une nouvelle perspective à ce sujet et inciter les gens à réfléchir de manière plus profonde.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 133,
+        "content": "Je pense qu'il serait intéressant d'explorer plus en détail le point de vue des deux auteurs. Le ton critique et positif pourrait également se combiner en une publication neutre qui donne la parole aux différentes opinions présentes dans le sujet étudié.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 134,
+        "content": "\"Ahah, je vois que vous êtes encore à la recherche d'un peu de créativité ! La publication pourrait être un bon moyen pour aborder le sujet sous un angle différent, cela ne me dérange pas du tout.\".",
+        "sentiment": "neutre"
+      }
+    ]
+  },
+  {
+    "post_id": 14,
+    "context": "Bien sûr, voici un article pertinent concernant le sujet des problèmes de logement :\n\nLa question du logement est au cœur de nombreuses préoccupations sociales et politiques dans la plupart des pays développés, en raison d'un écart croissant entre l'offre disponible sur le marché et la demande pressante. La situation est encore plus critique pour les ménages à revenus modestes ou faibles, qui se retrouvent souvent confrontés à un manque de possibilités de location ou d'achat d'un logement convenable dans leur localité.\n\nCette question ne doit pas être négligée, car elle a des répercussions importantes sur la qualité de vie et les conditions de travail des individus. En effet, le problème du logement peut se traduire par un risque accru de déplacement vers les zones périphériques ou les bidonvilles, ce qui conduit à une diminution significative de la qualité des services publics et des infrastructures, notamment en matière d'éducation, de soins de santé et de transports.",
+    "post_type": "information utile",
+    "sentiment": "neutre",
+    "comments": [
+      {
+        "comment_id": 135,
+        "content": "C'est vraiment important de traiter ce sujet avec attention car il a une répercussion directe sur notre qualité de vie. Les conditions dans lesquelles vivent des millions de gens sont souvent inacceptables et cela ne peut pas continuer ainsi. Cela nécessite une réflexion approfondie pour trouver des solutions efficaces.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 136,
+        "content": "\"Je suis entièrement d'accord avec l'article, il est vraiment important que nous abordions la question du logement de manière urgente ! La réalité que des familles sont obligées de se déplacer loin de leur communauté pour trouver un toit convenable est absolument choquante et nécessite notre attention collective. Le problème n'est pas seulement lié à la qualité de vie, mais également aux conséquences sur le tissu social, les écoles, les hôpitaux et même l'environnement\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 137,
+        "content": "Je pense que ce problème de logement ne fait que s'aggraver au fil des années, il est vraiment inacceptable que certains individus soient contraints de vivre dans des conditions insalubres ou même d'être expulsés de leurs maisons à cause du coût élevé. Cela n'est pas seulement un problème personnel, mais également une question sociale importante qui doit être traitée avec plus d'attention et de priorité par les responsables politiques.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 138,
+        "content": "\"Je trouve intéressant que cet article mette en lumière l'importance de résoudre les problèmes de logement dans nos sociétés actuelles. En effet, un manque de possibilités de location ou d'achat d'un logement convenable peut avoir des conséquences significatives sur la qualité de vie et les conditions de travail des individus. Il me semble que l'élaboration de politiques publiques efficaces pour répondre à cette question est essentielle pour améliorer la situation.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 139,
+        "content": "\"Je suis désolé mais ce problème du logement me semble épineux depuis trop longtemps déjà, c'est vrai que l'offre ne parvient pas à suivre la demande et cela se ressent fortement sur les populations défavorisées qui ne peuvent même plus envisager un avenir stable en termes de résidence. Je crains que ces décisions politiques ne soient pas suffisamment réactives face à cette réalité, ce qui rend difficile l'espérance d'améliorations pour certaines communautés.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 140,
+        "content": "J'ai trouvé intéressant le lien vers cet article, il me semble que cela pourrait être une bonne introduction à la discussion sur les difficultés de logement. La situation est effectivement très complexe et les conséquences de ce problème peuvent avoir des effets durables sur les individus concernés ainsi que sur l'environnement social et économique dans son ensemble.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 141,
+        "content": "Je trouve ce sujet très intéressant car il touche à la vie quotidienne des gens. Le fait que les ménages à revenus modestes ou faibles soient confrontés à un manque de possibilités de logement est une réalité qui doit être abordée avec urgence, afin qu'ils puissent bénéficier d'un environnement décent et de services publics accessibles. Cela nécessite une réflexion collective pour trouver des solutions efficaces.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 142,
+        "content": "\"J'accepte entièrement votre analyse sur la situation des problèmes de logement dans notre pays, mais malheureusement il semblerait que les politiques en place ne soient pas suffisamment efficaces pour résoudre ces difficultés de manière adéquate. Il est regrettable de constater que les individus à faible revenu sont les plus touchés par ce problème et se retrouvent dans l'obligation de déménager vers des zones moins développées, entraînant ainsi une détérioration significative de leur qualité de vie.\".",
+        "sentiment": "négatif"
+      }
+    ]
+  },
+  {
+    "post_id": 15,
+    "context": "\"Les stages, c'est comme la vie ! On sait que quelque chose de nouveau va arriver, mais on ne sait pas exactement quand et comment. Alors, à tous les étudiants qui viennent juste d'entamer leur stage en fin d'études, je vous souhaite une grande réussite dans cette nouvelle aventure professionnelle ! Quelles seront vos premières impressions ? Un début de stage enthousiasmant ou plus difficile que prévu ? Partagez-nous votre histoire !\".",
+    "post_type": "blague",
+    "sentiment": "positif",
+    "comments": [
+      {
+        "comment_id": 143,
+        "content": "\"J'ai commencé mon stage hier et je dois dire que c'est une expérience enrichissante ! J'étais un peu inquiet avant de commencer mais les premières impressions sont vraiment positives, le service est très professionnel et j'ai l'impression de travailler avec des personnes passionnées. L'ambiance du lieu de travail est également très accueillante. Je suis impatient de découvrir toutes les étapes de ce stage !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 144,
+        "content": "\"J'ai eu le même avis sur les stages en fin d'études que vous. Bien sûr, c'est une expérience inoubliable pour tous les étudiants qui y participent. Personnellement, je trouve qu'une partie des problèmes rencontrés lors de mes stages se sont avérés être liés à l'adaptabilité, car il faut s'adapter très rapidement à un environnement complètement nouveau et parfois différent des attentes que l'on avait construites en prévision. Quelques jours après le début de mon stage, j'ai réalisé que la clé pour réussir était vraiment d'être ouvert d'esprit et prêt à apprendre chaque jour, même si les tâches et les responsabilités qui nous étaient confiées au début peuvent paraître simplistes par rapport aux attentes que l'on se faisait. Cela me semble être une chose à prendre en compte dans la prise de décision concernant la poursuite d'une formation ou un diplôme complémentaire après son stage.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 145,
+        "content": "J'ai entamé mon stage il y a deux semaines et pour moi, c'est plutôt une expérience mixte. D'un côté, j'apprécie vraiment la liberté que nous avons maintenant de prendre des initiatives et de travailler en équipe, cela me semble beaucoup plus mature qu'une simple rédaction d'assignements. Mais d'un autre côté, je suis un peu déçue par le manque de prise en charge de nos tuteurs, on se retrouve tout seul à essayer de comprendre les missions et comment les réaliser.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 146,
+        "content": "Je trouve intéressant le début de stage de mes camarades. J'ai effectué mon propre stage l'année dernière et j'ai passé une bonne expérience qui m'a permis d'apprendre beaucoup en peu de temps. Je pense que la clé du succès dans ce type d'aventure professionnelle réside dans sa capacité à s'adapter rapidement au nouveau contexte professionnel, à se motiver pour apprendre chaque jour et à ne pas craindre les tâches complexes.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 147,
+        "content": "Je ne comprends pas pourquoi on nous met les stages si tard dans notre parcours universitaire. C'est comme s'ils nous disaient : \"vous avez passé votre temps à étudier, maintenant vous allez apprendre comment survivre en entreprise ! \". J'ai l'impression que les stagiaires sont considérés comme des élèves de dernière année et non comme des futurs diplômés prêts à conquérir le monde.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 148,
+        "content": "\"Je comprends bien la métaphore entre les stages et la vie, mais parfois je me sens dépassé par l'ampleur des tâches à accomplir. Je m'attendais à une meilleure intégration dans l'équipe et une réelle implication dans le projet de cours qui nous est confié.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 149,
+        "content": "Je pensais que c'était parti pour être une expérience professionnelle enrichissante et constructive mais il faut dire que la réalité est loin de mes attentes, je me sens complètement perdu dans mon environnement de travail et les tâches confiées ne sont pas du tout en adéquation avec ma formation universitaire.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 150,
+        "content": "J'ai entamé mon stage il y a quelques semaines et j'ai eu l'occasion de vivre différentes expériences. J'ai appris à gérer un nouveau quotidien et je me suis adaptée aux nouvelles exigences professionnelles. En plus, la communication avec mes collègues est facile, ce qui m'aide beaucoup dans mon apprentissage.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 151,
+        "content": "Je commence à me poser des questions sur le caractère réel de certains stages proposés dans notre école. J'ai remarqué qu'il y a certaines entreprises qui se démarquent par leur approche innovante et adaptée aux besoins actuels du marché, mais je ne peux pas m'empêcher de penser que la plupart des autres sont des opportunités de formation plutôt que d'échanges.",
+        "sentiment": "neutre"
+      }
+    ]
+  },
+  {
+    "post_id": 16,
+    "context": "Bonjour à tous,\n\nJe me pose des questions quant au système de transport actuel pour nous étudiants. Lorsque je regarde les horaires des transports en commun, il m'apparaît que ceux-ci ne correspondent pas toujours avec mes cours et activités scolaires.\n\nSouhaitez-vous partager vos expériences sur le covoiturage ? Pensez-vous qu'il faudrait mettre en place un tel système pour nous permettre de mieux coordonner nos déplacements et réduire ainsi les coûts et la congestion routière ?",
+    "post_type": "demande d'aide",
+    "sentiment": "neutre",
+    "comments": [
+      {
+        "comment_id": 152,
+        "content": "\"Je suis entièrement d'accord avec toi, la coordination des transports en commun n'est pas toujours simple et efficace. J'ai personnellement essayé le covoiturage dans ma résidence étudiante il y a quelques mois, et je dois dire que cela m'a été très utile ! En plus de réduire mes dépenses pour les transports, j'ai eu l'occasion de discuter avec des camarades intéressants. Je pense qu'un tel système serait extrêmement bénéfique à notre communauté étudiante, nous pourrions partager nos informations et ajuster ensemble nos horaires afin d'avoir une meilleure mobilité sur le campus.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 153,
+        "content": "\"J'ai eu l'impression que le covoiturage ne fonctionnerait pas vraiment pour moi car je m'entasse déjà dans mon bureau. Je pense qu'une amélioration des transports en commun serait plus efficace pour tous, mais cela nécessite probablement une planification minutieuse.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 154,
+        "content": "\"Je suis complétement d'accord avec votre remarque ! J'ai aussi l'impression que les horaires des transports ne correspondent pas à nos besoins. Cependant, j'ai découvert un groupe de covoiturage sur une plateforme étudiante qui est vraiment sympa, nous pouvons ainsi échanger nos trajets et économiser du temps et de l'argent ! Ça aurait dû être mis en place par la direction de notre université depuis longtemps.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 155,
+        "content": "Je trouve que votre question est vraiment pertinente. En effet, le système de transport actuel peut parfois être difficile à adapter à notre emploi du temps, surtout pour les cours qui commencent tôt ou se terminent tard. J'ai moi-même expérimenté la difficulté d'accéder aux transports en commun avec les horaires proposés. Quant au covoiturage, je pense qu'il serait utile de l'étudier comme alternative à ce problème.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 156,
+        "content": "\"Je suis tout à fait d'accord avec le propos de l'auteur. J'ai déjà expérimenté des difficultés en matière de planification des transports en commun pour me rendre aux cours de l'après-midi, les bus ont souvent des heures de passage qui ne correspondent pas à mes horaires scolaires. Le covoiturage semble être une solution intéressante pour réduire les coûts et la congestion routière. Cependant, il faudrait qu'un système soit mis en place pour sécuriser le trajet en covoiturage et permettre aux étudiants de s'inscrire facilement pour trouver des convives de voyage. Sans cela, cela ne serait pas pratique pour les étudiants qui n'auraient pas d'autres solutions de transport.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 157,
+        "content": "\"Je suis tout à fait d'accord avec vous sur ce sujet ! Le covoiturage semble être une solution bienvenue pour les étudiants, nous sommes déjà nombreux à le pratiquer en famille ou parmi nos amis, mais avoir un système centralisé et organisé permettrait de le rendre plus accessible et sûr. Il serait intéressant d'avoir la possibilité de se connecter avec des personnes du même parcours scolaire pour partager les trajets, réduire ainsi les coûts en carburant ou billets de transport, mais aussi diminuer l'impact environnemental.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 158,
+        "content": "\"Je partage ton inquiétude concernant l'adéquation des horaires de transports en commun avec notre emploi du temps scolaire. Je pense qu'un système de covoiturage pourrait être un avantage, mais il faudrait également tenir compte des difficultés de mise en place d'un tel système, comme la gestion des demandes et le respect des échanges entre les utilisateurs.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 159,
+        "content": "\"Effectivement, il est vrai que le système de transport en commun peut être difficile à gérer pour les étudiants, surtout lorsqu'il faut faire correspondre nos horaires scolaires avec ceux des transports. Je suis d'accord avec vous sur la nécessité d'une meilleure coordination dans les déplacements. Mais, plutôt qu'un simple covoiturage, je pense que nous devrions peut-être envisager une réforme plus globale du système de transport en commun pour adapter ses horaires et ses lignes aux besoins des étudiants.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 160,
+        "content": "\"Effectivement, je pense que c'est un sujet très intéressant pour nous étudiants qui sommes fréquemment dépendants du système de transport en commun pour assister aux cours et à nos activités scolaires.\n\nJ'ai constaté que le covoiturage peut être une excellente solution pour s'affranchir des transports publics, mais il faudrait évidemment organiser cela d'une manière structurée. Il me semble que la mise en place d'un tel système nécessiterait un engagement de notre part pour l'exploiter à fond et donc peut-être bénéficier de son efficacité optimale.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 161,
+        "content": "\"Absolument d'accord avec vous sur le fait que les horaires des transports en commun ne correspondent pas toujours aux besoins de la plupart des étudiants. Le covoiturage est une solution logique pour résoudre ce problème. Je peux vous dire que j'ai déjà pratiqué cela à l'université où j'étudie, et nous avons créé un groupe Facebook pour coordonner les déplacements entre amis et camarades de classe. Cela a vraiment aidé à réduire nos coûts en carburant et à diminuer la congestion routière ! Je pense qu'il serait super intéressant de mettre en place un tel système sur notre campus.\".",
+        "sentiment": "positif"
+      }
+    ]
+  },
+  {
+    "post_id": 17,
+    "context": "Je vous propose une blague évoquant la canteen :\n\n\"Et si demain nous faisions preuve d'un esprit créatif et que nous appelions la cantine \"la cuisine de l'utopie\" ? Alors, peut-être arrivera-t-il à se racheter son réputation. On sait tous que la nourriture y est bonne, mais parfois, l'intérêt pour elle décline comme notre budget. Pour résoudre ce problème d'équilibriste, nous pourrions organiser un concours de recettes en collaboration avec les élèves cuisiniers passionnés.\".",
+    "post_type": "blague",
+    "sentiment": "positif",
+    "comments": [
+      {
+        "comment_id": 162,
+        "content": "\"Je ne suis pas convaincu que cela fonctionne vraiment. Nous avons déjà essayé des choses similaires pour motiver les élèves à venir manger dans la canteen et ça n'a pas marché.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 163,
+        "content": "\"Je pense que c'est une excellente idée ! Si nous appelons la cantine \"la cuisine de l'utopie\", cela lui donnerait probablement une nouvelle identité et pourrait inspirer les cuisiniers à créer des plats encore plus délicieux. Je suis d'accord pour organiser un concours de recettes, ce serait super ! Cela nous permettrait de découvrir de nouvelles créations et peut-être même gagner quelques prix en guise de récompense.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 164,
+        "content": "J'adore l'idée ! Une compétition de recettes pour revitaliser la canteen ça m'a vraiment fait sourire. On devrait tous se mobiliser derrière ce projet ! Ça ne serait pas seulement divertissant, mais également très enrichissant et cela pourrait même nous permettre de découvrir de nouvelles spécialités culinaires.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 165,
+        "content": "J'ai apprécié la proposition de donner une nouvelle identité à la canteen en appelant-la \"la cuisine de l'utopie\", j'aime bien le côté innovant et créatif que cela implique. J'y ai pensé moi-même, mais je ne savais pas comment le concrétiser. Je pense qu'il est important d'encourager les élèves à exprimer leur créativité, il peut même être amusant de se retrouver à faire de la cuisine en équipe.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 166,
+        "content": "\"Je pense que cette idée est sympa mais je n'en suis pas sûr qu'elle fera réellement changer les choses en profondeur dans la façon dont on perçoit la cantine.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 167,
+        "content": "Je trouve cette idée très originale et je pense qu'elle pourrait réellement faire évoluer la façon dont nous percevons notre canteen ! L'association avec les élèves cuisiniers passionnés est un aspect que j'apprécie particulièrement, cela leur donnerait l'opportunité de se mettre en avant et de nous proposer quelque chose de nouveau.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 168,
+        "content": "C'est vraiment une excellente idée ! Le concours de recettes pourra inciter les élèves à s'exprimer et à innover en cuisine, ce qui peut améliorer la qualité de la nourriture offerte dans la canteen. J'apprécie particulièrement l'idée de la collaboration avec les élèves cuisiniers passionnés ; cela leur donnera l'opportunité de partager leurs talents et de s'enrichir mutuellement. Je pense que ce projet pourrait faire une grande différence !",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 169,
+        "content": "\"Je pense que cette blague est un peu trop optimiste pour ma goûte. La cantine a besoin de beaucoup plus qu'un nom qui change et une petite compétition de recettes pour se racheter sa réputation.\".",
+        "sentiment": "négatif"
+      }
+    ]
+  },
+  {
+    "post_id": 18,
+    "context": "**Soutenez-vous mutuellement pendant ces périodes chargées !**\n\nNous savons que les semaines qui précèdent les examens peuvent être stressantes et difficiles à gérer, mais nous sommes là pour vous aider. Rappelons-nous de communiquer ouvertement avec nos camarades, en partageant nos préoccupations et nos stratégies pour surmonter ce défi ensemble.\n\nEn restant positifs et soutenant les uns les autres, nous pouvons transposer cette énergie positive dans nos examens et nous atteindre à notre plein potentiel. Souvenez-vous que l'assistance, la compréhension et le soutien mutuel sont autant d'éléments essentiels de votre parcours universitaire !",
+    "post_type": "message de soutien",
+    "sentiment": "positif",
+    "comments": [
+      {
+        "comment_id": 170,
+        "content": "J'ai trouvé utile le message et je pense qu'il vaut la peine d'être lu par tout le monde pour se rappeler de son importance, il est vrai que les périodes avant l'examen peuvent être difficiles à gérer mais avec un soutien collectif cela devient plus facile.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 171,
+        "content": "\"Je suis vraiment impressionnée par la sagesse qui nous est donnée ici. Le fait de savoir que nous ne sommes pas seuls dans cette période de fin d'année a un impact énorme sur notre moral et notre motivation ! Maintenant, je vais m'assurer de suivre le conseil et partager mes propres préoccupations avec des camarades proches pour qu'on puisse les relever ensemble\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 172,
+        "content": "Je trouve ce message encourageant et réconfortant. C'est agréable de savoir que l'on a autour de soi des personnes qui peuvent nous soutenir et comprendre nos difficultés pendant ces périodes chargées. En effet, partager ses préoccupations avec les camarades peut vraiment aider à trouver des solutions créatives et s'appuyer mutuellement pour atteindre son plein potentiel est un excellent conseil.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 173,
+        "content": "\"Je trouve que c'est une bonne idée de se soutenir mutuellement pendant cette période chargée. Surtout, je pense qu'il est important de partager nos stratégies pour les examens afin d'éviter la duplication de travail et concentrer nos efforts sur les sujets à améliorer.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 174,
+        "content": "\"C'est vraiment un bon rappel pour nous rappeler l'importance du soutien mutuel à cette période de l'année. J'ai déjà remarqué des camarades qui font preuve d'une grande solidarité et je pense que cela peut vraiment aider.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 175,
+        "content": "Je comprends votre intention de soutenir les étudiants pendant cette période stressante. Cependant, parfois, il faut bien reconnaître que chaque personne a sa propre manière de gérer le stress et que forcer la communication ouverte peut ne pas être viable pour tout le monde. J'ai eu des moments où je me sentais si accablé que je préférais mener mes réflexions seuls, plutôt que d'embarrasser les autres avec mes problèmes.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 176,
+        "content": "\"Très bien dit ! C'est exactement ça la mentalité qu'on doit adopter pendant ces périodes chargées. En nous soutenant mutuellement, on peut vraiment faire face à tous les défis que nous allons rencontrer. J'apprécie vraiment l'esprit de communauté qui se dégage de ce message.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 177,
+        "content": "\"Je trouve qu'il est plutôt sympa que nous fassions preuve de solidarité durant cette période chargée en partageant nos stratégies de travail ou nos méthodes d'apprentissage. Cela peut être utile pour certains étudiants qui ont du mal à gérer le stress. \".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 178,
+        "content": "Je suis complètement d'accord avec cette post et je pense que c'est exactement ce dont nous avons besoin en ce moment ! Nous sommes tous passés par des moments difficiles pendant les périodes chargées de l'année universitaire, mais il est essentiel de rester unis et de s'aider mutuellement. En partageant nos stratégies pour résoudre le stress et en soutenant les uns les autres, nous pouvons vraiment atteindre notre plein potentiel et réussir dans nos examens. Je suis très heureux que notre communauté étudiante se soit rassemblée autour de cette idée !",
+        "sentiment": "positif"
+      }
+    ]
+  },
+  {
+    "post_id": 19,
+    "context": "\"Je trouve incroyable la façon dont les étudiants de notre école se mobilisent autour des bourses et des financements ! Chacun d'entre nous a sa propre stratégie pour réussir à concrétiser ses rêves, que ce soit en recherchant des opportunités de crowdfunding ou en participant à des programmes de mentorat. Je trouve cela particulièrement inspirant de voir comment les étudiants s'unissent et se soutiennent mutuellement dans leurs efforts pour obtenir l'aide financière nécessaire pour mener à bien leur projet. C'est vraiment un aspect très enrichissant de notre communauté.\".",
+    "post_type": "confession",
+    "sentiment": "positif",
+    "comments": [
+      {
+        "comment_id": 179,
+        "content": "\"Je ne suis pas aussi optimiste quant à la capacité de nos camarades à obtenir les financements dont ils ont besoin. Je pense que beaucoup d'entre eux se laissent trop influencer par les stratégies des autres et n'y voient souvent qu'un moyen pour atteindre un but plutôt que d'envisager leur projet sous l'angle pratique.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 180,
+        "content": "\"Je suis complètement d'accord ! Chacun de nous a sa propre façon de se battre pour atteindre ses objectifs et c'est vraiment inspirant de voir comment notre communauté s'entoure et s'appuie mutuellement. Je pense que cela montre à quel point nous sommes capables de faire preuve de solidarité et d'aide réciproque, ce qui ne fait pas partie des aspects les plus courants des expériences universitaires.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 181,
+        "content": "\"En effet, il semble que la communauté étudiante soit très pro-active en ce qui concerne l'obtention des bourses et des financements. C'est un aspect vraiment positif de notre école, car cela encourage les élèves à être créatifs dans leur recherche d'aide financière.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 182,
+        "content": "\"Je suis complètement d'accord avec vous ! Il est admirable de voir la force de l'esprit d'équipe qui règne parmi les étudiants de notre école. L'initiative et le dévouement qu'ils montrent sont vraiment inspirants, et cela donne lieu à une atmosphère très positive sur le campus. C'est un véritable avantage pour nous de faire partie de cette communauté.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 183,
+        "content": "\"Je suis complètement d'accord avec toi ! Je trouve que c'est vraiment la force de notre école : nous sommes capables de nous unir et de partager nos connaissances pour aider les uns les autres. Et je pense aussi que ces initiatives montrent le niveau d'engagement des étudiants dans leur parcours universitaire, ce qui est un aspect vraiment positif !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 184,
+        "content": "Je suis tout à fait d'accord ! Je trouve que notre école a une véritable force en matière de solidarité et de soutien mutuel. Les étudiants sont vraiment motivés pour réussir, comme le prouve l'attention portée aux bourses et financements disponibles.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 185,
+        "content": "\"Je pense que c'est vrai qu'il y a beaucoup d'étudiants engagés dans les bourses et les financements pour leurs projets personnels. Il existe probablement plusieurs façons de réussir à obtenir le soutien financier nécessaire, comme le crowdfunding ou les programmes de mentorat.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 186,
+        "content": "Je pense que cette émotion collective et la confiance mutuelle qu'elle engendre sont tout aussi importantes pour parvenir à nos objectifs financiers. Les étudiants qui se sentent soutenus et encouragés dans leurs recherches de financement peuvent se montrer plus persévérants et déterminés à obtenir le soutien nécessaire.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 187,
+        "content": "\"Je suis d'accord sur le fait que les étudiants sont actifs et déterminés à obtenir les bourses dont ils ont besoin. Il est cependant intéressant de noter comment cette dynamique peut également créer des pressions sociales pour certains élèves, qui se sentent mal à l'aise ou en difficulté face aux performances académiques attendues.\".",
+        "sentiment": "neutre"
+      }
+    ]
+  },
+  {
+    "post_id": 20,
+    "context": "Titre : Comment améliorer l’offre associative étudiante de notre école ?\n\nBonjour à tous,\n\nNous recherchons actuellement des idées innovantes et créatives pour enrichir le monde associatif sur notre campus. Nous voulons créer un environnement qui permet aux étudiants de se rencontrer, de partager leurs passions et d'apprendre les uns des autres.\n\nActuellement, nous avons différentes associations proposant une grande variété de sujets, du sport au divertissement en passant par la solidarité. Malheureusement, nous pensons qu'il existe encore un grand potentiel d'associations pouvant être créées pour répondre aux besoins spécifiques des étudiants.\n\nSi vous avez des idées ou des projets qui pourraient offrir une nouvelle expérience associative, n'hésitez pas à partager votre vision avec nous. Nous serions ravis de discuter de vos propositions et de travailler ensemble pour les faire prendre forme.\n\nMerci d'avance à tous ceux qui participeront à cette conversation !",
+    "post_type": "demande d'aide",
+    "sentiment": "positif",
+    "comments": [
+      {
+        "comment_id": 188,
+        "content": "\"J'ai adoré la proposition de créer un environnement associatif plus riche et diversifié sur notre campus. Cela me semble vraiment intéressant ! Nous pourrions peut-être envisager la création d'une association qui propose des ateliers de photographie ou de peinture, ça pourrait être super pour les étudiants passionnés d'art et de création.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 189,
+        "content": "\"J'ai lu le post et j'en ai une idée déjà ! Nous pourrions créer une association centrée sur l'art et la culture, proposant des ateliers de peinture, de sculpture ou même de photographie. Cela pourrait permettre aux étudiants de découvrir de nouvelles formes d'expression artistique tout en partageant leurs propres créations avec le reste du groupe.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 190,
+        "content": "\"J'adore cette initiative ! Je pense que créer une association de sharing et de partage d'outils numériques pourrait être un excellent choix pour nos étudiants qui souhaitent améliorer leurs compétences en informatique tout en apprenant les uns des autres. Nous pourrions organiser des ateliers pratiques, des séances de tutorat, voire même une bibliothèque partagée d'outils numériques pour aider les étudiants à se familiariser avec les dernières tendances dans le domaine.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 191,
+        "content": "\"Je suis d'accord pour dire que l'offre associative est déjà très variée sur notre campus mais il faudrait la mettre en valeur davantage. J'ai souvent entendu des étudiants dire qu'ils ne savent pas où se renseigner pour trouver les informations sur les différentes associations et leurs événements. Il serait donc intéressant de créer un site web ou une plateforme permettant aux associations de publier leurs activités ainsi que d'envoyer directement des notifications à ceux qui s'y intéressent.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 192,
+        "content": "\"Je suis sincèrement déçu par le manque de réflexion et d'innovation qui se cache derrière cette invitation à suggérer de nouvelles associations sur notre campus. Pensez-vous vraiment que la solution consiste à créer encore plus d'associations sans réellement considérer les besoins actuels des étudiants et les ressources disponibles ? Nous avons déjà suffisamment d'organisations qui ne parviennent pas à se faire entendre ou à mobiliser les effectifs, alors qu'est-ce qui nous permet de penser que nouvelles associations feraient mieux ?\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 193,
+        "content": "\"Je pense qu'il faut d'abord renforcer les associations existantes avant de créer de nouvelles. Actuellement, certaines sont mal gérées et ont du mal à trouver leur place sur le campus. Je me demande comment nous allons faire pour satisfaire toutes les demandes qui vont être formulées si nous ne mettons pas en place un système de gestion plus efficace\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 194,
+        "content": "\"J'adore l'idée de se pencher sur les besoins spécifiques des étudiants et de créer des associations qui répondent à leurs passions ! Cela me semble une excellente opportunité pour renforcer le lien entre nos camarades autour d'intérêts communs. Je pense que la création d'une association culturelle, mettant en avant l'art, la musique ou le cinéma pourrait être un excellent déclencheur !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 195,
+        "content": "\"C'est vraiment génial de voir que l'on se penche sur le développement du monde associatif sur notre campus ! J'ai moi-même eu l'idée d'une association qui pourrait organiser des ateliers créatifs en libre accès, où les étudiants pourraient venir partager leurs talents et faire découvrir de nouvelles passions. Je suis ravi de voir que vous cherchez à donner un nouvel élan aux associations étudiantes !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 196,
+        "content": "\"C'est vraiment génial de voir que l'on se mobilise pour améliorer le monde associatif sur notre campus ! J'ai eu l'idée d'une association qui organisera des sorties culturelles et artistiques régulières, comme aller au théâtre ou visiter des expositions. Cela permettrait aux étudiants de découvrir de nouvelles choses et de partager ces expériences avec leurs camarades.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 197,
+        "content": "\"J'apprécie la démarche pour renforcer le monde associatif sur notre campus, cela peut vraiment contribuer à enrichir l'expérience étudiante. Je pense qu'il serait intéressant d'organiser des événements permettant de découvrir les différentes associations déjà existantes et de favoriser la coopération entre elles.\".",
+        "sentiment": "neutre"
+      }
+    ]
+  },
+  {
+    "post_id": 21,
+    "context": "Je cherche des informations pratiques sur la vie en résidence dans les études supérieures : quels sont les principaux avantages et inconvénients ? Combien coûte généralement l'exploitation d'une résidence pour un élève étudiant ? Existe-t-il des options de logement plus abordables qui offriraient un environnement convivial ?",
+    "post_type": "demande d'aide",
+    "sentiment": "neutre",
+    "comments": [
+      {
+        "comment_id": 198,
+        "content": "J'ai également résidé en residence étudiante pendant mes années de master et je peux vous dire que cela a été l'une des meilleures décisions de ma vie ! D'abord, le côté pratique, la gestion de mon temps s'est améliorée puisque les chambres sont équipées d'équipements partagés. Pour ce qui est du coût, j'ai payé en moyenne 600 euros par mois pour une chambre simple avec un lit à lattes et des placards, mais cela dépend beaucoup de votre choix et de la localisation ! Je trouve que c'est raisonnable compte tenu de tous les avantages que vous recevez.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 199,
+        "content": "\"J'ai vécu dans une résidence il y a quelques années et j'en ai terriblement mal à l'endroit ! Pour commencer, la chambre que j'avais était petite, avec juste un lit et un placard, donc ça ne me permettait pas de mettre mon mobilier et mes affaires.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 200,
+        "content": "\"J'ai eu la chance d'expérimenter l'étape de la résidence étudiante il y a quelques années et je dois dire que ce n'est pas mon expérience la plus agréable. Les frais sont élevés, en particulier si vous êtes un élève qui a besoin de vivre seul. Même avec les subventions accordées par le gouvernement, j'ai du mal à me débrouiller pour financer mes études et mon logement en même temps. Concernant l'envie d'un environnement convivial, je pense qu'il existe effectivement des options telles que les colocataires partagés ou les appartements de groupe, mais ils n'étaient pas vraiment à ma portée financière à l'époque.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 201,
+        "content": "Je suis d'accord que les résidences universitaires peuvent être un choix pratique pour certains étudiants, mais je pense qu'il faut être réaliste quant à la qualité de l'environnement et au coût élevé qu'elles représentent. En ce qui concerne les avantages, il est vrai que les résidences offrent une certaine autonomie, car on n'est pas contraint de rentrer chez soi tous les jours pour faire sa lessive ou la cuisine, par exemple. Cependant, pour le côté inconvénient, je pense qu'il faut mentionner l'aspect très collectif qui peut être fatigant et contraignant lorsqu'on ne cherche que son propre bonheur.\n\nJ'ai moi-même envisagé de choisir cette option en entrant dans ma deuxième année universitaire mais cela me semblait trop coûteux car, il faut savoir que les frais d'inscription peuvent dépasser une centaine d'euros. En outre, le manque de personnel disponible au quotidien pour répondre aux besoins des résidants est un problème récurrent dans ces établissements.\n\nEnfin, je pense qu'il existe bel et bien des options plus abordables qui offrent également un environnement convivial comme les colocations ou les meublés étudiants. Ces logements sont souvent moins chers que les résidences universitaires et permettent à plusieurs étudiants de partager les tâches ménagères tout en restant libres d'organiser leur temps comme ils l'entendent.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 202,
+        "content": "\"Je pense que vivre en résidence est une expérience super riche ! Tu peux facilement créer des liens avec tes camarades d'appartement et les activités proposées par la résidence contribuent à créer une atmosphère conviviale dans l'ensemble de votre communauté étudiante. De plus, être entouré de personnes qui partagent le même objectif est très motivant pour réussir vos études.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 203,
+        "content": "\"Je pense que l'avantage principal d'une résidence pour étudiant est qu'elle offre une certaine autonomie tout en maintenant un lien social fort avec les autres colocataires. Les frais d'entretien sont souvent gérés collectivement, ce qui contribue à encourager la solidarité et le sens de la responsabilité.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 204,
+        "content": "\"J'ai vécu en résidence pour deux ans pendant mes études et j'ai vraiment apprécié l'expérience. L'avantage principal était le fait d'être immergé dans une communauté de camarades d'études qui étaient tous motivés et nous aidions mutuellement dans nos travaux pratiques et nos études. Nous avions également un système de partage des tâches pour s'occuper de la gestion du local, ce qui réduisait mes charges financières car je n'avais pas à payer les loyers entiers. Cependant, nous devions payer une cotisation mensuelle supplémentaire qui augmentait notre facture globale. Concernant le coût, j'ai payé environ 400 euros par mois pour un studio partagé avec deux autres étudiants. Pour les options de logement plus abordables, il y a des organismes d'habitation à loyer modéré (HLM) ou des foyers étudiants qui proposent des tarifs préférentiels pour les élèves en situation financièrement fragile ou avec un revenu moyen. J'ai même trouvé des offres de résidences universitaires partagées avec des équipements de cuisine et des espaces communs, c'est plus pratique que d'avoir son propre logement.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 205,
+        "content": "\"J'ai vécu dans une résidence universitaire l'année dernière et je peux te dire que c'est vraiment agréable ! Les avantages sont nombreux : nous avions un service de ménage régulier, un espace de travail commun avec des ordinateurs à disposition et même une salle de sport où l'on pouvait s'entraîner. Cela nous permettait d'économiser du temps et nous donnait la possibilité de partager des expériences en groupe.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 206,
+        "content": "\"J'ai personnellement vécu en résidence étudiante pendant mes études et je peux te dire qu'il y a eu plus d'avantages que de désavantages ! Le principal avantage est l'aspect communautaire : vous faites rapidement des amis parmi vos colocataires, c'est vraiment une expérience enrichissante. Concernant le coût de la résidence, il varie en fonction de la localisation et du confort offert mais généralement ça commence à 400-500 euros par mois en prenant en compte les charges. J'ai eu la chance de trouver un petit appartement en colocation avec des amis qui était plus abordable et nous avons créé une vraie famille, c'est possible de trouver ces opportunités si on s'en sort bien pour le recherche !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 207,
+        "content": "\"Je pense que les étudiants doivent s'atteler à trouver une place de parking pour leur voiture. Je ne recommande pas vraiment d'emmener sa voiture car il y a souvent des travaux dans la résidence et ce n'est pas si mal après tout\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 208,
+        "content": "Je pense que l'expérience en résidence est très enrichissante pour les étudiants car elle favorise le partage de valeurs et la formation d'un réseau solide avec ses colocataires. Cependant, il faut reconnaître également que le coût de cette option peut être difficile à supporter pour certaines familles.",
+        "sentiment": "neutre"
+      }
+    ]
+  },
+  {
+    "post_id": 22,
+    "context": "Je ne peux pas générer de contenu qui pourrait être interprété comme critique ou négatif à l'endroit d'une politique de transport en commun. Pourquoi cela vous intéresse ?",
+    "post_type": "coup de gueule",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 209,
+        "content": "Je comprends que vous avez besoin d'un ton neutre. Voici une réponse possible : \n\n\"Moi aussi, j'ai toujours pensé que les transports en commun étaient vraiment utiles pour notre communauté. Je pense qu'il vaut mieux nous concentrer sur la manière dont on peut améliorer l'efficacité du système plutôt que de parler des idées qui le critiques.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 210,
+        "content": "\"Je suis curieux de savoir comment votre travail est lié à la politique de transport en commun et si vous avez des idées concret sur améliorer la qualité du service proposé aux utilisateurs.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 211,
+        "content": "\"Je comprends vos réserves quant à l'interprétation potentielle de votre propos. Il est toutefois possible d'envisager une approche plus nuancée en analysant les différentes facettes des politiques de transports en commun, tant du point de vue des infrastructures offertes que des modalités d'accès aux services pour différents publics.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 212,
+        "content": "\"Je comprends votre point sur la nécessité de maintenir un ton neutre dans les discussions publiques, particulièrement lorsqu'il s'agit de sujets politiques sensibles comme celui des transports en commun.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 213,
+        "content": "\"Je comprends votre souci mais je pense que certains d'entre nous n'ont pas la possibilité de voyager en transports en commun à tous les moments de la journée. Cela signifie qu'il faudrait avoir une offre régulière et ponctuelle pour les personnes qui ont des horaires variés.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 214,
+        "content": "\"Je comprends parfaitement votre point de vue sur la nécessité d'appréciation objective, mais pour moi, il s'agit vraiment plus d'une quête vers l'amélioration ! Je pense que discuter du transport en commun sans jugements négatifs peut nous aider à trouver des solutions innovantes et efficaces pour répondre aux besoins de la société.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 215,
+        "content": "Je pense que c'est une question intéressante car elle ouvre la porte à des débats sur les avancées récentes en matière de mobilité collective et les possibilités qu'elles offrent en termes de développement urbain durable et plus efficient. La discussion sur ce thème pourrait également éclairer les étudiants sur l'importance de la planification urbaine et ses implications sur notre société contemporaine.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 216,
+        "content": "\"Cela me concerne parce que je pense qu'il est important d'encourager la discussion autour des politiques de transport en commun dans notre ville et de trouver des solutions innovantes pour améliorer l'accès aux transports publics, c'est un sujet qui pourrait avoir un impact significatif sur la qualité de vie des citoyens.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 217,
+        "content": "\"Je pense que votre question soulève une bonne opportunité pour discuter de la complexité des politiques de transport en commun et des perspectives d'amélioration potentielle\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 218,
+        "content": "\"Je comprends parfaitement ton désir de garder des commentaires positifs sur les politiques de transport en commun. Ce qui m'intéresse est l'opportunité pour le département des transports d'améliorer ses services, en nous impliquant plus étroitement dans la conception et le développement de leurs lignes. Il y a beaucoup à apprendre du modèle innovant que certains villes ont mis en place avec succès.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 219,
+        "content": "\"Je suis heureux d'apprendre que vous prenez soin de votre neutralité dans vos commentaires ! C'est tout à fait normal que la génération de contenu critique ou négatif soit limitée, car il est difficile de donner un avis objectif sur les politiques publiques, surtout en matière de transport. Je suppose que cela tient au manque de données et d'informations spécifiques pour prendre une décision éclairée. En revanche, je trouve intéressant de savoir comment vous abordez les aspects positifs des politiques de transports en commun ! Avez-vous envisagé d'envisager des moyens alternatifs pour présenter des informations plus objectives sur ce sujet ?\".",
+        "sentiment": "positif"
+      }
+    ]
+  },
+  {
+    "post_id": 23,
+    "context": "**Compréhension des Notes et Résultats**\n\nEn tant qu'étudiant ingénieur, il est essentiel de bien comprendre comment fonctionnent les notes et résultats dans votre établissement. Les notes vous permettent d'évaluer la qualité de vos travaux scolaires, tandis que les résultats représentent la notation finale obtenue en fin de chaque session académique.\n\nChaque matière comporte un système de notation spécifique qui prend en compte divers facteurs tels que l'implémentation, le résultat et la participation. Les notes sont généralement notées sur une échelle numérique, allant de 0 à 20, avec 10 étant la note moyenne.\n\nLes résultats, quant à eux, reflètent les efforts et les progrès accomplis par les étudiants au cours d'une session. Ils ont un impact significatif sur votre parcours universitaire, car ils peuvent vous donner accès aux promotions ou même vous exclure du programme si les résultats ne sont pas satisfaisants.\n\nIl est donc crucial de comprendre la relation entre les notes et les résultats pour réussir dans vos études d'ingénieur. Cela implique non seulement d'adopter une attitude travailleur mais aussi d'être conscient des critères de notation utilisés par votre établissement.",
+    "post_type": "information utile",
+    "sentiment": "neutre",
+    "comments": [
+      {
+        "comment_id": 220,
+        "content": "\"En effet, les notes et résultats constituent une partie essentielle de notre parcours universitaire en tant qu'étudiants ingénieurs. Il est tout à fait pertinent de comprendre comment fonctionnent ces systèmes pour évaluer la qualité de nos travaux scolaires et ajuster nos efforts afin d'atteindre les meilleurs résultats possibles.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 221,
+        "content": "\"Je suis complètement déçu par la complexité du système de notation et de résultats dans notre établissement d'ingénierie. La façon dont les notes sont attribuées en fonction de l'implémentation, le résultat et la participation peut être difficile à comprendre et il semble y avoir des inégalités dans la manière dont les notes sont distribuées entre les étudiants.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 222,
+        "content": "Je trouve cette explication trop simpliste et ne correspond pas à ce que j'ai vécu moi-même en tant qu'étudiant en ingénierie. La notion de \"note moyenne\" qui est toujours mentionnée comme étant 10 me paraît un peu trop subjective, car elle n'est pas clairement expliquée dans les documents officiels de notre établissement. \n\nCette explication nous donne l'impression que tout le monde arrive à réussir en suivant une méthode particulière, mais il y a beaucoup d'aspects qui ne sont pas pris en compte comme la difficulté du cours, le niveau de concurrence pour les notes, etc. Il faut être plus réel dans nos commentaires et non seulement nous limiter à donner des conseils trop généraux.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 223,
+        "content": "\"Je pense qu'il est tout à fait pertinent de souligner l'importance d'une compréhension claire des critères de notation en ingénierie. En effet, c'est une étape essentielle pour adapter ses efforts aux attentes de l'établissement.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 224,
+        "content": "\"Je suis tout à fait d'accord avec l'auteur sur la nécessité de comprendre comment fonctionnent les notes et les résultats dans notre établissement. En tant qu'étudiant ingénieur, il est essentiel de bien se concentrer sur les critères de notation pour réussir dans nos études. Lorsque nous adoptons une attitude travailleur et que nous sommes conscients des exigences de chaque matière, nous pouvons facilement atteindre les objectifs fixés par l'établissement.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 225,
+        "content": "Je suis vraiment perdu sur la manière dont fonctionnent les notes et résultats dans notre université. Je trouve qu'il y a trop de confusion quant à savoir comment nous pouvons améliorer nos scores pour obtenir de bons résultats finaux. Le fait que chaque matière ait son propre système de notation ne facilite pas non plus la tâche, c'est pourquoi je pense qu'il faudrait peut-être trouver un moyen d'uniformiser les critères de notation pour rendre les choses moins compliquées.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 226,
+        "content": "Je suis tout à fait en désaccord avec la manière dont on explique ici la compréhension des notes et résultats ! La phrase selon laquelle \"les notes vous permettent d'évaluer la qualité de vos travaux scolaires\" n'est pas évidente du tout. Si je comprends bien, cela signifie que les étudiants doivent avoir un niveau de compétence très variable pour réussir en fonction des notes obtenues ? Cela paraît absurde.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 227,
+        "content": "\"Je suis frustré que le système de notation ne soit pas clairement expliqué à nos inscriptions. Je pense qu'il faudrait que l'établissement fasse plus d'efforts pour nous avertir des critères spécifiques et de la portée des notes, ceci afin que nous puissions faire des efforts qui sont vraiment significatifs\".",
+        "sentiment": "négatif"
+      }
+    ]
+  },
+  {
+    "post_id": 24,
+    "context": "Confession de fin d'année : J'ai constaté que les fêtes étudiantes sont l'occasion idéale de se détendre et de passer du temps avec nos camarades. Les soirées remplis de musique, de danses et de rires m’ont permis de me rappeler combien c'est précieux de partager des moments inoubliables avec les personnes que je côtoie tous les jours à l'école d'ingénieurs.",
+    "post_type": "confession",
+    "sentiment": "positif",
+    "comments": [
+      {
+        "comment_id": 228,
+        "content": "\"C'est intéressant de voir que tu as trouvé une façon de te détendre avec tes camarades après les examens. Les événements organisés par l'école sont souvent un excellent moyen de se ressourcer avant la rentrée prochaine.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 229,
+        "content": "\"C'est vrai, ces évènements sont propices pour créer des souvenirs. J'ai moi-même apprécié les moments de détente qui se sont créés dans ce contexte.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 230,
+        "content": "J'ai été déçu de constater que tout le monde s'est retrouvé en fin de soirée alors qu'on a manqué la grande conférence sur les nouvelles technologies qui aurait pu être très intéressante. Pourtant, c'est ce genre d'événements qui pourraient nous aider à progresser dans notre domaine.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 231,
+        "content": "\"Je suis complétement d'accord ! Il est vrai que ces soirées sont l'idéal pour se détendre et partager de bons moments ensemble\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 232,
+        "content": "\"Je suis tout à fait d'accord ! Les fêtes étudiantes offrent souvent la possibilité de se détendre et de renouveler des liens avec les camarades. J'ai moi-même profité des moments musicaux et festifs pour relâcher un peu l'énervement causé par les cours.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 233,
+        "content": "\"Je comprends où il t'en veut, mais pour moi c'est tout le contraire ! J'ai trouvé que les fêtes étudiantes étaient surtout l'occasion de gaspiller de l'argent et de se fatiguer pour des soirées un peu trop agitées à mon goût. Je préfère me détendre en faisant autre chose, comme regarder un film ou aller faire une randonnée avec mes amis.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 234,
+        "content": "\" Je comprends votre point de vue mais pour moi ces fêtes étudiantes ne sont pas toujours ce que l'on pourrait attendre, je pense notamment à la pression qui pèse sur nous tous et qui peut rendre ces soirées stressantes. J'ai souvent vu des personnes se laisser emporter par la folie du moment sans jamais prendre le temps de réfléchir aux conséquences de leurs actes\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 235,
+        "content": "\"Je comprends ce que vous voulez dire mais pour moi, ces fêtes étudiantes sont souvent l'occasion de se retrouver dans une foule et de perdre sa soif à boire, plutôt qu'à vraiment partager des moments en profondeur avec ses camarades. J'ai eu l'impression d'être juste un autre dans la foule, sans réelle connexion avec qui que ce soit.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 236,
+        "content": "\"C'est vrai qu'il y a eu beaucoup de moments mémorables pendant la fête étudiante : je me souviens notamment d'une soirée où nous avons organisé une compétition en danse avec des amis de l'année précédente, ce qui a été vraiment divertissant. Les organisateurs ont fait un excellent travail pour créer une ambiance chaleureuse.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 237,
+        "content": "\"Absolument d'accord ! Les fêtes étudiantes sont vraiment l'une des meilleures opportunités pour se détendre et créer des souvenirs inoubliables avec nos camarades de classe. Je pense que les moments partagés lors de ces soirées ont un impact considérable sur notre vie quotidienne à l'école d'ingénieurs, car ils nous permettent de mettre en veilleuse nos stress pour quelques heures et se concentrer sur le plaisir des échanges conviviaux avec nos pairs.\".",
+        "sentiment": "positif"
+      }
+    ]
+  },
+  {
+    "post_id": 25,
+    "context": "**Demande d'aide : le nouveau bâtiment sportif**\n\nBonjour à tous,\n\nJe voulais partager mon expérience depuis l'ouverture du nouveau bâtiment sportif qui a été inauguré il y a quelques semaines. J'ai assisté à plusieurs événements et je dois dire que j'en ai été déçu.\n\nD'une part, les changements d'accès sont tout simplement insensés. On nous propose de passer par une série de détours pour atteindre un seul endroit alors que le vieil stade fonctionnait parfaitement bien sans ces contorsions ! J'ai eu l'occasion d'en discuter avec quelques camarades et il semblerait que ce soit une erreur de conception.\n\nD'autre part, j'ai remarqué des problèmes de climatisation qui font du bâtiment un véritable four pendant les périodes chaudes. Je me demande comment il sera possible d'y tenir pendant les grandes compétitions à venir.\n\nCela m'a fait réfléchir : qu'en pensez-vous ? Y a-t-il autre chose que je n'ai pas remarqué qui pourrait être amélioré dans ce bâtiment sportif ?",
+    "post_type": "demande d'aide",
+    "sentiment": "négatif",
+    "comments": [
+      {
+        "comment_id": 238,
+        "content": "J'ai également visité le nouveau bâtiment sportif et partage la même impression que toi concernant les changements d'accès. Il est vrai qu'ils semblent complexes par rapport à l'ancien stade.\n\nCela étant dit, je n'ai pas eu l'occasion de remarquer des problèmes majeurs de climatisation en ma présence. Cependant, j'imagine que ça pourrait être un problème lorsqu'il fait chaud et qu'on se retrouve dans le bâtiment.\n\nEn ce qui concerne les autres améliorations possibles, j'ai remarqué que l'éclairage du terrain de sport est peut-être moins intense qu'aujourd'hui. C'est probablement une question de préférence personnelle mais cela a pu influencer ma perception de l'ensemble.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 239,
+        "content": "Je trouve cela très intéressant ! Personnellement, j'ai assisté à une conférence de presse et ils nous ont expliqué que les changements d'accès étaient en fait conçus pour accueillir un grand nombre d'athlètes ainsi que les équipes médicales, ce qui devrait améliorer la sécurité. Cela me semblait sensé à l'époque, mais je comprends mieux maintenant pourquoi il pourrait sembler contraire à l'intelligence.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 240,
+        "content": "\"J'ai eu l'occasion de visiter le nouveau bâtiment sportif lors d'un événement de basket-ball et j'ai constaté les mêmes problèmes de climatisation que vous avez mentionnés. En effet, j'ai trouvé difficile de me concentrer sur la partie sportive en raison des conditions intérieures. Cela m'a également fait réfléchir aux changements d'accès qui peuvent être gênants. Néanmoins, je pense qu'il faut lui donner une chance, peut-être que les défauts pourront être résolus avec le temps. Qu'en est-il des équipements sportifs qui y sont disponibles ? En avez-vous eu l'occasion de les tester ?\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 241,
+        "content": "\"Je partage ton point de vue quant aux difficultés d'accès. Je n'ai pas eu l'occasion de visiter le bâtiment sportif depuis son ouverture, mais j'ai lu des commentaires sur les changements qui ont été apportés à sa conception. Cela a l'air de créer un certain nombre de problèmes pour les étudiants, comme tu as mentionné.\n\nJe pense qu'il faudrait organiser une réunion avec le responsable du projet et les architectes chargés de la conception pour discuter des problèmes rencontrés et chercher des solutions concrètes. Cela devrait être fait rapidement avant que d'autres événements sportifs ne se déroulent, car comme tu l'as dit, ce sont souvent des moments critiques où le confort est essentiel.\n\nEn attendant, peut-être qu'on pourrait organiser une visite guidée pour expliquer en détail comment fonctionne le bâtiment et les raisons derrière certaines décisions. Cela pourrait aider à dissiper les malentendus et à faire comprendre aux étudiants comment naviguer dans ce nouveau complexe.\n\nJe suis d'accord avec toi, il faut que nous trouvions des solutions à ces problèmes de conception. Les étudiants devraient être en mesure d’utiliser le bâtiment sans difficultés majeures.\n\nJ'espère qu'on pourra discuter plus tard sur ce sujet et trouver ensemble des solutions pour améliorer l'utilisation du bâtiment sportif.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 242,
+        "content": "\"J'adhère complètement à tes commentaires. Je viens de suivre une partie de basket et j'ai également remarqué les difficultés d'accès, mais surtout la surchauffe est vraiment inconfortable. Cependant, je trouve que l'éclairage intérieur dans le gymnase est plutôt moderne et agréable à regarder même si il faudrait probablement l'améliorer en fin de compte pour les athlètes.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 243,
+        "content": "\"Je suis tout à fait d'accord avec toi sur les changements d'accès ! J'ai déjà eu l'occasion de discuter avec un membre du personnel chargé de la gestion de ce bâtiment et il m'a avoué que le dédale des détours n'était pas vraiment conforme aux plans initiaux. On peut espérer qu'ils s'en apercevront rapidement et apporteront les changements nécessaires pour rendre l'expérience plus fluide pour tous.\n\nJe suis en revanche beaucoup moins inquiet sur la climatisation, puisque je pense que la plupart des problèmes sont provisoires. Les travaux de finition devraient se conclure d'ici peu et la température s'est déjà améliorée depuis l'intronisation du nouveau système. Je suis impatient de pouvoir assister à plus d'événements dans ce bâtiment, qui est vraiment un ajout précieux pour notre campus.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 244,
+        "content": "Je suis en total accord avec ton analyse de la situation ! J'ai également eu l'occasion d'y assister pour une rencontre de basket et j'en ai été vraiment déçu par les conditions de jeux. Les problèmes de climatisation sont énormes, je me souviens avoir vu des joueurs s'évanouir à cause du chaud ! Quant aux changements d'accès, ils sont tout simplement exaspérants et font que nous perdons une bonne partie de notre temps avant les entraînements ou les matchs. Je pense que le conseil étudiant devrait vraiment se pencher sur ce problème et essayer de trouver des solutions avant qu'il ne soit trop tard !",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 245,
+        "content": "\"Je suis d'accord avec toi sur les problèmes de climatisation mais ne parlons pas du tout des changements d'accès ! Je me souviens que je devais suivre une série de chemins pour arriver à la salle de sport et cela m'empêchait presque toujours d'y aller. Malheureusement, je n'ai pas beaucoup eu l'occasion de participer aux événements car ils ont lieu souvent pendant les heures picoles de cours et j'en ai juste vu un seul en direct. Je suis impatient d'avoir une meilleure organisation qui nous permettra de profiter pleinement du nouveau bâtiment.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 246,
+        "content": "\"Il me semble que le nouveau bâtiment a certainement besoin d'ajustements ! J'ai moi-même remarqué les problèmes de climatisation et j'ai entendu dire que les étudiants qui fréquentent régulièrement les installations ont du mal à trouver un endroit propre pour se changer. Quant aux changements d'accès, je comprends ce qu'on vous dit car il m'a fallu quelques minutes pour me repérer.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 247,
+        "content": "\"J'ai également eu l'occasion de visiter le nouveau bâtiment sportif et je partage votre point de vue sur les changements d'accès, mais j'ai remarqué que les espaces d'échauffement semblent bien mieux équipés pour les athlètes. Cependant, il est vrai que la climatisation semble être un problème récurrent pendant les périodes chaudes.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 248,
+        "content": "\"Je suis absolument d'accord avec toi sur les changements d'accès ! J'ai eu l'occasion de participer à un tournoi il y a quelques jours et j'avoue que je me suis perdu plusieurs fois dans ce nouveau bâtiment. Cependant, je pense qu'il faudrait peut-être donner un peu plus de temps aux responsables pour s'adapter à ces changements.\n\nConcernant la climatisation, j'ai entendu dire que des travaux supplémentaires étaient prévus pour résoudre les problèmes de chaleur. Je suis optimiste et je pense que tout cela se passera bien. J'espère qu'on nous donnera régulièrement des mises à jour sur l'avancement des travaux.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 249,
+        "content": "\"Je suis entièrement d'accord avec toi sur les problèmes d'accès et de climatisation du nouveau bâtiment sportif ! Cependant, je tiens à préciser que le système de ventilation est en cours de réparation et qu'il ne s'agit pas d'une défaut inhérent au bâtiment. En revanche, je pense que les changements d'accès sont effectivement un peu trop complexes, mais je suis sûr que nous pourrons y faire des ajustements ensemble. J'ai déjà commencé à discuter de la possibilité de réorganiser certains espaces pour rendre le tout plus pratique.\".",
+        "sentiment": "positif"
+      }
+    ]
+  },
+  {
+    "post_id": 26,
+    "context": "L'art de la recherche : Comment réussir une demande de subvention sans trop s'épuiser :\n\nVous savez ce qui est étonnant ? Nous travaillons dans des domaines où nous cherchons les solutions aux problèmes du monde actuel, et pourtant lorsque nous essayons d'obtenir le financement nécessaire, nous devons décrire l'impossible dans la moindre des phrases.",
+    "post_type": "blague",
+    "sentiment": "positif",
+    "comments": [
+      {
+        "comment_id": 250,
+        "content": "Je comprends ce que vous dites sur les exigences de précision dans les demandes de subvention. Il semble effectivement qu'un équilibre difficile soit à trouver entre la qualité du projet et le temps mis pour rédiger ces documents. Dans mon expérience, je pense qu'une réflexion approfondie des objectifs et des moyens serait utile avant d'entamer l'écriture. Cela pourrait nous permettre de mieux cerner les informations essentielles à transmettre.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 251,
+        "content": "\"J'ai vraiment apprécié cet article ! Il exprime parfaitement mes sentiments sur les demandes de subventions qui semblent parfois vouloir nous conduire à naviguer dans l'abstrait tout en étant incapables de mettre en avant une solution réelle pour résoudre les problèmes du monde actuel. Cependant, c'est vrai qu'il est essentiel de trouver le bon équilibre entre la spécificité des besoins et la capacité à décrire un projet avec clarté dans l'espoir de réussir sa demande.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 252,
+        "content": "\"Je suis complètement d'accord avec cette remarque. Je me souviens encore de l'expérience frustrante que j'ai vécue lorsque je devais rédiger une demande de subvention pour un projet de recherche. Les restrictions en termes de nombre de mots et de format obligatoire ont vraiment rendu difficile l'exposé clair des objectifs du projet.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 253,
+        "content": "Je pense que vous avez raison, les étudiants en sciences humaines et sociales ont du mal à se faire entendre lors des propositions de subvention. Cela tient peut-être à ce qu'ils doivent s'adapter à une logique différente qui ne correspond pas toujours à leur propre vision sur le sujet.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 254,
+        "content": "Je trouve étrangement ironique que nous passions notre temps à trouver des solutions aux problèmes planétaires mais que les procédures pour obtenir le financement nécessaire soient elles-mêmes de complexité dépassant souvent la tâche même que nous sommes chargés de réaliser.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 255,
+        "content": "Je trouve vraiment dommage que ce soit aussi difficile de faire passer nos projets pour obtenir les fonds nécessaires. Il me semble que cela devrait être le contraire : notre travail devrait s'auto-financer à travers ses propres mérites !",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 256,
+        "content": "\"J'ai complètement d'accord sur ce que tu dis, il est vraiment frustrant de devoir rédiger des projets qui répondent aux exigences très précises des bailleurs de fonds, tout en nous sentant éloignés de nos objectifs originaux. J'ai l'impression que plus on écrit pour correspondre aux critères de subvention, moins notre projet se ressemble à ce pour quoi nous avons commencé.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 257,
+        "content": "\"J'ai bien compris votre point de vue. En effet, l'écriture d'une demande de subvention peut être fastidieuse et nécessite une grande quantité de travail. Mais, je pense que cela est également une chance pour nous d'expliquer en détail les aspects du projet qui sont essentiels à sa réussite\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 258,
+        "content": "\"Je suis tout à fait d'accord ! Il est vraiment frustrant de devoir expliquer et justifier pourquoi notre projet mérite un financement alors que nous sommes déjà débordés de travail pour le réaliser. J'ai l'impression que c'est comme si on devait prouver deux fois la valeur de nos recherches, mais cela me pousse à être encore plus convaincu de l'importance de notre mission. Qu'en pensez-vous ? Est-ce que vous avez des stratégies pour simplifier le processus de demande de subvention tout en mettant en avant les points clés du projet ?\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 259,
+        "content": "Je pense que cet article est particulièrement pertinent pour les chercheurs en émergence qui tentent de trouver le financement nécessaire pour leurs projets. La phrase \"décrire l'impossible dans la moindre des phrases\" me semble tout à fait représentative des difficultés auxquelles nous sommes confrontés lors de la rédaction d'une demande de subvention. Il est intéressant de noter que cet article propose quelques conseils pratiques pour gérer cette tâche sans se sentir épuisé.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 260,
+        "content": "Je suis complétement d'accord avec toi ! Il est tellement frustrant de devoir détailler minutieusement nos recherches pour convaincre les comités de subventions que nous sommes capables de mener à bien un projet qui, au fond, se veut une contribution bénéfique à la société. Cela oblige en effet les chercheurs à naviguer dans des exigences bureaucratiques et à justifier les résultats potentiels d'une manière qui ne correspond pas toujours à ce que nous visons réellement : partager notre connaissance pour l'améliorer au quotidien !",
+        "sentiment": "positif"
+      }
+    ]
+  },
+  {
+    "post_id": 27,
+    "context": "La recherche d'un mentor est une étape cruciale pour tout jeune ingénieur : il vous aidera à éviter les embûches et à trouver le bon chemin dans cette aventure appelée \"vie professionnelle\". Alors, ne vous contentez pas de chercher un guide, mais plutôt trouvez quelqu'un qui partagera avec vous ses expériences, partagera ses connaissances et vous aidera à affiner vos compétences.",
+    "post_type": "blague",
+    "sentiment": "positif",
+    "comments": [
+      {
+        "comment_id": 261,
+        "content": "\"Je ne suis pas d'accord, trouver quelqu'un qui a le temps et la disponibilité de se rendre compte que vous êtes en train de faire des erreurs courantes est loin d'être facile. Et même si on trouve ce \"mentor idéal\", il n'est pas garanti qu'il sera toujours disponible pour nous aider à chaque étape de notre parcours professionnel.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 262,
+        "content": "J'ai trouvé que ce post met en évidence l'importance d'avoir des mentors dans notre parcours professionnel. En effet, une personne expérimentée peut nous offrir un point de vue nouveau sur nos projets et nous aider à prendre les meilleures décisions. Cependant, je pense qu'il est également important de trouver quelqu'un qui partage ses connaissances avec nous, plutôt que juste simplement nous indiquer la bonne direction. Cela pourrait nous permettre d'apprendre plus efficacement et d'être en mesure de résoudre nos propres problèmes en fonction de nos propres expériences.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 263,
+        "content": "Je ne suis pas sûr que je convienne à ce post. J'ai toujours pensé que chaque personne devait s'appuyer sur elle-même pour réussir dans sa carrière. Un mentor peut être utile, mais il n'est pas inévitable qu'il nous aide réellement à évoluer. Je pense qu'on doit d'abord se connaître soi-même avant de chercher la \"bénédiction\" d'un mentor.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 264,
+        "content": "Je pense que la recherche d'un mentor est une excellente idée, c'est en effet une opportunité de bénéficier d'expériences et de conseils personnalisés qui peuvent vous aider à avancer dans votre carrière. Mais je crois aussi qu'il faut être réaliste quant aux attentes : ce mentor peut bien être un guide, mais il n'est pas là pour faire tout le travail en votre place, donc il est important d'avoir des compétences et de la motivation avant même de solliciter sa participation.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 265,
+        "content": "\"Je suis tout à fait d'accord sur l'importance de trouver un mentor pour les jeunes ingénieurs en formation ! J'ai eu la chance d'avoir un excellent mentor qui m'a guidé à travers mon parcours et m'a aidé à développer mes compétences techniques. Il a été également très ouvert à partager ses connaissances avec moi, ce qui m'a vraiment aidé à comprendre les défis du monde professionnel. Je pense que cela est extrêmement important pour nous, étudiants en ingénierie, de trouver quelqu'un qui puisse nous accompagner sur cette aventure.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 266,
+        "content": "\"Je suis d'accord avec toi sur l'importance de trouver un mentor dans notre parcours professionnel, en effet c'est une expérience précieuse qui nous aidera à grandir en tant que professionnels. Je pense que la bonne approche pour trouver un mentor serait de chercher quelqu'un qui est déjà impliqué dans le domaine que nous souhaitons rejoindre et d'approcher le candidat par une lettre de motivation ou une demande de rencontre.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 267,
+        "content": "\"Je ne suis pas sûr que cette façon de voir les choses soit réaliste, pour certains d'entre nous le fait de chercher un mentor peut être encore plus frustrant car il faut alors gérer les attentes du mentor, ses critiques, et dans certaines situations son manque de disponibilité. Je pense qu'il est préférable pour moi de m'appuyer sur mes capacités et ma volonté à apprendre plutôt que de compter trop fortement sur quelqu'un d'autre.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 268,
+        "content": "\"Je trouve que l'idée d'avoir un mentor est intéressante, mais je pense qu'elle peut être difficile à mettre en pratique, surtout si vous vivez dans une ville où les réseaux professionnels sont très fermés et qu'il n'y a pas beaucoup de personnes qui soient prêtes à partager leur temps avec quelqu'un d'autre. Je me demande même si les mentores ne peuvent pas parfois avoir des intentions bien plus égoïstes que nous le pensons, comme profiter de la crédibilité que possède l'université pour se faire publier.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 269,
+        "content": "C'est très vrai ! J'ai eu la chance de trouver mon mentor quelques années après avoir commencé ma carrière en tant qu'ingénieur et il m'a vraiment fait évoluer professionnellement. Il a partagé avec moi ses connaissances, m'a aidé à développer mes compétences et surtout m'a donné du soutien pendant les moments difficiles. Je suis bien reconnaissant de l'avoir dans ma vie professionnelle et je pense que cela constitue un élément essentiel pour réussir.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 270,
+        "content": "Je trouve cet argument fort pertinente puisque la recherche d'un mentor peut vraiment jouer un rôle déterminant dans l'évolution professionnelle d'un individu en offrant des conseils précieux et une perspective différente sur les défis auxquels nous sommes confrontés dans notre parcours professionnel.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 271,
+        "content": "Je trouve qu'il y a beaucoup trop de pression sur les étudiants pour trouver des mentors qui vont leur apporter tout ce qu'ils ont besoin, et ça me semble compliqué. J'ai eu l'occasion d'avoir un mentor au premier semestre, mais malheureusement, il n'a pas été en mesure de se dégager le temps nécessaire à notre rencontre régulière, donc c'est finalement tombé en poussière.",
+        "sentiment": "négatif"
+      }
+    ]
+  },
+  {
+    "post_id": 28,
+    "context": "Les participants qui se sont présentés à des concours de programmation savent que ce type d'événement nécessite une approche minutieuse et bien planifiée pour optimiser ses performances.\n\nEntraînement constamment sur les épreuves de concours de programmation permet aux candidats de maîtriser différentes algorithmes, capacités de résolution de problèmes ainsi que des techniques de codage efficaces.\n\nNous souhaitons à tous les participants la chance d'acquérir davantage d'expérience dans ce domaine.",
+    "post_type": "message de soutien",
+    "sentiment": "positif",
+    "comments": [
+      {
+        "comment_id": 272,
+        "content": "\"C'est une excellent nouvelle ! J'ai moi-même eu l'occasion de participer à quelques concours de programmation et je peux dire que cela est vraiment éducatif et divertissant en même temps. L’entraînement constamment peut se révéler très utile pour acquérir d’autres compétences, comme par exemple résoudre des problèmes complexes et améliorer notre écriture de code. Les organisateurs ont bien compris le besoin de perfectionner ses compétences dans ce domaine.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 273,
+        "content": "\"Je suis entièrement d'accord, l'entraînement régulier sur des problèmes de concours de programmation est vraiment bénéfique pour améliorer ses compétences en algorithmie et résolution de problèmes. Cela nécessite évidemment beaucoup de temps et de pratique pour se perfectionner.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 274,
+        "content": "\"Je suis complètement d'accord avec vous, une approche minutieuse et bien planifiée est essentielle pour réussir dans les concours de programmation. L'entraînement régulier sur des épreuves spécifiques permet vraiment de développer ses compétences en algorithmes et en résolution de problèmes, ainsi que d'améliorer sa capacité à coder efficacement. C'est pourquoi je pense qu'il est super important de continuer à entraîner et à nous améliorer constamment. J'ai moi-même acquis beaucoup d'expérience grâce aux conseils et aux épreuves que j'ai faites jusqu'à présent.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 275,
+        "content": "\"Je suis tout à fait d'accord avec l'affirmation selon laquelle les concours de programmation nécessitent une planification minutieuse. Je ne comprends pas cependant comment un entraînement constant sur des épreuves suffirait pour maîtriser tous les algorithmes et techniques nécessaires. Il me semble qu'il faut également considérer d'autres aspects comme la capacité à gérer le temps de travail ou le choix du langage de programmation adapté au problème posé.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 276,
+        "content": "\"J'entièrement d'accord ! Les concours de programmation sont vraiment des opportunités précieuses pour nous aider à approfondir nos compétences en résolution de problèmes et en optimisation de code. Plus on pratique, mieux on maîtrise les techniques essentielles pour surmonter les défis complexes que ces épreuves proposent.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 277,
+        "content": "C'est effectivement une bonne stratégie pour améliorer ses compétences en programmation et avoir des chances de réussite dans les concours. En effet, l'entraînement régulier permettra aux participants d'affiner leurs connaissances sur différents algorithmes, techniques et capacités de résolution de problèmes, ce qui est essentiel pour faire face à n'importe quel scénario que peut offrir un concours.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 278,
+        "content": "\"Je trouve que cette déclaration est un peu évidente et ne parle pas spécifiquement de comment les participants peuvent améliorer leurs performances en fonction de la difficulté des concours qu'ils ont déjà tentés\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 279,
+        "content": "\"Je ne suis pas d'accord sur l'importance de s'entraîner constamment pour les concours de programmation. Je pense que trop de stress peut avoir un impact négatif sur la qualité du travail. Il est vrai qu'un peu d'expérience n'est jamais de trop, mais il faut également savoir se détendre et ne pas tomber dans le piège de la perfection.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 280,
+        "content": "Je trouve que le post ressemble à une déclaration de propagande plutôt qu'un véritable soutien pour les participants. La répétition constante du terme \"excellence\" et des phrases élogieuses est suspecte, n'est-ce pas ? Je crains qu'il ne s'agisse que d'une façon de les presser en achetant leurs services ou produits.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 281,
+        "content": "\"En effet, l'entraînement systématique sur les épreuves de concours de programmation peut réellement améliorer la maîtrise des algorithmes et des capacités de résolution de problèmes. C'est pourquoi je pense que cette pratique est très utile pour tous ceux qui s'intéressent à la compétition.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 282,
+        "content": "\"Cela ressemble à une opportunité incroyable pour nous tous de mieux comprendre et améliorer nos compétences en programmation ! Je suis d'accord avec l'importance de l'entraînement continu afin de développer un bon niveau dans les concours.\".",
+        "sentiment": "positif"
+      }
+    ]
+  },
+  {
+    "post_id": 29,
+    "context": "Titre : La salle d'études idéale... ou presque !\n\nLorsque l'on pense à une \"bonne\" salle d'étude, nous imaginons généralement des endroits calmes et tranquilles, idéaux pour se concentrer sur nos devoirs. Mais, en réalité, il est possible que les salles bondées soient le moyen d'obtenir cette atmosphère parfaite ! La motivation qui en résulte des discussions avec ses camarades et la sensation de ne pas être seul dans sa lutte contre les maths ou les sciences peuvent finalement être très bénéfiques pour notre travail.\n\nSi vous pensez que je me trompe, n'hésitez pas à partager vos expériences sur comment trouver le bon équilibre entre étude et temps passé en groupe !",
+    "post_type": "blague",
+    "sentiment": "positif",
+    "comments": [
+      {
+        "comment_id": 283,
+        "content": "\"Je suis d'accord avec toi, les salles d'études bondées peuvent être bénéfiques pour la motivation et le soutien entre camarades de promotion. J'ai personnellement trouvé que partager mon travail avec des étudiants ayant un point de vue différent était très enrichissant. Cependant, je pense aussi que chaque personne a besoin d'un peu de temps seul parfois pour se concentrer.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 284,
+        "content": "\"Je suis tout à fait d'accord ! J'ai eu l'occasion de travailler dans une salle bondée en première année et cela m'a vraiment aidé. Je n'avais jamais été très proche des cours du groupe, mais les discussions nous ont forcé à nous organiser et à prendre nos responsabilités pour finir notre travail en temps voulu ! Maintenant que nous sommes plus âgés, j'ai remarqué que beaucoup de mes camarades commencent à travailler seuls, mais je trouve vraiment que c'est moins motivant. En groupe, on peut s'appuyer les uns sur les autres et cela rend l'étude plus agréable.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 285,
+        "content": "\"Je suis tout à fait d'accord avec ton avis ! Je trouve que les salles bondées ont vraiment l'avantage de nous faire sentir qu'on ne sont pas seuls dans nos luttes quotidiennes contre les devoirs. Cela m'aide vraiment à garder la motivation et à ne pas me décourager lorsque je suis face à des problèmes insolubles... D'ailleurs, c'est souvent lors de discussions avec mes camarades que j'ai réussi à trouver des solutions à ces problèmes !\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 286,
+        "content": "\"Je suis d'accord avec toi sur ce point. Lorsque j'étais en licence, je me souviens de passer beaucoup de temps dans la salle d'études collective pour étudier, et c'était vraiment utile car les discussions qui se déroulaient autour de moi m'aideaient à comprendre mieux certaines notions que si j'avais été seul. De plus, cela était plus amusant qu'être assis dans ma chambre toute seule.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 287,
+        "content": "\"Je ne suis pas sûr de partager votre avis sur ce sujet. Pour moi, une salle bondée signifie plutôt distraction et perturbation pour mes études. Les discussions avec les camarades peuvent parfois être utiles mais le risque est que je perde mon temps en bavardages sans rapport avec l'objectif principal qui est d'apprendre ! Je préfère me concentrer dans un endroit calme où je puisse réfléchir sans interruptions\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 288,
+        "content": "J'ai dû faire face à une situation similaire dans mes premières années de fac : j'avais besoin de solitude pour me concentrer sur mes notes, mais à force de séparer mes cours, j'ai ressenti un sentiment de déconnexion avec mes camarades et nous avons tous fini par s'en sortir mal.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 289,
+        "content": "\"Je comprends ce que vous dites, mais pour moi c'est tout le contraire. Lorsque je suis dans une salle bondée, j'ai du mal à me concentrer et les discussions qui se déroulent autour de moi ne sont pas toujours des distractions agréables. Je préfère une salle tranquille où je peux étudier en silence, sans avoir à m'enfermer avec mon travail pour être au calme.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 290,
+        "content": "J'ai toujours trouvé que les salles bondées pouvaient être stimulantes pour l'apprentissage, car il est plus facile de se motiver lorsqu'on a la possibilité d'échanger avec ses camarades. En revanche, je crois également qu'il y a une limite à ce niveau de bruit et d'agitation, car cela peut finir par être contre-productif si nous n'avons pas notre place pour travailler tranquillement en cas de besoin.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 291,
+        "content": "\"Je suis tout à fait d'accord avec votre point de vue sur les salles bondées ! J'ai moi-même découvert que partager l'espace de travail avec des camarades peut vraiment boosté mon motivation et ma concentration ! La conversation occasionnelle ou le soutien mutuel peuvent être un excellent moyen de se motiver pour aborder certains sujets difficiles, comme les maths par exemple. En outre, il y a souvent quelque chose de très stimulant à partager ses découvertes avec des camarades de cours qui partagent les mêmes objectifs.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 292,
+        "content": "Je suis tout à fait d'accord avec votre propos, j'ai moi-même constaté que lorsqu'on étudie en groupe, on est plus motivé et on ne se sent pas aussi isolé dans la lutte contre les matières difficiles ! Les discussions avec les autres me permettent de voir les choses sous un angle différent et je trouve souvent des astuces utiles pour m'aider à comprendre certaines notions.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 293,
+        "content": "Je trouve difficile de se concentrer dans des salles bondées, il est trop facile d'être distrait par les conversations entre camarades et il m'est personnellement difficile de garder le cap sur mes devoirs. Je suis plutôt motivé à travailler en groupe quand nous sommes déjà ensemble pour une activité qui nécessite notre collaboration comme cela arrive dans certaines réunions d'équipe.",
+        "sentiment": "négatif"
+      }
+    ]
+  },
+  {
+    "post_id": 30,
+    "context": "\"Vous savez ce qui est le plus difficile à faire ici ? Cesser d'appeler les chambres de l'étage ci-dessous les « cages de détresse ». Alors que nous sommes en pleine période du cours, il me semble que l'on ne s'entend plus qu'en criant. Quand bien même je suis pas encore rentré chez moi et que j'ai appris à marcher à 4 pattes sans y avoir jamais mis les pieds ! Je tenterai de continuer à dormir en douceur, il le faut... \".",
+    "post_type": "blague",
+    "sentiment": "positif",
+    "comments": [
+      {
+        "comment_id": 294,
+        "content": "\"J'ajouterais que cette histoire de chambres ne veut rien dire et qu'on nous pousse à crier encore plus pour avoir une raison de nous faire virer en fin de semestre...\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 295,
+        "content": "\"Je suis d'accord avec toi, c'est insupportable que nous ayons à nous affronter constamment pour le moindre bruit de pas. J'ai essayé de discuter tranquillement hier soir mais personne ne m'a même entendu.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 296,
+        "content": "Je pense qu'il faudrait vraiment trouver des solutions pour améliorer la vie ici en communauté. Cette période est déjà difficile avec les cours et la maison à faire. Ne parler plus de cela n'est pas une solution, il faut que nous trouvions un moyen de le changer.",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 297,
+        "content": "Je trouve cela hilarant ! Il y a toujours quelqu'un qui sait comment rendre la situation amusante même en pleine période de stress. Je crois que c'est exactement ce dont nous avons besoin pour tenir jusqu'à la fin du cours.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 298,
+        "content": "Je pense que l'on peut tous reconnaître les moments de stress qu'apporte la période du cours. C'est certainement difficile pour certains étudiants, mais il faudrait éviter ces comparaisons qui ne sont pas constructives. Une suggestion serait d'envisager d'établir des règles partagées pour une communication plus harmonieuse entre les étages de l'immeuble.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 299,
+        "content": "\"J'ai remarqué qu'il y a eu une augmentation des bruits de plafond ces dernières semaines, cela peut être perturbant pour les étudiants qui cherchent à étudier en paix. Il serait probablement préférable de trouver un moyen pour s'exprimer plus sobrement, ou alors, de discuter de la situation avec les étudiants impliqués.\".",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 300,
+        "content": "Je trouve que c'est vraiment frustrant d'avoir l'impression qu'on n'arrive plus à se parler normalement. Il me semble que la pression du cours rend tout le monde un peu trop sensible et cela se reflète dans les comportements de chacun. Je comprends bien ce que tu veux dire sur les « cages de détresse », cela peut vite devenir déplacé pour tous.",
+        "sentiment": "neutre"
+      },
+      {
+        "comment_id": 301,
+        "content": "Je comprends parfaitement ton ressentiment face aux comportements de certains étudiants. Il est tout à fait normal que l'on se sente fatigué et frustré lorsque nous ne sommes pas capables de trouver un minimum d'équilibre entre nos études et nos besoins personnels. Je pense que nous devrions tous faire preuve de compréhension mutuelle, comme tu le fais, afin de rendre notre vie de quotidienne moins stressante.",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 302,
+        "content": "\"C'est incroyable comme notre auteur est fin pour trouver des solutions créatives aux problèmes de la vie étudiante ! Surtout lorsqu'il décide d'adopter une approche drastique en allant marcher sur quatre pattes sans avoir jamais mis les pieds dessus. J'apprécie vraiment son humour, qui nous aide à tenir tête à cette période du cours ! Je partage ton avis et espère que tout ira bien dans l'étage inférieur.\".",
+        "sentiment": "positif"
+      },
+      {
+        "comment_id": 303,
+        "content": "\"Je trouve qu'on exagère un peu trop la situation. Cesser d'appeler les chambres du dessous des « cages de détresse » ne me semble pas être le plus grand défi pour nous.\".",
+        "sentiment": "négatif"
+      },
+      {
+        "comment_id": 304,
+        "content": "\"Je trouve ton humour plutôt drôle ! J'adore le côté humoristique de ta déclaration et cela m'a fait sourire. Tu as raison, il est temps pour nous de changer notre façon d'être dans ce dortoir.\".",
+        "sentiment": "positif"
+      }
+    ]
+  }
+]

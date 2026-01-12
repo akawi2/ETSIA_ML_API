@@ -1,4 +1,8 @@
 services:
+  # ============================================================================
+  # MONITORING SYSTEM (GA4-Bridge + FastAPI App)
+  # ============================================================================
+  
   ga4-bridge:
     build: ./ga4_bridge
     ports:
@@ -9,6 +13,8 @@ services:
       - GA4_MEASUREMENT_ID=${GA4_MEASUREMENT_ID}
       - GA4_API_SECRET=${GA4_API_SECRET}
     command: uvicorn main:app --host 0.0.0.0 --port 5000
+    networks:
+      - api-network
 
   fastapi-app:
     build: ./fastapi_app
@@ -20,3 +26,109 @@ services:
       - BRIDGE_URL=http://ga4-bridge:5000/log_metric
     env_file:
       - .env
+    networks:
+      - api-network
+
+  # ============================================================================
+  # ML INFRASTRUCTURE (PostgreSQL + Ollama + ML API)
+  # ============================================================================
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: etsia-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: etsia
+      POSTGRES_PASSWORD: etsia_secure_password
+      POSTGRES_DB: etsia_metrics
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./scripts/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U etsia -d etsia_metrics"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - api-network
+    profiles:
+      - ml
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-server
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list || exit 0"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    networks:
+      - api-network
+    profiles:
+      - ml
+
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: python:3.11-slim
+    image: etsia-ml-api:cpu
+    container_name: etsia-ml-api-cpu
+    ports:
+      - "8001:8000"
+    env_file:
+      - .env
+    environment:
+      - LOG_LEVEL=info
+      - API_ENV=production
+      - OLLAMA_BASE_URL=http://ollama:11434
+    restart: unless-stopped
+    depends_on:
+      ollama:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 60s
+    networks:
+      - api-network
+    volumes:
+      - model_cache:/app/.cache
+      - huggingface_cache:/app/.cache/huggingface
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 2G
+    profiles:
+      - ml
+
+volumes:
+  postgres-data:
+    driver: local
+  ollama-data:
+    driver: local
+  model_cache:
+    driver: local
+  huggingface_cache:
+    driver: local
+
+networks:
+  api-network:
+    driver: bridge
+    name: etsia-ml-network

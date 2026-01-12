@@ -1,0 +1,23 @@
+# Dépendances spécifiques au modèle HateComment BERT Enhanced v1.1.0
+# 
+# Installation recommandée:
+# CPU: pip install -r requirements.txt
+# GPU: pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+#      puis pip install -r requirements.txt
+
+# Core ML dependencies
+torch>=2.0.0
+transformers>=4.30.0
+accelerate>=0.26.0
+
+# Data processing
+scikit-learn>=1.3.0
+numpy>=1.24.0
+pandas>=2.0.0
+datasets>=2.14.0
+
+# Regex et text processing (pour post-processing)
+regex>=2023.0.0
+
+# Optimisations
+safetensors>=0.4.0
