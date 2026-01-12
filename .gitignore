@@ -25,6 +25,8 @@ venv/
 env/
 ENV/
 .venv
+env.bak/
+venv.bak/
 
 # Environment variables
 .env
@@ -46,11 +48,23 @@ logs/
 .coverage
 htmlcov/
 .tox/
-.hypothesis
+.hypothesis/
+.nox/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
 
 # OS
 .DS_Store
 Thumbs.db
+
+# Node.js
+node_modules/
+.next/
+
+# Supabase
+.supabase/
 
 # Project specific
 Modèle GCN/
@@ -60,13 +74,16 @@ comm
 *.pth
 data/
 
-# Exclure les modèles ML mais permettre app/models/ (schémas API)
+# ML Models (exclude large files)
 /models/
 *.bin
 *.safetensors
 
-# Permettre les schémas API
+# Allow API schemas
 !app/models/
 
-# Permettre le modèle hatecomment fine-tuné
+# Allow fine-tuned model
 !app/services/hatecomment_bert/model/model.safetensors
+
+# Dashboard lib exception
+!dashboard/lib
