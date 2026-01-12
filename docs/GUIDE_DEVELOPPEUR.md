@@ -34,6 +34,8 @@ Guide complet pour cloner, configurer, lancer et tester le projet.
 - PyTorch + Transformers
 - PostgreSQL (métriques)
 - Redis (cache)
+- GA4-Bridge (monitoring centralisé)
+- Google Analytics 4 (dashboard)
 - Docker + Docker Compose
 
 ---
@@ -163,9 +165,9 @@ ANTHROPIC_API_KEY=sk-ant-votre-cle-anthropic
 ANTHROPIC_MODEL=claude-3-5-sonnet-20241022
 ```
 
-### 3. Configuration PostgreSQL (Optionnel)
+### 3. Configuration PostgreSQL (Requis pour les métriques)
 
-Pour activer les métriques :
+Pour activer les métriques et l'API de monitoring :
 
 ```env
 # PostgreSQL
@@ -176,6 +178,8 @@ POSTGRES_PASSWORD=etsia_secure_password
 POSTGRES_DB=etsia_metrics
 ENABLE_METRICS=true
 ```
+
+**Note :** L'API de métriques (`/api/v1/metrics/*`) nécessite PostgreSQL. Sans PostgreSQL, seul le monitoring via GA4-Bridge est disponible.
 
 ### 4. Configuration Redis (Optionnel)
 
@@ -189,6 +193,29 @@ REDIS_DB=0
 REDIS_CACHE_TTL=3600
 ENABLE_CACHE=true
 ```
+
+### 5. Configuration Monitoring (Optionnel)
+
+Pour activer le monitoring centralisé avec GA4-Bridge :
+
+```env
+# Monitoring
+ENABLE_METRICS=true
+BRIDGE_URL=http://ga4-bridge:5000/log_metric
+CLIENT_ID=yansnet_ml_api_v1
+
+# Google Analytics 4 (requis pour GA4-Bridge)
+GA4_MEASUREMENT_ID=G-XXXXXXXXXX
+GA4_API_SECRET=your_api_secret
+```
+
+**Fonctionnalités :**
+- ✅ Envoi automatique des métriques (latence, confidence, etc.)
+- ✅ Évaluation des alertes en temps réel
+- ✅ Dashboard Google Analytics 4
+- ✅ Non-bloquant (timeout 0.5s)
+
+**Note :** Avec Docker Compose, le `BRIDGE_URL` est automatiquement configuré pour pointer vers le service `ga4-bridge`. L'API attend que GA4-Bridge soit démarré avant de lancer.
 
 ---
 
@@ -229,11 +256,14 @@ uvicorn app.main:app --reload --port 8000
 ### Méthode 3 : Docker Compose (Production)
 
 ```bash
-# Lancer tous les services (API + PostgreSQL + Redis + Ollama)
+# Lancer tous les services (API + PostgreSQL + Redis + Ollama + GA4-Bridge)
 docker-compose up -d
 
 # Voir les logs
 docker-compose logs -f api
+
+# Voir les logs du monitoring
+docker-compose logs -f ga4-bridge
 
 # Arrêter
 docker-compose down
@@ -341,7 +371,89 @@ curl -X POST http://localhost:8000/api/v1/content/generate-post \
 curl "http://localhost:8000/recommend?userId=1"
 ```
 
-### 8. Tests Automatisés
+### 8. Test de l'API de Métriques
+
+```bash
+# Health check du système de métriques
+curl http://localhost:8000/api/v1/metrics/health
+
+# Résumé des métriques (dernières 24h)
+curl http://localhost:8000/api/v1/metrics/summary
+
+# Statistiques par modèle
+curl http://localhost:8000/api/v1/metrics/models
+
+# Latence d'un modèle spécifique
+curl http://localhost:8000/api/v1/metrics/models/camembert-depression/latency
+
+# Erreurs récentes
+curl http://localhost:8000/api/v1/metrics/errors
+
+# Alertes actives
+curl http://localhost:8000/api/v1/metrics/alerts
+
+# Métriques au format Prometheus
+curl http://localhost:8000/api/v1/metrics/prometheus
+```
+
+**Note :** Ces endpoints nécessitent PostgreSQL configuré.
+
+### 9. Test du Système de Monitoring
+
+```bash
+# Test complet de l'intégration monitoring
+python scripts/test_monitoring_integration.py
+```
+
+**Ce script teste :**
+- ✅ Health check du GA4-Bridge (port 5000)
+- ✅ Health check de l'API principale (port 8001)
+- ✅ Émission directe de métriques au Bridge
+- ✅ Détection de dépression avec monitoring automatique
+- ✅ Détection de hate speech avec monitoring automatique (via `HateCommentBertMonitored`)
+- ✅ Déclenchement d'alertes (métriques hors seuil)
+
+**Exemple de sortie :**
+```
+======================================================================
+TEST 1: Health Check du GA4-Bridge
+======================================================================
+✓ Bridge Status: 200
+  Response: {'status': 'healthy', 'service': 'ga4-bridge'}
+
+======================================================================
+TEST 4: Détection de dépression (avec monitoring)
+======================================================================
+✓ Prediction Status: 200
+  Latency: 450.23ms
+  Prediction: DÉPRESSION
+  Confidence: 0.85
+  Severity: Élevée
+  Model: camembert-depression
+
+  Note: Les métriques ont été envoyées automatiquement au Bridge
+
+======================================================================
+RÉSUMÉ DES TESTS
+======================================================================
+✓ PASS: Bridge Health
+✓ PASS: API Health
+✓ PASS: Direct Metric
+✓ PASS: Depression Detection
+✓ PASS: Hate Comment Detection
+✓ PASS: Alert Triggering
+
+Résultat: 6/6 tests réussis
+
+🎉 Tous les tests sont passés! Le monitoring est opérationnel.
+```
+
+**Prérequis :**
+- API principale lancée sur le port 8001
+- GA4-Bridge lancé sur le port 5000
+- Variables d'environnement configurées
+
+### 9. Tests Automatisés
 
 ```bash
 # Lancer tous les tests
@@ -355,6 +467,9 @@ pytest tests/test_api.py -v
 
 # Test d'une fonction spécifique
 pytest tests/test_api.py::test_predict_endpoint -v
+
+# Tests unitaires du client de monitoring
+pytest tests/test_monitoring_client.py -v
 ```
 
 **Temps d'exécution :** 30 secondes - 2 minutes
@@ -375,6 +490,9 @@ ETSIA_ML_API/
 │   │   ├── base_model.py         # Interface de base pour modèles
 │   │   ├── model_registry.py     # Registre des modèles
 │   │   └── metrics/              # Système de métriques
+│   │       ├── monitoring_client.py # Client GA4-Bridge
+│   │       ├── metrics_service.py   # Service de métriques
+│   │       └── metrics_models.py    # Modèles de données
 │   │
 │   ├── models/                   # Schémas Pydantic
 │   │   └── schemas.py
@@ -411,11 +529,13 @@ ETSIA_ML_API/
 ├── tests/                        # Tests unitaires
 │   ├── test_api.py
 │   ├── test_hatecomment_bert.py
+│   ├── test_monitoring_client.py  # Tests du client de monitoring
 │   └── ...
 │
 ├── scripts/                      # Scripts utilitaires
 │   ├── setup_ollama_models.sh    # Setup Ollama
 │   ├── init_db.sql               # Init PostgreSQL
+│   ├── test_monitoring_integration.py  # Test monitoring complet
 │   └── ...
 │
 ├── .env.example                  # Template configuration
@@ -444,6 +564,43 @@ registry.register(MonModele())
 # Utiliser un modèle spécifique
 GET /api/v1/predict?model_name=mon-modele
 ```
+
+### Architecture de Monitoring
+
+L'API intègre un **système de monitoring centralisé** via GA4-Bridge :
+
+**Flux de données :**
+```
+ML API → MonitoringService → GA4-Bridge → Google Analytics 4
+         (async, 0.5s timeout)   (évaluation alertes)   (dashboard)
+```
+
+**Fonctionnalités :**
+- ✅ Émission automatique des métriques (latence, confidence, etc.)
+- ✅ Évaluation des alertes en temps réel
+- ✅ Non-bloquant (ne ralentit pas l'API)
+- ✅ Helper functions pour chaque service
+
+**Exemple d'utilisation :**
+```python
+from app.core.monitoring import emit_depression_metric
+
+# Dans votre endpoint
+await emit_depression_metric(
+    model_name="camembert-depression",
+    latency_ms=450,
+    confidence=0.85,
+    severity="Élevée",
+    prediction="DÉPRESSION"
+)
+```
+
+**Services supportés :**
+- `depression_detection` - Détection de dépression
+- `hate_comment` - Détection de hate speech
+- `image_captioning` - Analyse d'images
+- `content_generation` - Génération de contenu
+- `api_gateway` - Métriques API globales
 
 ### Providers Hybrides
 
@@ -591,6 +748,46 @@ ollama serve
 ollama list
 ```
 
+### Problème : Monitoring ne fonctionne pas
+
+**Solution :**
+```bash
+# Vérifier que GA4-Bridge est lancé
+curl http://localhost:5000/health
+
+# Vérifier les variables d'environnement
+cat .env | grep ENABLE_METRICS
+cat .env | grep BRIDGE_URL
+
+# Vérifier les logs de l'API
+docker-compose logs -f api
+
+# Tester l'intégration complète
+python scripts/test_monitoring_integration.py
+
+# Désactiver temporairement le monitoring
+ENABLE_METRICS=false
+```
+
+### Problème : Tests de monitoring échouent
+
+**Solution :**
+```bash
+# Vérifier que les services sont lancés sur les bons ports
+curl http://localhost:8001/health  # API principale
+curl http://localhost:5000/health  # GA4-Bridge
+
+# Vérifier les logs pour les erreurs
+docker-compose logs -f api
+docker-compose logs -f ga4-bridge
+
+# Relancer les services
+docker-compose restart api ga4-bridge
+
+# Attendre quelques secondes puis relancer les tests
+python scripts/test_monitoring_integration.py
+```
+
 ---
 
 ## 📚 Ressources Supplémentaires
@@ -602,6 +799,7 @@ ollama list
 - [ADD_YOUR_MODEL.md](ADD_YOUR_MODEL.md) - Guide ajout de modèle
 - [DEPLOYMENT.md](DEPLOYMENT.md) - Guide de déploiement
 - [GIT_WORKFLOW.md](GIT_WORKFLOW.md) - Workflow Git
+- [METRICS_SYSTEM.md](METRICS_SYSTEM.md) - Système de monitoring
 - [QUICKSTART.md](../QUICKSTART.md) - Démarrage rapide
 
 ### APIs Externes
@@ -655,5 +853,6 @@ Projet académique - X5 Semestre 9 ETSIA, 2026
 - [ ] Health check réussi
 - [ ] Documentation accessible
 - [ ] Tests passent
+- [ ] Test de monitoring réussi (si activé)
 
 **Si tous les points sont cochés, vous êtes prêt à développer ! 🎉**

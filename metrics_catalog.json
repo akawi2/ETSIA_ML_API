@@ -48,6 +48,14 @@
     "description": "Alerte temps de réponse lent"
   },
   {
+    "service": "hate_comment",
+    "metric": "confidence",
+    "threshold": 0.70,
+    "operator": "<",
+    "priority": "Moyenne",
+    "description": "Alerte confiance faible"
+  },
+  {
     "service": "image_captioning",
     "metric": "precision",
     "threshold": 0.85,
@@ -242,5 +250,77 @@
     "operator": ">",
     "priority": "Faible",
     "description": "Alerte répétitions excessives"
+  },
+  {
+    "service": "recommendation",
+    "metric": "latency",
+    "threshold": 200,
+    "operator": ">",
+    "priority": "Moyenne",
+    "description": "Alerte temps de réponse lent"
+  },
+  {
+    "service": "recommendation",
+    "metric": "cache_miss_rate",
+    "threshold": 0.30,
+    "operator": ">",
+    "priority": "Faible",
+    "description": "Alerte taux de cache miss élevé"
+  },
+  {
+    "service": "recommendation",
+    "metric": "avg_score",
+    "threshold": 0.50,
+    "operator": "<",
+    "priority": "Moyenne",
+    "description": "Alerte qualité des recommandations faible"
+  },
+  {
+    "service": "recommendation",
+    "metric": "diversity",
+    "threshold": 0.40,
+    "operator": "<",
+    "priority": "Faible",
+    "description": "Alerte diversité des recommandations faible"
+  },
+  {
+    "service": "nsfw_detection",
+    "metric": "latency",
+    "threshold": 500,
+    "operator": ">",
+    "priority": "Moyenne",
+    "description": "Alerte temps de réponse lent"
+  },
+  {
+    "service": "nsfw_detection",
+    "metric": "confidence",
+    "threshold": 0.70,
+    "operator": "<",
+    "priority": "Haute",
+    "description": "Alerte confiance faible (risque de faux négatifs)"
+  },
+  {
+    "service": "nsfw_detection",
+    "metric": "false_negative_rate",
+    "threshold": 0.05,
+    "operator": ">",
+    "priority": "Critique",
+    "description": "Alerte faux négatifs élevés (contenu NSFW non détecté)"
+  },
+  {
+    "service": "api_gateway",
+    "metric": "latency",
+    "threshold": 5000,
+    "operator": ">",
+    "priority": "Haute",
+    "description": "Alerte latence API globale élevée"
+  },
+  {
+    "service": "api_gateway",
+    "metric": "error_rate",
+    "threshold": 0.05,
+    "operator": ">",
+    "priority": "Critique",
+    "description": "Alerte taux d'erreur API élevé"
   }
 ]

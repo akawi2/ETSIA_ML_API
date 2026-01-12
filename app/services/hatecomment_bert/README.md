@@ -6,6 +6,17 @@ Modèle de détection de hate speech (commentaires haineux) avec BERT multilingu
 
 Ce modèle utilise un BERT multilingue fine-tuné pour détecter les commentaires haineux en français et anglais. Il est intégré dans l'API de détection de dépression mais conserve sa fonction originale de classification de hate speech.
 
+## 🔔 Monitoring Intégré
+
+Le modèle dispose d'une version monitorée (`HateCommentBertMonitored`) qui émet automatiquement des métriques vers le système GA4-Bridge :
+
+- **Latence** : Temps de traitement en millisecondes
+- **Confiance** : Score de confiance de la prédiction
+- **Prédiction** : Résultat de la classification
+- **Métriques de performance** : Précision, rappel, F1-score, taux de faux positifs/négatifs
+
+Les métriques sont envoyées de manière non-bloquante (timeout 0.5s) pour ne pas impacter les performances de l'API.
+
 ## 🏗️ Architecture
 
 - **Modèle de base** : `bert-base-multilingual-cased`
@@ -82,6 +93,23 @@ print(result)
 # }
 ```
 
+### Utilisation avec Monitoring
+
+```python
+from app.services.hatecomment_bert import HateCommentBertMonitored
+
+# Initialiser le modèle monitoré
+model = HateCommentBertMonitored()
+
+# Prédiction avec émission automatique de métriques
+result = model.predict("Je déteste tout le monde")
+# Les métriques sont automatiquement envoyées au GA4-Bridge :
+# - latency: temps de traitement
+# - confidence: score de confiance
+# - prediction: résultat de la classification
+# - precision, recall, f1_score: métriques de performance
+```
+
 ## 🔧 Configuration
 
 ### Modèle Fine-tuné (Optionnel)
@@ -142,6 +170,22 @@ python app/services/hatecomment_bert/hatecomment_bert_model.py
 2. **Multilingue** : Étendre à d'autres langues
 3. **Contexte** : Analyser des conversations complètes
 4. **Précision** : Améliorer la détection de nuances dans le hate speech
+
+## 🔧 Intégration de la Version Monitorée
+
+Pour utiliser la version monitorée dans l'API principale, modifiez `app/main.py` :
+
+```python
+# Remplacer cette ligne :
+from app.services.hatecomment_bert import HateCommentBertModel
+registry.register(HateCommentBertModel())
+
+# Par :
+from app.services.hatecomment_bert import HateCommentBertMonitored
+registry.register(HateCommentBertMonitored())
+```
+
+Cela activera l'émission automatique de métriques pour toutes les prédictions du modèle HateComment BERT.
 
 ## 👥 Auteurs
 

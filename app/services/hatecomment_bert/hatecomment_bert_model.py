@@ -1,5 +1,5 @@
 """
-Modèle HateComment BERT amélioré avec post-processing
+Modèle HateComment BERT amélioré avec post-processing et monitoring
 """
 import torch
 import re
@@ -9,6 +9,7 @@ from pathlib import Path
 import os
 
 from app.core.base_model import BaseMLModel
+from app.core.monitoring import emit_metric
 from app.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -181,6 +182,9 @@ class HateCommentBertModel(BaseMLModel):
         if not self._initialized:
             raise RuntimeError(f"{self.model_name} n'est pas initialisé correctement")
         
+        import time
+        start_time = time.time()
+        
         try:
             # Prétraitement
             processed_text = self._preprocess_text(text)
@@ -225,10 +229,40 @@ class HateCommentBertModel(BaseMLModel):
             result["enhanced_score"] = float(enhanced_hate_score)
             result["boost_applied"] = enhanced_hate_score > base_hate_score
             
+            # Calculer la latence
+            latency_ms = int((time.time() - start_time) * 1000)
+            
+            # Émettre les métriques de monitoring
+            emit_metric(
+                service="hate_comment",
+                event_name="detect_hate",
+                model_name="bert-multilingual",
+                params={
+                    "latency": latency_ms,
+                    "confidence": float(confidence),
+                    "is_hateful": prediction == "HAINEUX",
+                    "boost_applied": result["boost_applied"],
+                    "fine_tuned": self.is_fine_tuned
+                }
+            )
+            
             return result
             
         except Exception as e:
             logger.error(f"Erreur de prédiction {self.model_name}: {e}")
+            
+            # Émettre métrique d'erreur
+            latency_ms = int((time.time() - start_time) * 1000)
+            emit_metric(
+                service="hate_comment",
+                event_name="detect_hate_error",
+                model_name="bert-multilingual",
+                params={
+                    "latency": latency_ms,
+                    "error": str(e)[:100]
+                }
+            )
+            
             return {
                 "prediction": "ERREUR",
                 "confidence": 0.0,

@@ -123,13 +123,30 @@ services:
       - "8000:8000"
     env_file:
       - .env
+    environment:
+      - BRIDGE_URL=http://ga4-bridge:5000/log_metric
     restart: unless-stopped
+    depends_on:
+      ga4-bridge:
+        condition: service_started
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
+
+  ga4-bridge:
+    build: ./ga4_bridge
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ./metrics_catalog.json:/app/metrics_catalog.json:ro
 ```
+
+**Note :** L'API attend maintenant que le service `ga4-bridge` soit démarré avant de lancer, assurant que le monitoring est disponible dès le démarrage.
 
 ---
 

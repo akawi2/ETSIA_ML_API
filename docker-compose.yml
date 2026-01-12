@@ -114,8 +114,13 @@ services:
       - LOG_LEVEL=info
       - API_ENV=production
       - OLLAMA_BASE_URL=http://ollama:11434
+      - BRIDGE_URL=http://ga4-bridge:5000/log_metric
+      - ENABLE_METRICS=true
+      - CLIENT_ID=etsia_ml_api_v2
     restart: unless-stopped
     depends_on:
+      ga4-bridge:
+        condition: service_started
       ollama:
         condition: service_healthy
       postgres:
@@ -160,8 +165,13 @@ services:
       - API_ENV=production
       - CUDA_VISIBLE_DEVICES=0
       - OLLAMA_BASE_URL=http://ollama:11434
+      - BRIDGE_URL=http://ga4-bridge:5000/log_metric
+      - ENABLE_METRICS=true
+      - CLIENT_ID=etsia_ml_api_v2_gpu
     restart: unless-stopped
     depends_on:
+      ga4-bridge:
+        condition: service_started
       ollama:
         condition: service_healthy
       postgres:

@@ -108,7 +108,10 @@ ETSIA_ML_API/
 │   │
 │   ├── core/                        # ⭐ Infrastructure multi-modèles
 │   │   ├── base_model.py           # Interface de base
-│   │   └── model_registry.py       # Registre des modèles
+│   │   ├── model_registry.py       # Registre des modèles
+│   │   └── metrics/                # Système de monitoring
+│   │       ├── monitoring_client.py # Client GA4-Bridge
+│   │       └── metrics_service.py  # Service de métriques
 │   │
 │   ├── models/
 │   │   └── schemas.py              # Schémas Pydantic
@@ -133,6 +136,7 @@ ETSIA_ML_API/
 │   │
 │   ├── routes/
 │   │   └── api.py                  # Routes API (multi-modèles)
+│   │   └── metrics_api.py          # Routes métriques et monitoring
 │   │
 │   └── utils/
 │       └── logger.py               # Logging
@@ -175,6 +179,11 @@ ANTHROPIC_MODEL=claude-3-5-sonnet-20241022
 # Ollama (si provider=local)
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=llama3.2
+
+# Monitoring (optionnel)
+ENABLE_METRICS=true
+BRIDGE_URL=http://ga4-bridge:5000/log_metric
+CLIENT_ID=yansnet_ml_api_v1
 
 # API Configuration
 API_TITLE=Depression Detection API
@@ -503,6 +512,7 @@ Si vous ou quelqu'un que vous connaissez êtes en détresse :
 
 - **Framework** : FastAPI 0.109.0
 - **LLM** : OpenAI GPT-4o-mini / Anthropic Claude / Ollama Llama
+- **Monitoring** : GA4-Bridge + Google Analytics 4
 - **Validation** : Pydantic 2.5.0
 - **Logging** : Python logging + structlog
 - **Tests** : Pytest 7.4.0
