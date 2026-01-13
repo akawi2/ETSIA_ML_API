@@ -167,13 +167,14 @@ async def startup_event():
     except Exception as e:
         logger.error(f"✗ Erreur lors de l'enregistrement du système de recommandation: {e}")
     
-    # 7. Modèle de Détection NSFW
-    try:
-        from app.services.model_censure import CensureModel
-        registry.register(CensureModel())
-        logger.info("✓ Modèle de détection NSFW enregistré")
-    except Exception as e:
-        logger.error(f"✗ Erreur lors de l'enregistrement du modèle NSFW: {e}")
+    # 7. Modèle de Détection NSFW (nécessite plus de ressources - désactiver pour tests rapides)
+    # Pour activer en production, décommenter et augmenter start_period à 300s
+    # try:
+    #     from app.services.model_censure import CensureModel
+    #     registry.register(CensureModel())
+    #     logger.info("✓ Modèle de détection NSFW enregistré")
+    # except Exception as e:
+    #     logger.error(f"✗ Erreur lors de l'enregistrement du modèle NSFW: {e}")
     
     # 8. Autres modèles à ajouter ici
     # Exemple pour un futur étudiant:

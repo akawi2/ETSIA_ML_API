@@ -10,6 +10,10 @@ API REST professionnelle multi-modèles pour :
 - 📝 **Détection de dépression** dans les textes (LLM)
 - 🖼️ **Analyse de contenu sensible** dans les images (Vision + NLP)
 - ✍️ **Génération de contenu** pour le réseau social YANSNET (LLM)
+- 💬 **Détection de hate speech** (BERT fine-tuné)
+- 📊 **Système de recommandation** de posts
+
+> 🔧 **Note**: Le modèle de détection NSFW est désactivé par défaut pour accélérer les tests. Pour l'activer en production, décommentez la section dans `app/main.py` et augmentez `start_period` à 300s dans `docker-compose.yml`.
 
 **Projet académique - X5 Semestre 9 ETSIA**
 
@@ -37,9 +41,10 @@ API REST professionnelle multi-modèles pour :
 
 ### 🆕 Générateur de Contenu YANSNET
 
-| Modèle | Type | Vitesse | Usage |
-|--------|------|---------|-------|
-| **Content Generator** | LLM | 2-3s/post | Génération posts/commentaires pour démos |
+| Modèle | Type | Vitesse | Usage | Status |
+|--------|------|---------|-------|--------|
+| **Content Generator** | LLM | 2-3s/post | Génération posts/commentaires pour démos | ✅ Actif |
+| **NSFW Detection** | Vision | 300-500ms | Détection contenu sensible images | ⚠️ Désactivé par défaut |
 
 ### Performance par Catégorie
 
@@ -432,6 +437,9 @@ pytest tests/ --cov=app --cov-report=html
 
 # Test d'un endpoint spécifique
 pytest tests/test_api.py::test_predict_endpoint -v
+
+# Test complet de l'environnement Docker
+python scripts/test_docker_complete.py
 ```
 
 ---

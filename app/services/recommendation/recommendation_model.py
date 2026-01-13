@@ -53,19 +53,22 @@ class RecommendationModel(BaseMLModel):
         try:
             logger.info("Initialisation du système de recommandation avec cache...")
             
+            # Importer les settings
+            from app.config import settings
+            
             self.db_config = db_config or {
-                'host': 'localhost',
-                'database': 'etsia_ai',
-                'user': 'postgres',
-                'password': '...',
-                'port': '5432'
+                'host': settings.POSTGRES_HOST,
+                'database': settings.POSTGRES_DB,
+                'user': settings.POSTGRES_USER,
+                'password': settings.POSTGRES_PASSWORD,
+                'port': settings.POSTGRES_PORT
             }
             
             self.redis_config = redis_config or {
-                'host': 'localhost',
-                'port': 6379,
-                'db': 0,
-                'ttl': 3600
+                'host': settings.REDIS_HOST,
+                'port': settings.REDIS_PORT,
+                'db': settings.REDIS_DB,
+                'ttl': settings.REDIS_CACHE_TTL
             }
             
             self.use_cache = use_cache

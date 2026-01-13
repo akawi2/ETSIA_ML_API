@@ -1,8 +1,10 @@
 """
 Modèle YANSNET - Détection de dépression avec LLM
 """
+import time
 from typing import Dict, Any, List
 from app.core.base_model import BaseMLModel
+from app.core.monitoring import emit_metric
 from app.services.yansnet_llm.llm_predictor import get_llm_predictor
 from app.config import settings
 from app.utils.logger import setup_logger
@@ -77,9 +79,30 @@ class YansnetLLMModel(BaseMLModel):
         if not self._initialized:
             raise RuntimeError(f"{self.model_name} n'est pas initialisé correctement")
         
+        start_time = time.time()
+        
         try:
             # Appeler le LLM
             result = self.predictor.predict(text)
+            
+            # Calculer la latence
+            latency_ms = int((time.time() - start_time) * 1000)
+            result['processing_time'] = latency_ms / 1000
+            
+            # Émettre les métriques de monitoring
+            emit_metric(
+                service="llm_detection",
+                event_name="detect_depression_llm",
+                params={
+                    "latency": latency_ms,
+                    "confidence": result.get("confidence", 0.0),
+                    "is_depression": 1 if result.get("prediction") == "DÉPRESSION" else 0,
+                    "severity": result.get("severity", "Aucune"),
+                    "model": settings.LLM_PROVIDER,
+                    "text_length": len(text)
+                },
+                model_name=f"{settings.LLM_PROVIDER}:{settings.OPENAI_MODEL if settings.LLM_PROVIDER == 'gpt' else settings.OLLAMA_MODEL}"
+            )
             
             # Retirer le reasoning si non demandé
             if not include_reasoning:
@@ -88,6 +111,18 @@ class YansnetLLMModel(BaseMLModel):
             return result
             
         except Exception as e:
+            # Émettre métrique d'erreur
+            latency_ms = int((time.time() - start_time) * 1000)
+            emit_metric(
+                service="llm_detection",
+                event_name="detect_depression_llm_error",
+                params={
+                    "latency": latency_ms,
+                    "error": str(e),
+                    "text_length": len(text)
+                },
+                model_name=settings.LLM_PROVIDER
+            )
             logger.error(f"Erreur de prédiction {self.model_name}: {e}")
             raise
     

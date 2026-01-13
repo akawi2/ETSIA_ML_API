@@ -25,9 +25,10 @@ Guide complet pour cloner, configurer, lancer et tester le projet.
 - 📝 **Détection de dépression** dans les textes (CamemBERT, Qwen, LLM)
 - 💬 **Détection de hate speech** (BERT fine-tuné)
 - 🖼️ **Analyse de contenu sensible** dans les images (Vision + NLP)
-- 🚫 **Détection NSFW** dans les images
 - 📊 **Système de recommandation** de posts
 - ✍️ **Génération de contenu** pour le réseau social YANSNET
+
+> 🔧 **Note**: Le modèle de détection NSFW est désactivé par défaut pour accélérer les tests et réduire l'utilisation des ressources. Pour l'activer en production, décommentez la section dans `app/main.py` (ligne 170) et augmentez `start_period` à 300s dans `docker-compose.yml`.
 
 **Technologies :**
 - FastAPI 0.109.0
@@ -49,8 +50,8 @@ Guide complet pour cloner, configurer, lancer et tester le projet.
 | **Python** | 3.8+ | [python.org](https://www.python.org/) |
 | **Git** | 2.0+ | [git-scm.com](https://git-scm.com/) |
 | **Docker** (optionnel) | 20.0+ | [docker.com](https://www.docker.com/) |
-| **PostgreSQL** (optionnel) | 14+ | [postgresql.org](https://www.postgresql.org/) |
-| **Redis** (optionnel) | 7+ | [redis.io](https://redis.io/) |
+| **PostgreSQL** (recommandé) | 14+ | [postgresql.org](https://www.postgresql.org/) |
+| **Redis** (recommandé) | 7+ | [redis.io](https://redis.io/) |
 
 ### Clés API (au moins une)
 
@@ -165,9 +166,11 @@ ANTHROPIC_API_KEY=sk-ant-votre-cle-anthropic
 ANTHROPIC_MODEL=claude-3-5-sonnet-20241022
 ```
 
-### 3. Configuration PostgreSQL (Requis pour les métriques)
+### 3. Configuration PostgreSQL (Requis)
 
-Pour activer les métriques et l'API de monitoring :
+PostgreSQL est requis pour :
+- **Métriques et monitoring** : API de métriques (`/api/v1/metrics/*`)
+- **Système de recommandation** : Stockage des posts et interactions utilisateurs
 
 ```env
 # PostgreSQL
@@ -179,11 +182,11 @@ POSTGRES_DB=etsia_metrics
 ENABLE_METRICS=true
 ```
 
-**Note :** L'API de métriques (`/api/v1/metrics/*`) nécessite PostgreSQL. Sans PostgreSQL, seul le monitoring via GA4-Bridge est disponible.
+**Note :** Sans PostgreSQL, l'API de métriques et le système de recommandation ne fonctionneront pas. Seul le monitoring via GA4-Bridge reste disponible.
 
-### 4. Configuration Redis (Optionnel)
+### 4. Configuration Redis (Requis pour les recommandations)
 
-Pour activer le cache des recommandations :
+Redis est requis pour le système de recommandation (cache des posts) :
 
 ```env
 # Redis
@@ -193,6 +196,8 @@ REDIS_DB=0
 REDIS_CACHE_TTL=3600
 ENABLE_CACHE=true
 ```
+
+**Note :** Sans Redis, le système de recommandation fonctionnera en mode dégradé (sans cache, performances réduites).
 
 ### 5. Configuration Monitoring (Optionnel)
 
@@ -259,7 +264,7 @@ uvicorn app.main:app --reload --port 8000
 # Lancer tous les services (API + PostgreSQL + Redis + Ollama + GA4-Bridge)
 docker-compose up -d
 
-# Voir les logs
+# Attendre le démarrage complet (environ 2 minutes pour l'API)
 docker-compose logs -f api
 
 # Voir les logs du monitoring
@@ -302,18 +307,20 @@ curl http://localhost:8000/health
   "version": "2.0.0",
   "timestamp": "2026-01-11T...",
   "models": {
-    "total": 7,
+    "total": 6,
     "available": [
       "yansnet-llm",
       "camembert-depression",
       "sensitive-image-caption",
       "yansnet-content-generator",
       "hatecomment-bert",
-      "recommendation-system",
-      "censure-nsfw"
+      "recommendation-system"
     ]
   }
 }
+```
+
+> **Note**: Le modèle `censure-nsfw` est désactivé par défaut. Pour l'activer, décommentez la section dans `app/main.py`.
 ```
 
 ### 2. Lister les Modèles
@@ -410,7 +417,7 @@ python scripts/test_monitoring_integration.py
 - ✅ Health check de l'API principale (port 8001)
 - ✅ Émission directe de métriques au Bridge
 - ✅ Détection de dépression avec monitoring automatique (CamemBERT et Qwen)
-- ✅ Détection de hate speech avec monitoring automatique (via `HateCommentBertMonitored`)
+- ✅ Détection de hate speech avec monitoring automatique
 - ✅ Déclenchement d'alertes (métriques hors seuil)
 
 **Exemple de sortie :**
@@ -473,6 +480,70 @@ pytest tests/test_monitoring_client.py -v
 ```
 
 **Temps d'exécution :** 30 secondes - 2 minutes
+
+### 10. Test Docker Complet
+
+```bash
+# Test complet de l'environnement Docker
+python scripts/test_docker_complete.py
+```
+
+**Ce script teste :**
+- ✅ Health checks (API ML + GA4-Bridge)
+- ✅ Modèles ML (Depression, Hate Speech, Recommendation)
+- ✅ Système de monitoring (métriques + alertes)
+- ✅ Cache Redis (stats)
+- ✅ Requêtes concurrentes (10 requêtes simultanées)
+
+**Exemple de sortie :**
+```
+============================================================
+  TESTS DOCKER COMPLETS - ETSIA ML API
+============================================================
+
+=== TEST 1: Health Checks ===
+✓ API ML Health Check
+  → 7 modèles chargés
+✓ GA4-Bridge Health Check
+  → 40 règles d'alerte
+
+=== TEST 2: Modèles ML ===
+✓ Depression Detection
+  → DÉPRESSION (0.45s)
+✓ Hate Speech Detection
+  → HAINEUX (0.123s)
+✓ Recommendation System
+  → 5 recommandations
+
+=== TEST 3: Monitoring ===
+✓ Métrique normale
+  → Alerts: False
+✓ Alerte déclenchée
+  → Latency > 1000ms détectée
+
+=== TEST 4: Cache Redis ===
+✓ Cache Stats
+  → Enabled: True
+
+=== TEST 5: Requêtes Concurrentes ===
+✓ Requêtes Concurrentes
+  → 10/10 réussies
+
+============================================================
+  RÉSUMÉ
+============================================================
+
+Tests réussis: 10/10
+Taux de réussite: 100.0%
+Status: EXCELLENT
+```
+
+**Prérequis :**
+- Tous les services Docker lancés (`docker-compose up -d`)
+- API accessible sur le port 8001
+- GA4-Bridge accessible sur le port 5000
+
+**Temps d'exécution :** 30-60 secondes
 
 ---
 

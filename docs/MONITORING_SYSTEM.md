@@ -126,8 +126,8 @@ Configuration JSON définissant les règles d'alerte pour chaque service.
 
 ### 2. Depression Detection
 
-**Service**: `depression_detection`  
-**Modèles**: `camembert-base`, `qwen2.5:1.5b` (✅ Tous avec monitoring intégré)
+**Service**: `depression_detection` / `llm_detection`  
+**Modèles**: `camembert-base`, `qwen2.5:1.5b`, `yansnet-llm` (✅ Tous avec monitoring intégré)
 
 **Métriques**:
 | Métrique | Type | Seuil | Description |
@@ -141,8 +141,10 @@ Configuration JSON définissant les règles d'alerte pour chaque service.
 | `recall` | float (0-1) | < 0.85 | Rappel du modèle |
 
 **Événements**:
-- `detect_depression` : Prédiction réussie
+- `detect_depression` : Prédiction réussie (CamemBERT, Qwen)
+- `detect_depression_llm` : Prédiction réussie (YANSNET-LLM)
 - `detect_depression_error` : Erreur lors de la prédiction (timeout, exception)
+- `detect_depression_llm_error` : Erreur lors de la prédiction LLM
 
 **Alertes**:
 - 🔴 **Critique**: Precision < 0.80, Recall < 0.85, FNR > 0.10

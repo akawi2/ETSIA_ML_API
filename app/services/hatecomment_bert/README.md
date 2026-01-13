@@ -8,7 +8,7 @@ Ce modèle utilise un BERT multilingue fine-tuné pour détecter les commentaire
 
 ## 🔔 Monitoring Intégré
 
-Le modèle dispose d'une version monitorée (`HateCommentBertMonitored`) qui émet automatiquement des métriques vers le système GA4-Bridge :
+Le modèle émet automatiquement des métriques vers le système GA4-Bridge :
 
 - **Latence** : Temps de traitement en millisecondes
 - **Confiance** : Score de confiance de la prédiction
@@ -96,10 +96,10 @@ print(result)
 ### Utilisation avec Monitoring
 
 ```python
-from app.services.hatecomment_bert import HateCommentBertMonitored
+from app.services.hatecomment_bert import HateCommentBertModel
 
-# Initialiser le modèle monitoré
-model = HateCommentBertMonitored()
+# Initialiser le modèle
+model = HateCommentBertModel()
 
 # Prédiction avec émission automatique de métriques
 result = model.predict("Je déteste tout le monde")
@@ -181,8 +181,8 @@ from app.services.hatecomment_bert import HateCommentBertModel
 registry.register(HateCommentBertModel())
 
 # Par :
-from app.services.hatecomment_bert import HateCommentBertMonitored
-registry.register(HateCommentBertMonitored())
+from app.services.hatecomment_bert import HateCommentBertModel
+registry.register(HateCommentBertModel())
 ```
 
 Cela activera l'émission automatique de métriques pour toutes les prédictions du modèle HateComment BERT.

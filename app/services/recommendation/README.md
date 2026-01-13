@@ -118,26 +118,33 @@ POSTGRES_DB=etsia_ai
 
 ### Configuration dans le code
 
+**Important :** Depuis la version 2.0, le système de recommandation utilise automatiquement la configuration centralisée depuis `app.config.settings`. Les configurations Redis et PostgreSQL sont chargées depuis les variables d'environnement définies dans `.env`.
+
 ```python
-from app.config import settings
+from app.services.recommendation.recommendation_model import RecommendationModel
 
-# Configuration Redis
-redis_config = {
-    'host': settings.REDIS_HOST,
-    'port': settings.REDIS_PORT,
-    'db': settings.REDIS_DB,
-    'ttl': settings.REDIS_CACHE_TTL
-}
+# La configuration est automatiquement chargée depuis settings
+model = RecommendationModel(use_cache=True)
 
-# Configuration PostgreSQL
-db_config = {
-    'host': settings.POSTGRES_HOST,
-    'port': settings.POSTGRES_PORT,
-    'user': settings.POSTGRES_USER,
-    'password': settings.POSTGRES_PASSWORD,
-    'database': settings.POSTGRES_DB
-}
+# Ou avec configuration personnalisée (override)
+model = RecommendationModel(
+    db_config={
+        'host': 'custom_host',
+        'database': 'custom_db',
+        # ...
+    },
+    redis_config={
+        'host': 'custom_redis',
+        'port': 6380,
+        # ...
+    },
+    use_cache=True
+)
 ```
+
+**Configuration par défaut (depuis `.env`) :**
+- Redis : `REDIS_HOST`, `REDIS_PORT`, `REDIS_DB`, `REDIS_CACHE_TTL`
+- PostgreSQL : `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`
 
 ## Utilisation
 

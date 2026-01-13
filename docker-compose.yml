@@ -117,6 +117,9 @@ services:
       - BRIDGE_URL=http://ga4-bridge:5000/log_metric
       - ENABLE_METRICS=true
       - CLIENT_ID=etsia_ml_api_v2
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - POSTGRES_HOST=postgres
     restart: unless-stopped
     depends_on:
       ga4-bridge:
@@ -131,8 +134,8 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
       timeout: 30s
-      retries: 3
-      start_period: 60s
+      retries: 5
+      start_period: 180s
     networks:
       - api-network
     volumes:
@@ -168,6 +171,9 @@ services:
       - BRIDGE_URL=http://ga4-bridge:5000/log_metric
       - ENABLE_METRICS=true
       - CLIENT_ID=etsia_ml_api_v2_gpu
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - POSTGRES_HOST=postgres
     restart: unless-stopped
     depends_on:
       ga4-bridge:

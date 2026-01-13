@@ -16,7 +16,7 @@ uvicorn app.main:app --reload
 
 ### 3. Tester (1 min)
 ```bash
-# Test automatique des 6 modèles
+# Test automatique des 7 modèles
 python test_all_models.py
 
 # Ou test manuel
@@ -25,7 +25,7 @@ curl http://localhost:8000/health
 
 ---
 
-## 📋 Les 6 Modèles en 1 Ligne
+## 📋 Les 6 Modèles Actifs en 1 Ligne
 
 ```bash
 # 1. Détection dépression (NOUVELLE ROUTE)
@@ -34,18 +34,20 @@ curl -X POST http://localhost:8000/api/v1/depression/detect -H "Content-Type: ap
 # 2. Détection hate speech
 curl -X POST http://localhost:8000/api/v1/hatecomment/detect -H "Content-Type: application/json" -d '{"text":"Je déteste"}'
 
-# 3. Détection NSFW
-curl -X POST http://localhost:8000/api/v1/censure/detect -F "file=@image.jpg"
-
-# 4. Analyse image
+# 3. Analyse image
 curl -X POST http://localhost:8000/api/v1/predict-image -F "image=@image.jpg"
 
-# 5. Recommandation
+# 4. Recommandation
 curl http://localhost:8000/recommend?userId=1
 
-# 6. Génération contenu
+# 5. Génération contenu
 curl -X POST http://localhost:8000/api/v1/content/generate-post -H "Content-Type: application/json" -d '{}'
+
+# 6. Génération contenu avec commentaires
+curl -X POST http://localhost:8000/api/v1/content/generate-post-with-comments -H "Content-Type: application/json" -d '{"num_comments":5}'
 ```
+
+> **Note**: Le modèle NSFW (7ème modèle) est désactivé par défaut. Pour l'activer, voir `app/main.py` ligne 170.
 
 ---
 
