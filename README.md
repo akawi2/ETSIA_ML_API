@@ -10,6 +10,10 @@ API REST professionnelle multi-modèles pour :
 - 📝 **Détection de dépression** dans les textes (LLM)
 - 🖼️ **Analyse de contenu sensible** dans les images (Vision + NLP)
 - ✍️ **Génération de contenu** pour le réseau social YANSNET (LLM)
+- 💬 **Détection de hate speech** (BERT fine-tuné)
+- 📊 **Système de recommandation** de posts
+
+> 🔧 **Note**: Le modèle de détection NSFW est désactivé par défaut pour accélérer les tests. Pour l'activer en production, décommentez la section dans `app/main.py` et augmentez `start_period` à 300s dans `docker-compose.yml`.
 
 **Projet académique - X5 Semestre 9 ETSIA**
 
@@ -21,23 +25,26 @@ API REST professionnelle multi-modèles pour :
 
 ### Modèles de Détection de Dépression (Texte)
 
-| Modèle | Précision | Vitesse | Avantages |
-|--------|-----------|---------|-----------|
-| **LLM (GPT-4o-mini)** | **75%** | 0.3/s | Explications détaillées, cas ambigus |
-| **LLM (Llama 3.2 local)** | **75%** | 0.3/s | Gratuit, privé, offline |
-| **LLM (Claude)** | **75%** | 0.3/s | Haute qualité, nuancé |
+| Modèle | Précision | Vitesse | Avantages | Monitoring |
+|--------|-----------|---------|-----------|------------|
+| **CamemBERT** | **80%** | 20-50ms | Rapide, optimisé français | ✅ Intégré |
+| **Qwen 2.5 1.5B** | **75%** | 200-500ms | Meilleur raisonnement, multilingue | ✅ Intégré |
+| **LLM (GPT-4o-mini)** | **75%** | 300ms | Explications détaillées, cas ambigus | ⚠️ Via API |
+| **LLM (Llama 3.2 local)** | **75%** | 300ms | Gratuit, privé, offline | ⚠️ Via API |
+| **LLM (Claude)** | **75%** | 300ms | Haute qualité, nuancé | ⚠️ Via API |
 
 ### 🆕 Modèle d'Analyse d'Images
 
-| Modèle | Type | Vitesse | Avantages |
-|--------|------|---------|-----------|
-| **Image Caption (GIT)** | Vision + NLP | 2-15s | Détection contenu sensible, multilingue |
+| Modèle | Type | Vitesse | Avantages | Monitoring |
+|--------|------|---------|-----------|------------|
+| **Image Caption (GIT)** | Vision + NLP | 2-15s | Détection contenu sensible, multilingue | ✅ Intégré |
 
 ### 🆕 Générateur de Contenu YANSNET
 
-| Modèle | Type | Vitesse | Usage |
-|--------|------|---------|-------|
-| **Content Generator** | LLM | 2-3s/post | Génération posts/commentaires pour démos |
+| Modèle | Type | Vitesse | Usage | Status |
+|--------|------|---------|-------|--------|
+| **Content Generator** | LLM | 2-3s/post | Génération posts/commentaires pour démos | ✅ Actif |
+| **NSFW Detection** | Vision | 300-500ms | Détection contenu sensible images | ⚠️ Désactivé par défaut |
 
 ### Performance par Catégorie
 
@@ -108,7 +115,10 @@ ETSIA_ML_API/
 │   │
 │   ├── core/                        # ⭐ Infrastructure multi-modèles
 │   │   ├── base_model.py           # Interface de base
-│   │   └── model_registry.py       # Registre des modèles
+│   │   ├── model_registry.py       # Registre des modèles
+│   │   └── metrics/                # Système de monitoring
+│   │       ├── monitoring_client.py # Client GA4-Bridge
+│   │       └── metrics_service.py  # Service de métriques
 │   │
 │   ├── models/
 │   │   └── schemas.py              # Schémas Pydantic
@@ -133,6 +143,7 @@ ETSIA_ML_API/
 │   │
 │   ├── routes/
 │   │   └── api.py                  # Routes API (multi-modèles)
+│   │   └── metrics_api.py          # Routes métriques et monitoring
 │   │
 │   └── utils/
 │       └── logger.py               # Logging
@@ -175,6 +186,11 @@ ANTHROPIC_MODEL=claude-3-5-sonnet-20241022
 # Ollama (si provider=local)
 OLLAMA_BASE_URL=http://localhost:11434
 OLLAMA_MODEL=llama3.2
+
+# Monitoring (optionnel)
+ENABLE_METRICS=true
+BRIDGE_URL=http://ga4-bridge:5000/log_metric
+CLIENT_ID=yansnet_ml_api_v1
 
 # API Configuration
 API_TITLE=Depression Detection API
@@ -421,6 +437,9 @@ pytest tests/ --cov=app --cov-report=html
 
 # Test d'un endpoint spécifique
 pytest tests/test_api.py::test_predict_endpoint -v
+
+# Test complet de l'environnement Docker
+python scripts/test_docker_complete.py
 ```
 
 ---
@@ -503,6 +522,7 @@ Si vous ou quelqu'un que vous connaissez êtes en détresse :
 
 - **Framework** : FastAPI 0.109.0
 - **LLM** : OpenAI GPT-4o-mini / Anthropic Claude / Ollama Llama
+- **Monitoring** : GA4-Bridge + Google Analytics 4
 - **Validation** : Pydantic 2.5.0
 - **Logging** : Python logging + structlog
 - **Tests** : Pytest 7.4.0
