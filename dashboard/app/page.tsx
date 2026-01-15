@@ -73,10 +73,15 @@ export default function Dashboard() {
     const serviceLatencies: Record<string, number[]> = {}
     preds.forEach(p => {
       let service = 'unknown'
-      if (p.endpoint.includes('hate')) service = 'hate_comment'
-      else if (p.endpoint.includes('depression')) service = 'depression_detection'
-      else if (p.endpoint.includes('content') || p.endpoint.includes('generate')) service = 'content_generation'
-      else if (p.endpoint.includes('caption') || p.endpoint.includes('translate')) service = 'image_captioning'
+      const endpoint = p.endpoint?.toLowerCase() || ''
+      const modelName = p.model_name?.toLowerCase() || ''
+      
+      if (endpoint.includes('hate') || modelName.includes('hatecomment')) service = 'hate_comment'
+      else if (endpoint.includes('depression') || modelName.includes('camembert') || modelName.includes('qwen') || modelName.includes('roberta') || modelName.includes('yansnet-llm')) service = 'depression_detection'
+      else if (endpoint.includes('content') || endpoint.includes('generate') || modelName.includes('llama')) service = 'content_generation'
+      else if (endpoint.includes('caption') || endpoint.includes('predict-image') || modelName.includes('sensitive-image')) service = 'image_captioning'
+      else if (endpoint.includes('censure') || modelName.includes('censure') || modelName.includes('nsfw')) service = 'censure_nsfw'
+      else if (endpoint.includes('recommendation') || modelName.includes('recommendation')) service = 'recommendation'
       
       if (serviceStatsMap[service]) {
         serviceStatsMap[service].predictions++
@@ -96,9 +101,11 @@ export default function Dashboard() {
       let service = 'unknown'
       const modelName = a.model_name?.toLowerCase() || ''
       if (modelName.includes('bert') || modelName.includes('hate')) service = 'hate_comment'
-      else if (modelName.includes('camembert') || modelName.includes('qwen') || modelName.includes('roberta')) service = 'depression_detection'
+      else if (modelName.includes('camembert') || modelName.includes('qwen') || modelName.includes('roberta') || modelName.includes('yansnet-llm')) service = 'depression_detection'
       else if (modelName.includes('llama')) service = 'content_generation'
-      else if (modelName.includes('git') || modelName.includes('opus')) service = 'image_captioning'
+      else if (modelName.includes('git') || modelName.includes('sensitive-image') || modelName.includes('caption')) service = 'image_captioning'
+      else if (modelName.includes('censure') || modelName.includes('nsfw')) service = 'censure_nsfw'
+      else if (modelName.includes('recommendation')) service = 'recommendation'
       
       if (serviceStatsMap[service]) {
         serviceStatsMap[service].alerts++
@@ -143,13 +150,13 @@ export default function Dashboard() {
         <div className="card-header flex items-center justify-between">
           <div>
             <h2 className="font-semibold text-surface-900 dark:text-white">Services ML</h2>
-            <p className="text-sm text-surface-500 dark:text-surface-400">État en temps réel des 4 services surveillés</p>
+            <p className="text-sm text-surface-500 dark:text-surface-400">État en temps réel des 6 services surveillés</p>
           </div>
           <Link href="/services" className="text-sm text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 font-medium">
             Voir tout →
           </Link>
         </div>
-        <div className="p-4 grid grid-cols-2 gap-4">
+        <div className="p-4 grid grid-cols-3 gap-4">
           {serviceStats.map(service => {
             const config = serviceConfig[service.service]
             if (!config) return null

@@ -20,86 +20,120 @@ HEADERS = {
     "Content-Type": "application/json"
 }
 
-# Configuration complète des modèles (8 modèles)
+# Configuration complète des modèles (11 modèles sur 6 services)
 MODELS = {
-    # HATE COMMENT DETECTION
-    "google-bert-multilingual": {
+    # ============================================
+    # HATE COMMENT DETECTION (1 modèle)
+    # ============================================
+    "hatecomment-bert": {
         "provider": "huggingface",
         "service": "hate_comment",
-        "endpoint": "/api/v1/hate/predict",
+        "endpoint": "/api/v1/hatecomment/detect",
         "latency_range": (50, 600),
-        "predictions": ["HATE", "NORMAL"],
-        "severities": None,
+        "predictions": ["HAINEUX", "NON-HAINEUX"],
+        "severities": ["Aucune", "Faible", "Moyenne", "Élevée", "Critique"],
         "metrics": ["precision", "recall", "f1_score", "false_positive_rate"]
     },
     
-    # DEPRESSION DETECTION
-    "camembert-depression": {
-        "provider": "huggingface",
+    # ============================================
+    # DEPRESSION DETECTION (4 modèles)
+    # ============================================
+    "yansnet-llm": {
+        "provider": "ollama",
         "service": "depression_detection",
-        "endpoint": "/api/v1/depression/predict",
-        "latency_range": (30, 250),
+        "endpoint": "/api/v1/depression/detect",
+        "latency_range": (500, 2000),
         "predictions": ["DÉPRESSION", "NORMAL"],
         "severities": ["Aucune", "Faible", "Moyenne", "Élevée", "Critique"],
         "metrics": ["confidence", "precision", "recall"]
     },
-    "qwen-depression": {
+    "camembert-base": {
+        "provider": "huggingface",
+        "service": "depression_detection",
+        "endpoint": "/api/v1/depression/detect",
+        "latency_range": (30, 550),
+        "predictions": ["DÉPRESSION", "NORMAL"],
+        "severities": ["Aucune", "Faible", "Moyenne", "Élevée", "Critique"],
+        "metrics": ["confidence", "precision", "recall"]
+    },
+    "qwen2.5:1.5b": {
         "provider": "ollama",
         "service": "depression_detection",
-        "endpoint": "/api/v1/depression/predict",
+        "endpoint": "/api/v1/depression/detect",
         "latency_range": (200, 1200),
         "predictions": ["DÉPRESSION", "NORMAL"],
         "severities": ["Aucune", "Faible", "Moyenne", "Élevée", "Critique"],
         "metrics": ["confidence"]
     },
-    "xlm-roberta-depression": {
+    "xlm-roberta-base": {
         "provider": "huggingface",
         "service": "depression_detection",
-        "endpoint": "/api/v1/depression/predict",
+        "endpoint": "/api/v1/depression/detect",
         "latency_range": (100, 550),
         "predictions": ["DÉPRESSION", "NORMAL"],
         "severities": ["Aucune", "Faible", "Moyenne", "Élevée", "Critique"],
         "metrics": ["confidence"]
     },
     
-    # CONTENT GENERATION
-    "llama-generation": {
+    # ============================================
+    # CONTENT GENERATION (2 modèles)
+    # ============================================
+    "llama3.2:3b": {
         "provider": "ollama",
         "service": "content_generation",
         "endpoint": "/api/v1/content/generate",
         "latency_range": (5000, 35000),
         "predictions": ["SUCCESS", "PARTIAL", "FAILED"],
         "severities": None,
-        "metrics": ["ttr", "repetition_rate"]
+        "metrics": ["ttr", "repetition_rate", "inappropriate_content_rate"]
     },
-    "llama-fallback": {
+    "llama3.2:1b": {
         "provider": "ollama",
         "service": "content_generation",
         "endpoint": "/api/v1/content/generate",
         "latency_range": (2000, 12000),
         "predictions": ["SUCCESS", "PARTIAL", "FAILED"],
         "severities": None,
-        "metrics": ["ttr"]
+        "metrics": ["ttr", "repetition_rate"]
     },
     
-    # IMAGE CAPTIONING
-    "git-large-captioning": {
+    # ============================================
+    # IMAGE CAPTIONING (1 modèle pipeline)
+    # ============================================
+    "sensitive-image-caption": {
         "provider": "huggingface",
         "service": "image_captioning",
-        "endpoint": "/api/v1/caption/generate",
-        "latency_range": (800, 3500),
-        "predictions": ["SAFE", "SENSITIVE", "BLOCKED"],
-        "severities": None,
-        "metrics": ["bleu_score", "keyword_coverage"]
+        "endpoint": "/api/v1/predict-image",
+        "latency_range": (800, 2500),
+        "predictions": ["SENSIBLE", "SÛR"],
+        "severities": ["Aucune", "Faible", "Moyenne", "Élevée", "Critique"],
+        "metrics": ["bleu_score", "keyword_coverage", "precision", "recall"]
     },
-    "opus-mt-translation": {
+    
+    # ============================================
+    # CENSURE NSFW (1 modèle)
+    # ============================================
+    "censure-nsfw": {
         "provider": "huggingface",
-        "service": "image_captioning",
-        "endpoint": "/api/v1/translate",
-        "latency_range": (50, 300),
+        "service": "censure_nsfw",
+        "endpoint": "/api/v1/censure/detect",
+        "latency_range": (200, 1200),
+        "predictions": ["SAFE", "NSFW"],
+        "severities": ["Aucune", "Critique"],
+        "metrics": ["precision", "recall", "false_negative_rate"]
+    },
+    
+    # ============================================
+    # RECOMMENDATION SYSTEM (1 modèle)
+    # ============================================
+    "recommendation-system": {
+        "provider": "custom",
+        "service": "recommendation",
+        "endpoint": "/api/v1/recommendation/recommend",
+        "latency_range": (50, 600),
         "predictions": ["SUCCESS"],
         "severities": None,
-        "metrics": []
+        "metrics": ["coverage", "diversity", "cold_start_rate"]
     }
 }
 
@@ -166,14 +200,16 @@ def send_health_check(model_name: str, config: dict) -> dict:
     
     # RAM selon le modèle
     ram_ranges = {
-        "camembert-depression": (400, 700),
-        "qwen-depression": (2000, 3500),
-        "llama-generation": (4000, 7000),
-        "llama-fallback": (2000, 3500),
-        "google-bert-multilingual": (500, 800),
-        "xlm-roberta-depression": (500, 800),
-        "git-large-captioning": (1000, 2000),
-        "opus-mt-translation": (300, 500)
+        "yansnet-llm": (1500, 3000),
+        "camembert-base": (400, 700),
+        "qwen2.5:1.5b": (2000, 3500),
+        "xlm-roberta-base": (500, 800),
+        "llama3.2:3b": (4000, 7000),
+        "llama3.2:1b": (2000, 3500),
+        "hatecomment-bert": (500, 800),
+        "sensitive-image-caption": (1000, 2000),
+        "censure-nsfw": (800, 1500),
+        "recommendation-system": (200, 500)
     }
     ram = random.uniform(*ram_ranges.get(model_name, (500, 1000)))
     

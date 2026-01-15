@@ -129,7 +129,7 @@ export const serviceConfig: Record<string, ServiceConfig> = {
     displayName: 'Détection de Haine',
     description: 'Classification de commentaires haineux avec BERT multilingue',
     models: [
-      { name: 'google-bert-multilingual', displayName: 'BERT Multilingue', provider: 'huggingface' }
+      { name: 'hatecomment-bert', displayName: 'HateComment BERT Enhanced', provider: 'huggingface' }
     ],
     alertRules: [
       { metric: 'precision', threshold: 0.80, operator: '<', priority: 'Critique', description: 'Alerte de baisse de précision' },
@@ -144,11 +144,12 @@ export const serviceConfig: Record<string, ServiceConfig> = {
 
   depression_detection: {
     displayName: 'Détection de Dépression',
-    description: 'Analyse de textes pour détecter des signes de dépression',
+    description: 'Analyse de textes pour détecter des signes de dépression (multi-modèles)',
     models: [
+      { name: 'yansnet-llm', displayName: 'Yansnet LLM (Primary)', provider: 'ollama' },
       { name: 'camembert-base', displayName: 'CamemBERT', provider: 'huggingface' },
       { name: 'qwen2.5:1.5b', displayName: 'Qwen 2.5 1.5B', provider: 'ollama' },
-      { name: 'xlm-roberta-base', displayName: 'XLM-RoBERTa', provider: 'huggingface' }
+      { name: 'xlm-roberta-base', displayName: 'XLM-RoBERTa (Fallback)', provider: 'huggingface' }
     ],
     alertRules: [
       { metric: 'precision', threshold: 0.80, operator: '<', priority: 'Critique', description: 'Alerte de baisse de précision' },
@@ -169,7 +170,7 @@ export const serviceConfig: Record<string, ServiceConfig> = {
     displayName: 'Génération de Contenu',
     description: 'Génération de posts et commentaires avec Llama',
     models: [
-      { name: 'llama3.2:3b', displayName: 'Llama 3.2 3B', provider: 'ollama' },
+      { name: 'llama3.2:3b', displayName: 'Llama 3.2 3B (Primary)', provider: 'ollama' },
       { name: 'llama3.2:1b', displayName: 'Llama 3.2 1B (Fallback)', provider: 'ollama' }
     ],
     alertRules: [
@@ -188,8 +189,7 @@ export const serviceConfig: Record<string, ServiceConfig> = {
     displayName: 'Captioning Image',
     description: 'Génération de légendes et détection de contenu sensible',
     models: [
-      { name: 'git-large-textcaps', displayName: 'GIT Large', provider: 'huggingface' },
-      { name: 'opus-mt-en-fr', displayName: 'Helsinki NLP (Traduction)', provider: 'huggingface' }
+      { name: 'sensitive-image-caption', displayName: 'GIT + Helsinki NLP', provider: 'huggingface' }
     ],
     alertRules: [
       { metric: 'precision', threshold: 0.85, operator: '<', priority: 'Moyenne', description: 'Alerte de baisse de précision' },
@@ -201,6 +201,37 @@ export const serviceConfig: Record<string, ServiceConfig> = {
       { metric: 'keyword_coverage', threshold: 0.75, operator: '<', priority: 'Moyenne', description: 'Alerte couverture mots-clés' }
     ],
     criticalMetrics: ['false_negative_rate', 'bleu_score']
+  },
+
+  censure_nsfw: {
+    displayName: 'Détection NSFW',
+    description: 'Détection de contenu inapproprié dans les images (ViT)',
+    models: [
+      { name: 'censure-nsfw', displayName: 'ViT NSFW Classifier', provider: 'huggingface' }
+    ],
+    alertRules: [
+      { metric: 'precision', threshold: 0.90, operator: '<', priority: 'Critique', description: 'Alerte de baisse de précision NSFW' },
+      { metric: 'recall', threshold: 0.95, operator: '<', priority: 'Critique', description: 'Alerte de baisse de Recall (Risque critique)' },
+      { metric: 'false_negative_rate', threshold: 0.02, operator: '>', priority: 'Critique', description: 'Alerte faux négatifs NSFW (Sécurité)' },
+      { metric: 'false_positive_rate', threshold: 0.10, operator: '>', priority: 'Haute', description: 'Alerte faux positifs élevés' },
+      { metric: 'latency', threshold: 1000, operator: '>', priority: 'Moyenne', description: 'Alerte temps de réponse lent' }
+    ],
+    criticalMetrics: ['recall', 'false_negative_rate', 'precision']
+  },
+
+  recommendation: {
+    displayName: 'Système de Recommandation',
+    description: 'Recommandation de posts par filtrage collaboratif',
+    models: [
+      { name: 'recommendation-system', displayName: 'Collaborative Filtering', provider: 'custom' }
+    ],
+    alertRules: [
+      { metric: 'latency', threshold: 500, operator: '>', priority: 'Moyenne', description: 'Alerte temps de réponse lent' },
+      { metric: 'coverage', threshold: 0.70, operator: '<', priority: 'Haute', description: 'Alerte couverture catalogue faible' },
+      { metric: 'diversity', threshold: 0.50, operator: '<', priority: 'Moyenne', description: 'Alerte diversité recommandations faible' },
+      { metric: 'cold_start_rate', threshold: 0.20, operator: '>', priority: 'Haute', description: 'Alerte taux cold start élevé' }
+    ],
+    criticalMetrics: ['coverage', 'cold_start_rate']
   }
 }
 

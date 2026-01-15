@@ -242,5 +242,77 @@
     "operator": ">",
     "priority": "Faible",
     "description": "Alerte répétitions excessives"
+  },
+  {
+    "service": "censure_nsfw",
+    "metric": "precision",
+    "threshold": 0.90,
+    "operator": "<",
+    "priority": "Critique",
+    "description": "Alerte de baisse de précision NSFW"
+  },
+  {
+    "service": "censure_nsfw",
+    "metric": "recall",
+    "threshold": 0.95,
+    "operator": "<",
+    "priority": "Critique",
+    "description": "Alerte de baisse de Recall (Risque critique)"
+  },
+  {
+    "service": "censure_nsfw",
+    "metric": "false_negative_rate",
+    "threshold": 0.02,
+    "operator": ">",
+    "priority": "Critique",
+    "description": "Alerte faux négatifs NSFW (Sécurité)"
+  },
+  {
+    "service": "censure_nsfw",
+    "metric": "false_positive_rate",
+    "threshold": 0.10,
+    "operator": ">",
+    "priority": "Haute",
+    "description": "Alerte faux positifs élevés"
+  },
+  {
+    "service": "censure_nsfw",
+    "metric": "latency",
+    "threshold": 1000,
+    "operator": ">",
+    "priority": "Moyenne",
+    "description": "Alerte temps de réponse lent"
+  },
+  {
+    "service": "recommendation",
+    "metric": "latency",
+    "threshold": 500,
+    "operator": ">",
+    "priority": "Moyenne",
+    "description": "Alerte temps de réponse lent"
+  },
+  {
+    "service": "recommendation",
+    "metric": "coverage",
+    "threshold": 0.70,
+    "operator": "<",
+    "priority": "Haute",
+    "description": "Alerte couverture catalogue faible"
+  },
+  {
+    "service": "recommendation",
+    "metric": "diversity",
+    "threshold": 0.50,
+    "operator": "<",
+    "priority": "Moyenne",
+    "description": "Alerte diversité recommandations faible"
+  },
+  {
+    "service": "recommendation",
+    "metric": "cold_start_rate",
+    "threshold": 0.20,
+    "operator": ">",
+    "priority": "Haute",
+    "description": "Alerte taux cold start élevé"
   }
 ]
