@@ -1,27 +1,74 @@
-from transformers import AutoProcessor, ShieldGemma2ForImageClassification
+from transformers import pipeline
 from PIL import Image
 import torch
-from app.services.model_censure.hf_config import HF_MODEL_REPO
-# Charger modèle et processeur
-processor = AutoProcessor.from_pretrained(HF_MODEL_REPO)
-model = ShieldGemma2ForImageClassification.from_pretrained(HF_MODEL_REPO)
-model.eval()
+from app.utils.logger import setup_logger
+
+logger = setup_logger(__name__)
+
+# Utiliser un modèle NSFW plus simple et stable
+# Alternative à ShieldGemma2 qui a des problèmes d'inférence
+try:
+    # Modèle CLIP-based pour détection NSFW (plus léger et stable)
+    nsfw_detector = pipeline(
+        "image-classification",
+        model="Falconsai/nsfw_image_detection",
+        device=-1  # CPU
+    )
+    logger.info("✓ Modèle NSFW (Falconsai) chargé avec succès")
+except Exception as e:
+    logger.error(f"Erreur chargement modèle NSFW: {e}")
+    nsfw_detector = None
 
 
 def predict_image(image: Image.Image):
-    inputs = processor(images=[image.convert("RGB")], return_tensors="pt")
-    with torch.no_grad():
-        outputs = model(**inputs)
-
-    # Résultats : dictionnaire contenant les scores pour chaque type de contenu
-    results = {}
-    for key in outputs.probabilities:
-        scores = outputs.probabilities[key][0]
-        results[key] = {
-            "Safe": round(scores[0].item() * 100, 2),
-            "Violation": round(scores[1].item() * 100, 2),
-            "Prediction": "Violation" if scores[1] > scores[0] else "Safe"
+    """
+    Détecte le contenu NSFW dans une image
+    
+    Args:
+        image: Image PIL en RGB
+        
+    Returns:
+        dict: Résultats avec scores Safe/NSFW
+    """
+    if nsfw_detector is None:
+        raise RuntimeError("Modèle NSFW non disponible")
+    
+    # Convertir en RGB si nécessaire
+    if image.mode != 'RGB':
+        image = image.convert('RGB')
+    
+    # Prédiction
+    results = nsfw_detector(image)
+    
+    # Formater les résultats
+    # Le modèle retourne une liste de labels avec scores
+    formatted_results = {}
+    
+    for result in results:
+        label = result['label']
+        score = result['score'] * 100
+        
+        if label.lower() in ['nsfw', 'porn', 'hentai', 'sexy']:
+            formatted_results['NSFW Content'] = {
+                "Safe": round(100 - score, 2),
+                "Violation": round(score, 2),
+                "Prediction": "Violation" if score > 50 else "Safe"
+            }
+        elif label.lower() in ['normal', 'safe', 'neutral']:
+            formatted_results['General Content'] = {
+                "Safe": round(score, 2),
+                "Violation": round(100 - score, 2),
+                "Prediction": "Safe" if score > 50 else "Violation"
+            }
+    
+    # Si pas de résultats, considérer comme safe
+    if not formatted_results:
+        formatted_results['General Content'] = {
+            "Safe": 95.0,
+            "Violation": 5.0,
+            "Prediction": "Safe"
         }
+    
+    return formatted_results
 
-    return results
 

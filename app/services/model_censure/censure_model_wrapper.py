@@ -1,30 +1,26 @@
 """
-Modèle de Détection de Contenu NSFW dans les Images
-Utilise genie10/ETSIA_CENSURE pour la classification Safe/NSFW
+Wrapper pour le modèle NSFW avec monitoring intégré
 """
-from typing import Dict, Any, List, Optional
-import torch
+from typing import Dict, Any, List
+import time
 from PIL import Image
-from transformers import ViTForImageClassification, ViTImageProcessor
 from app.core.base_model import BaseMLModel
+from app.core.monitoring import emit_metric
+from app.core.metrics.metrics_decorator import record_prediction_metric
 from app.utils.logger import setup_logger
+from .censure_model import predict_image
 
 logger = setup_logger(__name__)
 
 
 class CensureModel(BaseMLModel):
     """
-    Modèle de détection de contenu NSFW dans les images.
-    
-    Processus :
-    1. Charge l'image
-    2. Classifie comme Safe ou NSFW
-    3. Retourne les probabilités pour chaque classe
+    Modèle de détection NSFW avec monitoring
     """
     
     @property
     def model_name(self) -> str:
-        return "censure-nsfw"
+        return "nsfw-detection"
     
     @property
     def model_version(self) -> str:
@@ -36,99 +32,40 @@ class CensureModel(BaseMLModel):
     
     @property
     def description(self) -> str:
-        return "Détection de contenu NSFW dans les images (Safe/Not Safe)"
+        return "Détection de contenu NSFW dans les images (Falconsai CLIP-based)"
     
     @property
     def tags(self) -> List[str]:
-        return ["image-classification", "nsfw-detection", "content-moderation", "safety"]
+        return ["nsfw", "content-moderation", "clip-based", "safety", "falconsai"]
     
     def __init__(self):
-        """Initialise le modèle de détection NSFW"""
+        """Initialise le modèle NSFW"""
         try:
-            logger.info("Initialisation du modèle de détection NSFW...")
-            
-            from .hf_config import HF_MODEL_REPO
-            
-            # Charger le modèle et le processeur
-            logger.info(f"  → Chargement de {HF_MODEL_REPO}...")
-            self.processor = ViTImageProcessor.from_pretrained(
-                HF_MODEL_REPO,
-                token=False
-            )
-            self.model = ViTForImageClassification.from_pretrained(
-                HF_MODEL_REPO,
-                token=False
-            )
-            
-            self.device = "cuda" if torch.cuda.is_available() else "cpu"
-            self.model.to(self.device)
-            self.model.eval()
-            
-            # Mapping des labels
-            self.label_mapping = {0: "Safe", 1: "NSFW"}
-            
-            logger.info(f"✓ {self.model_name} initialisé avec succès (device: {self.device})")
+            logger.info("Initialisation du modèle NSFW...")
+            # Le modèle est déjà chargé dans censure_model.py
             self._initialized = True
-            
+            logger.info(f"✓ {self.model_name} initialisé avec succès")
         except Exception as e:
             logger.error(f"✗ Erreur d'initialisation de {self.model_name}: {e}")
             self._initialized = False
             raise
     
-    def _predict_image(self, image: Image.Image) -> Dict[str, Any]:
+    async def predict(self, text: str = "", image_path: str = None, **kwargs) -> Dict[str, Any]:
         """
-        Prédit si une image est Safe ou NSFW.
+        Détecte le contenu NSFW dans une image
         
         Args:
-            image: Image PIL
+            text: Non utilisé (compatibilité)
+            image_path: Chemin vers l'image
+            **kwargs: Peut contenir 'image' directement
         
         Returns:
-            Dict avec les résultats de classification
-        """
-        inputs = self.processor(images=image.convert("RGB"), return_tensors="pt")
-        inputs = {k: v.to(self.device) for k, v in inputs.items()}
-        
-        with torch.no_grad():
-            logits = self.model(**inputs).logits
-            probabilities = torch.softmax(logits, dim=-1).squeeze().tolist()
-        
-        predicted_class = logits.argmax(-1).item()
-        predicted_label = self.label_mapping[predicted_class]
-        
-        results = {
-            "Safe": round(probabilities[0] * 100, 2),
-            "NSFW": round(probabilities[1] * 100, 2)
-        }
-        
-        return {
-            "predicted_label": predicted_label,
-            "probabilities": results,
-            "is_safe": predicted_label == "Safe"
-        }
-    
-    def predict(self, text: str = "", image_path: Optional[str] = None, **kwargs) -> Dict[str, Any]:
-        """
-        Analyse une image et détecte le contenu NSFW.
-        
-        Args:
-            text: Non utilisé (compatibilité avec l'interface)
-            image_path: Chemin vers l'image à analyser
-            **kwargs: Autres paramètres (peut contenir 'image' directement)
-        
-        Returns:
-            Dict avec:
-            - prediction: "SAFE" ou "NSFW"
-            - confidence: Niveau de confiance (0.0 - 1.0)
-            - severity: Niveau de sévérité
-            - reasoning: Explication
-            - probabilities: Probabilités pour chaque classe
-        
-        Raises:
-            RuntimeError: Si le modèle n'est pas initialisé
-            ValueError: Si aucune image n'est fournie
+            Dict avec prediction, confidence, severity, reasoning
         """
         if not self._initialized:
             raise RuntimeError(f"{self.model_name} n'est pas initialisé correctement")
+        
+        start_time = time.time()
         
         try:
             # Récupérer l'image
@@ -136,60 +73,103 @@ class CensureModel(BaseMLModel):
             
             if image is None and image_path:
                 logger.info(f"Chargement de l'image depuis: {image_path}")
-                image = Image.open(image_path).convert("RGB")
+                image = Image.open(image_path)
             
             if image is None:
                 raise ValueError("Aucune image fournie. Utilisez 'image_path' ou 'image'")
             
             # Prédiction
-            logger.info("Classification de l'image...")
-            result = self._predict_image(image)
+            results = predict_image(image)
             
-            predicted_label = result["predicted_label"]
-            probabilities = result["probabilities"]
-            is_safe = result["is_safe"]
+            # Calculer la latence
+            latency_ms = int((time.time() - start_time) * 1000)
+            
+            # Analyser les résultats
+            is_nsfw = False
+            max_violation_score = 0.0
+            violation_categories = []
+            
+            for category, scores in results.items():
+                if scores["Prediction"] == "Violation":
+                    is_nsfw = True
+                    violation_categories.append(category)
+                    max_violation_score = max(max_violation_score, scores["Violation"])
             
             # Déterminer la confiance et la sévérité
-            confidence = probabilities[predicted_label] / 100.0
-            
-            if is_safe:
-                severity = "Aucune"
-                reasoning = f"✅ Contenu sûr - L'image est classifiée comme Safe avec {probabilities['Safe']}% de confiance"
+            if is_nsfw:
+                confidence = max_violation_score / 100.0
+                severity = "Critique" if confidence > 0.8 else "Élevée"
+                prediction = "NSFW"
+                reasoning = f"⚠️ Contenu NSFW détecté: {', '.join(violation_categories)}"
             else:
-                if probabilities['NSFW'] > 90:
-                    severity = "Critique"
-                elif probabilities['NSFW'] > 75:
-                    severity = "Élevée"
-                elif probabilities['NSFW'] > 60:
-                    severity = "Moyenne"
-                else:
-                    severity = "Faible"
-                
-                reasoning = f"⚠️ CONTENU NSFW DÉTECTÉ - L'image contient du contenu inapproprié avec {probabilities['NSFW']}% de confiance"
+                confidence = 0.95
+                severity = "Aucune"
+                prediction = "SAFE"
+                reasoning = "✅ Contenu sûr - Aucun élément NSFW détecté"
             
-            logger.info(f"  → Classification: {predicted_label} ({confidence:.2%})")
+            # Émettre les métriques de monitoring (GA4)
+            emit_metric(
+                service="nsfw_detection",
+                event_name="detect_nsfw",
+                model_name="falconsai-nsfw",
+                params={
+                    "latency": latency_ms,
+                    "is_nsfw": is_nsfw,
+                    "confidence": float(confidence),
+                    "violation_count": len(violation_categories)
+                }
+            )
+            
+            # Enregistrer dans la base de données (Métriques internes)
+            try:
+                from app.core.metrics.metrics_decorator import record_prediction_async
+                await record_prediction_async(
+                    model_name=self.model_name,
+                    provider="local",
+                    endpoint="/api/v1/censure/detect",
+                    prediction=prediction,
+                    confidence=confidence,
+                    severity=severity,
+                    latency_ms=latency_ms,
+                    fallback_used=False,
+                    input_length=0
+                )
+            except Exception as e:
+                logger.debug(f"Erreur enregistrement métrique BDD: {e}")
             
             return {
-                "prediction": predicted_label.upper(),
-                "confidence": confidence,
+                "prediction": prediction,
+                "confidence": round(confidence, 4),
                 "severity": severity,
                 "reasoning": reasoning,
-                "probabilities": probabilities,
-                "is_safe": is_safe
+                "is_nsfw": is_nsfw,
+                "categories": results
             }
-        
+            
         except Exception as e:
-            logger.error(f"Erreur lors de l'analyse de l'image: {e}")
+            logger.error(f"Erreur de prédiction {self.model_name}: {e}")
+            
+            # Émettre métrique d'erreur
+            latency_ms = int((time.time() - start_time) * 1000)
+            emit_metric(
+                service="nsfw_detection",
+                event_name="detect_nsfw_error",
+                model_name="falconsai-nsfw",
+                params={
+                    "latency": latency_ms,
+                    "error": str(e)[:100]
+                }
+            )
             raise
     
     def batch_predict(self, texts: List[str] = None, image_paths: List[str] = None, **kwargs) -> List[Dict[str, Any]]:
         """
-        Analyse plusieurs images en batch.
+        Analyse plusieurs images en batch
         
         Args:
-            texts: Non utilisé (compatibilité)
+            texts: Non utilisé
             image_paths: Liste de chemins vers les images
-            **kwargs: Peut contenir 'images' (liste d'images PIL)
+            **kwargs: Peut contenir 'images'
         
         Returns:
             Liste de résultats
@@ -197,7 +177,7 @@ class CensureModel(BaseMLModel):
         images = kwargs.get('images', [])
         
         if not images and image_paths:
-            images = [Image.open(path).convert("RGB") for path in image_paths]
+            images = [Image.open(path) for path in image_paths]
         
         if not images:
             raise ValueError("Aucune image fournie pour le batch")
@@ -209,10 +189,6 @@ class CensureModel(BaseMLModel):
             try:
                 result = self.predict(image=image)
                 results.append(result)
-                
-                if i % 5 == 0:
-                    logger.info(f"  Traité {i}/{len(images)} images")
-            
             except Exception as e:
                 logger.error(f"Erreur sur image {i}: {e}")
                 results.append({
@@ -220,34 +196,34 @@ class CensureModel(BaseMLModel):
                     "confidence": 0.0,
                     "severity": "Aucune",
                     "reasoning": f"Erreur: {str(e)}",
-                    "is_safe": False
+                    "is_nsfw": False
                 })
         
         return results
     
     def health_check(self) -> Dict[str, Any]:
-        """
-        Vérifie que le modèle est opérationnel.
-        
-        Returns:
-            Dict avec status et détails
-        """
+        """Vérifie que le modèle est opérationnel"""
         try:
-            # Créer une image de test (carré blanc 224x224)
+            # Créer une image de test (224x224 pour compatibilité)
             test_image = Image.new('RGB', (224, 224), color='white')
             
-            # Tester la classification
-            result = self._predict_image(test_image)
+            # Tester la prédiction
+            from .censure_model import predict_image
+            result = predict_image(test_image)
+            
+            # Analyser les résultats
+            is_safe = all(scores["Prediction"] == "Safe" for scores in result.values())
             
             return {
                 "status": "healthy",
                 "model": self.model_name,
                 "version": self.model_version,
-                "device": self.device,
-                "test_prediction": result["predicted_label"]
+                "test_prediction": "SAFE" if is_safe else "NSFW",
+                "categories_tested": len(result),
+                "model_type": "Falconsai CLIP-based"
             }
-        
         except Exception as e:
+            logger.error(f"Health check failed for {self.model_name}: {e}")
             return {
                 "status": "unhealthy",
                 "model": self.model_name,

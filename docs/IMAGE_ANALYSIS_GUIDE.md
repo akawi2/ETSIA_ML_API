@@ -220,6 +220,43 @@ for i, result in enumerate(results):
 
 ---
 
+## 📊 Monitoring et Métriques
+
+Le modèle d'analyse d'images intègre un système de monitoring automatique qui envoie des métriques à GA4-Bridge.
+
+### Métriques Collectées
+
+| Métrique | Type | Description |
+|----------|------|-------------|
+| `latency` | int (ms) | Temps de traitement de l'image |
+| `is_sensitive` | bool | Contenu sensible détecté ou non |
+| `caption_length` | int | Nombre de mots dans la légende |
+
+### Événements Émis
+
+- **`caption_image`** : Analyse réussie (sensible ou sûr)
+- **`caption_image_error`** : Erreur lors de l'analyse
+
+### Configuration
+
+Le monitoring est automatiquement activé si les variables d'environnement sont configurées :
+
+```env
+ENABLE_METRICS=true
+BRIDGE_URL=http://ga4-bridge:5000/log_metric
+CLIENT_ID=yansnet_ml_api_v1
+```
+
+### Désactiver le Monitoring
+
+```env
+ENABLE_METRICS=false
+```
+
+**Note** : Le monitoring est non-bloquant (timeout 0.5s) et n'affecte pas les performances de l'API.
+
+---
+
 ## 🔍 Mots-clés Détectés
 
 ### Catégories

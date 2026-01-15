@@ -2,8 +2,10 @@
 Modèle de recommandation de posts basé sur le filtrage collaboratif user-user
 """
 from typing import Dict, Any, List
+import time
 import numpy as np
 from app.core.base_model import BaseMLModel
+from app.core.monitoring import emit_metric
 from app.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -34,32 +36,53 @@ class RecommendationModel(BaseMLModel):
     def tags(self) -> List[str]:
         return ["recommendation", "collaborative-filtering", "user-user", "posts"]
     
-    def __init__(self, db_config: Dict[str, str] = None):
+    def __init__(
+        self, 
+        db_config: Dict[str, str] = None,
+        redis_config: Dict[str, Any] = None,
+        use_cache: bool = True
+    ):
         """
-        Initialise le modèle de recommandation
+        Initialise le modèle de recommandation avec cache
         
         Args:
             db_config: Configuration de la base de données PostgreSQL
+            redis_config: Configuration Redis pour le cache
+            use_cache: Activer/désactiver le cache
         """
         try:
-            logger.info("Initialisation du système de recommandation...")
+            logger.info("Initialisation du système de recommandation avec cache...")
+            
+            # Importer les settings
+            from app.config import settings
             
             self.db_config = db_config or {
-                'host': 'localhost',
-                'database': 'etsia_ai',
-                'user': 'postgres',
-                'password': '...',
-                'port': '5432'
+                'host': settings.POSTGRES_HOST,
+                'database': settings.POSTGRES_DB,
+                'user': settings.POSTGRES_USER,
+                'password': settings.POSTGRES_PASSWORD,
+                'port': settings.POSTGRES_PORT
             }
+            
+            self.redis_config = redis_config or {
+                'host': settings.REDIS_HOST,
+                'port': settings.REDIS_PORT,
+                'db': settings.REDIS_DB,
+                'ttl': settings.REDIS_CACHE_TTL
+            }
+            
+            self.use_cache = use_cache
             
             # Importer le recommender
             try:
                 from .recommendation_service import UserUserRecommender
                 self.recommender = UserUserRecommender(
                     min_similarity=0.1,
-                    db_config=self.db_config
+                    db_config=self.db_config,
+                    redis_config=self.redis_config,
+                    use_cache=self.use_cache
                 )
-                logger.info("  → UserUserRecommender chargé")
+                logger.info("  → UserUserRecommender avec cache chargé")
             except ImportError as e:
                 logger.warning(f"  → UserUserRecommender non disponible: {e}")
                 self.recommender = None
@@ -72,7 +95,7 @@ class RecommendationModel(BaseMLModel):
             self._initialized = False
             raise
     
-    def predict(self, text: str = "", user_id: int = None, **kwargs) -> Dict[str, Any]:
+    async def predict(self, text: str = "", user_id: int = None, **kwargs) -> Dict[str, Any]:
         """
         Génère des recommandations de posts pour un utilisateur
         
@@ -89,6 +112,8 @@ class RecommendationModel(BaseMLModel):
         
         if user_id is None:
             raise ValueError("user_id est requis pour les recommandations")
+        
+        start_time = time.time()
         
         try:
             top_n = kwargs.get('top_n', 10)
@@ -127,6 +152,42 @@ class RecommendationModel(BaseMLModel):
                     for post_id in available_posts[:top_n]
                 ]
             
+            # Calculer la latence
+            latency_ms = int((time.time() - start_time) * 1000)
+            
+            # Calculer le score moyen
+            avg_score = np.mean([rec['score'] for rec in formatted_recommendations]) if formatted_recommendations else 0.0
+            
+            # Émettre les métriques de monitoring (GA4)
+            emit_metric(
+                service="recommendation",
+                event_name="generate_recommendations",
+                model_name="collaborative-filtering",
+                params={
+                    "latency": latency_ms,
+                    "recommendations_count": len(formatted_recommendations),
+                    "avg_score": float(avg_score),
+                    "user_id": user_id
+                }
+            )
+            
+            # Enregistrer dans la base de données (Métriques internes)
+            try:
+                from app.core.metrics.metrics_decorator import record_prediction_async
+                await record_prediction_async(
+                    model_name=self.model_name,
+                    provider="local",
+                    endpoint="/api/v1/recommend",
+                    prediction="RECOMMANDATIONS",
+                    confidence=avg_score,
+                    severity="Aucune",
+                    latency_ms=latency_ms,
+                    fallback_used=False,
+                    input_length=0
+                )
+            except Exception as e:
+                logger.debug(f"Erreur enregistrement métrique BDD: {e}")
+            
             return {
                 "prediction": "RECOMMANDATIONS",
                 "confidence": 1.0,
@@ -139,6 +200,19 @@ class RecommendationModel(BaseMLModel):
             
         except Exception as e:
             logger.error(f"Erreur lors de la génération de recommandations: {e}")
+            
+            # Émettre métrique d'erreur
+            latency_ms = int((time.time() - start_time) * 1000)
+            emit_metric(
+                service="recommendation",
+                event_name="generate_recommendations_error",
+                model_name="collaborative-filtering",
+                params={
+                    "latency": latency_ms,
+                    "error": str(e)[:100],
+                    "user_id": user_id
+                }
+            )
             raise
     
     def batch_predict(self, texts: List[str] = None, user_ids: List[int] = None, **kwargs) -> List[Dict[str, Any]]:
@@ -177,7 +251,7 @@ class RecommendationModel(BaseMLModel):
         
         return results
     
-    def health_check(self) -> Dict[str, Any]:
+    async def health_check(self) -> Dict[str, Any]:
         """
         Vérifie l'état de santé du système de recommandation
         
@@ -186,7 +260,7 @@ class RecommendationModel(BaseMLModel):
         """
         try:
             # Test basique
-            test_result = self.predict(user_id=1, top_n=5)
+            test_result = await self.predict(user_id=1, top_n=5)
             
             return {
                 "status": "healthy",

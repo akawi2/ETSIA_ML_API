@@ -25,8 +25,8 @@ class CensureResponse(BaseModel):
     confidence: float = Field(..., ge=0.0, le=1.0, description="Confiance")
     severity: str = Field(..., description="Sévérité")
     reasoning: str = Field(..., description="Explication")
-    probabilities: dict = Field(..., description="Probabilités Safe/NSFW")
-    is_safe: bool = Field(..., description="Image sûre ou non")
+    is_nsfw: bool = Field(..., description="Image contient du NSFW")
+    categories: dict = Field(..., description="Résultats par catégorie")
     processing_time: Optional[float] = Field(None, description="Temps de traitement")
 
 
@@ -50,14 +50,14 @@ class CensureHealthResponse(BaseModel):
 )
 async def censure_health():
     """Health check spécifique pour le modèle de censure"""
-    model = registry.get("censure-nsfw")
+    model = registry.get("nsfw-detection")
     if not model:
         raise HTTPException(
             status_code=404,
             detail="Modèle de détection NSFW non trouvé"
         )
     
-    health_data = model.health_check()
+    health_data = await model.health_check()
     return CensureHealthResponse(**health_data)
 
 
@@ -83,7 +83,7 @@ async def detect_nsfw(file: UploadFile = File(...)) -> CensureResponse:
         logger.info(f"Détection NSFW sur image: {file.filename}")
         
         # Récupérer le modèle
-        model = registry.get("censure-nsfw")
+        model = registry.get("nsfw-detection")
         if not model:
             raise HTTPException(
                 status_code=404,
@@ -98,7 +98,7 @@ async def detect_nsfw(file: UploadFile = File(...)) -> CensureResponse:
         start_time = time.time()
         
         # Prédiction
-        result = model.predict(image=image)
+        result = await model.predict(image=image)
         
         processing_time = time.time() - start_time
         result["processing_time"] = round(processing_time, 3)
@@ -136,7 +136,7 @@ async def batch_detect_nsfw(files: List[UploadFile] = File(...)):
         logger.info(f"Détection batch NSFW ({len(files)} images)")
         
         # Récupérer le modèle
-        model = registry.get("censure-nsfw")
+        model = registry.get("nsfw-detection")
         if not model:
             raise HTTPException(
                 status_code=404,
@@ -190,7 +190,7 @@ async def batch_detect_nsfw(files: List[UploadFile] = File(...)):
 )
 async def censure_info():
     """Informations détaillées sur le modèle de détection NSFW"""
-    model = registry.get("censure-nsfw")
+    model = registry.get("nsfw-detection")
     if not model:
         raise HTTPException(
             status_code=404,

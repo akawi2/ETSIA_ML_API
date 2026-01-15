@@ -5,10 +5,12 @@ et détecte du contenu sensible (drogue, violence, sexe, etc.)
 """
 from typing import Dict, Any, List, Optional
 import re
+import time
 import torch
 from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration, pipeline
 from app.core.base_model import BaseMLModel
+from app.core.monitoring import emit_metric
 from app.utils.logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -169,7 +171,7 @@ class SensitiveImageCaptionModel(BaseMLModel):
         translation = self.translator(text)[0]['translation_text']
         return translation
     
-    def predict(self, text: str = "", image_path: Optional[str] = None, **kwargs) -> Dict[str, Any]:
+    async def predict(self, text: str = "", image_path: Optional[str] = None, **kwargs) -> Dict[str, Any]:
         """
         Analyse une image et détecte le contenu sensible.
         
@@ -194,6 +196,8 @@ class SensitiveImageCaptionModel(BaseMLModel):
         if not self._initialized:
             raise RuntimeError(f"{self.model_name} n'est pas initialisé correctement")
         
+        start_time = time.time()
+        
         try:
             # Récupérer l'image
             image = kwargs.get('image')
@@ -213,11 +217,43 @@ class SensitiveImageCaptionModel(BaseMLModel):
             # 2. Détecter le contenu sensible
             is_sensitive = self._detect_sensitive_content(caption_en)
             
+            # Calculer la latence
+            latency_ms = int((time.time() - start_time) * 1000)
+            
             # 3. Préparer les résultats
             if is_sensitive:
                 # Contenu sensible détecté
                 filtered_en = self._filter_caption(caption_en)
                 filtered_fr = self._translate_to_french(filtered_en)
+                
+                # Émettre les métriques de monitoring (GA4)
+                emit_metric(
+                    service="image_captioning",
+                    event_name="caption_image",
+                    model_name="blip-base",
+                    params={
+                        "latency": latency_ms,
+                        "is_sensitive": True,
+                        "caption_length": len(caption_en.split())
+                    }
+                )
+                
+                # Enregistrer dans la base de données (Métriques internes)
+                try:
+                    from app.core.metrics.metrics_decorator import record_prediction_async
+                    await record_prediction_async(
+                        model_name=self.model_name,
+                        provider="local",
+                        endpoint="/api/v1/predict-image",
+                        prediction="SENSIBLE",
+                        confidence=0.85,
+                        severity="Élevée",
+                        latency_ms=latency_ms,
+                        fallback_used=False,
+                        input_length=0
+                    )
+                except Exception as e:
+                    logger.debug(f"Erreur enregistrement métrique BDD: {e}")
                 
                 return {
                     "prediction": "SENSIBLE",
@@ -232,6 +268,35 @@ class SensitiveImageCaptionModel(BaseMLModel):
                 # Contenu sûr
                 caption_fr = self._translate_to_french(caption_en)
                 
+                # Émettre les métriques de monitoring (GA4)
+                emit_metric(
+                    service="image_captioning",
+                    event_name="caption_image",
+                    model_name="blip-base",
+                    params={
+                        "latency": latency_ms,
+                        "is_sensitive": False,
+                        "caption_length": len(caption_en.split())
+                    }
+                )
+                
+                # Enregistrer dans la base de données (Métriques internes)
+                try:
+                    from app.core.metrics.metrics_decorator import record_prediction_async
+                    await record_prediction_async(
+                        model_name=self.model_name,
+                        provider="local",
+                        endpoint="/api/v1/predict-image",
+                        prediction="SÛR",
+                        confidence=0.95,
+                        severity="Aucune",
+                        latency_ms=latency_ms,
+                        fallback_used=False,
+                        input_length=0
+                    )
+                except Exception as e:
+                    logger.debug(f"Erreur enregistrement métrique BDD: {e}")
+                
                 return {
                     "prediction": "SÛR",
                     "confidence": 0.95,
@@ -244,6 +309,18 @@ class SensitiveImageCaptionModel(BaseMLModel):
         
         except Exception as e:
             logger.error(f"Erreur lors de l'analyse de l'image: {e}")
+            
+            # Émettre métrique d'erreur
+            latency_ms = int((time.time() - start_time) * 1000)
+            emit_metric(
+                service="image_captioning",
+                event_name="caption_image_error",
+                model_name="blip-base",
+                params={
+                    "latency": latency_ms,
+                    "error": str(e)[:100]
+                }
+            )
             raise
     
     def batch_predict(self, texts: List[str] = None, image_paths: List[str] = None, **kwargs) -> List[Dict[str, Any]]:

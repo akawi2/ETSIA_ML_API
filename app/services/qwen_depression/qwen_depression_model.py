@@ -10,6 +10,7 @@ import json
 import re
 import httpx
 from app.core.base_model import BaseMLModel
+from app.core.monitoring import emit_metric
 from app.config import settings
 from app.utils.logger import setup_logger
 
@@ -61,7 +62,7 @@ Reponds UNIQUEMENT avec un JSON valide dans ce format exact:
 {{
     "prediction": "DEPRESSION" ou "NORMAL",
     "confidence": un nombre entre 0.0 et 1.0,
-    "severity": "Aucune", "Faible", "Moyenne", "Elevee" ou "Critique",
+    "severity": "Aucune", "Faible", "Moyenne", "Élevée" ou "Critique",
     "reasoning": "explication courte de ton analyse"
 }}
 
@@ -180,7 +181,7 @@ JSON:"""
                 # Validate and normalize
                 prediction = result.get("prediction", "NORMAL").upper()
                 if "DEPR" in prediction:
-                    prediction = "DEPRESSION"
+                    prediction = "DÉPRESSION"  # Avec accent pour l'API
                 else:
                     prediction = "NORMAL"
                 
@@ -188,7 +189,7 @@ JSON:"""
                 confidence = max(0.0, min(1.0, confidence))
                 
                 severity = result.get("severity", "Aucune")
-                valid_severities = ["Aucune", "Faible", "Moyenne", "Elevee", "Critique"]
+                valid_severities = ["Aucune", "Faible", "Moyenne", "Élevée", "Critique"]
                 if severity not in valid_severities:
                     severity = self._classify_severity(confidence, prediction)
                 
@@ -211,7 +212,7 @@ JSON:"""
         text_lower = response_text.lower()
         
         if "depression" in text_lower or "deprime" in text_lower:
-            prediction = "DEPRESSION"
+            prediction = "DÉPRESSION"  # Avec accent pour l'API
             confidence = 0.7
         else:
             prediction = "NORMAL"
@@ -228,13 +229,13 @@ JSON:"""
     
     def _classify_severity(self, confidence: float, prediction: str) -> str:
         """Classify depression severity based on confidence."""
-        if prediction != "DEPRESSION":
+        if prediction not in ["DEPRESSION", "DÉPRESSION"]:
             return "Aucune"
         
         if confidence >= 0.9:
             return "Critique"
         elif confidence >= 0.75:
-            return "Elevee"
+            return "Élevée"
         elif confidence >= 0.6:
             return "Moyenne"
         else:
@@ -295,13 +296,50 @@ JSON:"""
             if not include_reasoning:
                 result.pop("reasoning", None)
             
+            # Émettre les métriques de monitoring
+            emit_metric(
+                service="depression_detection",
+                event_name="detect_depression",
+                model_name="qwen2.5:1.5b",
+                params={
+                    "latency": int(processing_time),
+                    "confidence": float(result["confidence"]),
+                    "severity": result["severity"],
+                    "is_depression": result["prediction"] == "DÉPRESSION"
+                }
+            )
+            
             return result
             
         except httpx.TimeoutException:
             logger.error(f"Timeout lors de l'inference Qwen")
+            
+            # Émettre métrique d'erreur
+            processing_time = (time.time() - start_time) * 1000
+            emit_metric(
+                service="depression_detection",
+                event_name="detect_depression_error",
+                model_name="qwen2.5:1.5b",
+                params={
+                    "latency": int(processing_time),
+                    "error": "Timeout"
+                }
+            )
             raise RuntimeError("Timeout de l'inference")
         except Exception as e:
             logger.error(f"Erreur de prediction Qwen: {e}")
+            
+            # Émettre métrique d'erreur
+            processing_time = (time.time() - start_time) * 1000
+            emit_metric(
+                service="depression_detection",
+                event_name="detect_depression_error",
+                model_name="qwen2.5:1.5b",
+                params={
+                    "latency": int(processing_time),
+                    "error": str(e)[:100]
+                }
+            )
             raise
     
     def batch_predict(

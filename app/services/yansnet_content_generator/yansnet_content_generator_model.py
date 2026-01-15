@@ -3,11 +3,13 @@ Modèle YANSNET - Générateur de contenu pour le réseau social
 """
 from typing import Dict, Any, List
 from app.core.base_model import BaseMLModel
+from app.core.monitoring import emit_metric
 from app.services.yansnet_llm.llm_predictor import get_llm_predictor
 from app.config import settings
 from app.utils.logger import setup_logger
 import random
 import json
+import time
 
 logger = setup_logger(__name__)
 
@@ -88,7 +90,7 @@ class YansnetContentGeneratorModel(BaseMLModel):
         )
         return self.generate_post()
     
-    def generate_post(
+    async def generate_post(
         self,
         post_type: str = None,
         topic: str = None,
@@ -107,6 +109,8 @@ class YansnetContentGeneratorModel(BaseMLModel):
         """
         if not self._initialized:
             raise RuntimeError(f"{self.model_name} n'est pas initialisé")
+        
+        start_time = time.time()
         
         # Sélection aléatoire si non spécifié
         post_type = post_type or random.choice(self.POST_TYPES)
@@ -134,6 +138,44 @@ class YansnetContentGeneratorModel(BaseMLModel):
             # Appeler le LLM
             content = self._call_llm(system_prompt, user_prompt)
             
+            # Calculer la latence
+            latency_ms = int((time.time() - start_time) * 1000)
+            
+            # Calculer des métriques de qualité
+            tokens_generated = len(content.split())
+            ttr = self._calculate_ttr(content)
+            
+            # Émettre les métriques de monitoring (GA4)
+            emit_metric(
+                service="content_generation",
+                event_name="generate_content",
+                model_name=settings.OLLAMA_GENERATION_MODEL if settings.LLM_PROVIDER == "local" else settings.LLM_PROVIDER,
+                params={
+                    "latency": latency_ms,
+                    "tokens_generated": tokens_generated,
+                    "ttr": ttr,
+                    "post_type": post_type,
+                    "sentiment": sentiment
+                }
+            )
+            
+            # Enregistrer dans la base de données (Métriques internes)
+            try:
+                from app.core.metrics.metrics_decorator import record_prediction_async
+                await record_prediction_async(
+                    model_name=self.model_name,
+                    provider=settings.LLM_PROVIDER,
+                    endpoint="/api/v1/generate_content",
+                    prediction="POST_GENERATED",
+                    confidence=1.0,
+                    severity="Aucune",
+                    latency_ms=latency_ms,
+                    fallback_used=False,
+                    input_length=len(user_prompt)
+                )
+            except Exception as e:
+                logger.debug(f"Erreur enregistrement métrique BDD: {e}")
+            
             return {
                 "prediction": "POST_GENERATED",  # Pour compatibilité interface
                 "confidence": 1.0,
@@ -146,6 +188,18 @@ class YansnetContentGeneratorModel(BaseMLModel):
             
         except Exception as e:
             logger.error(f"Erreur génération post: {e}")
+            
+            # Émettre métrique d'erreur
+            latency_ms = int((time.time() - start_time) * 1000)
+            emit_metric(
+                service="content_generation",
+                event_name="generate_content_error",
+                model_name=settings.OLLAMA_GENERATION_MODEL if settings.LLM_PROVIDER == "local" else settings.LLM_PROVIDER,
+                params={
+                    "latency": latency_ms,
+                    "error": str(e)[:100]
+                }
+            )
             raise
     
     def generate_comment(
@@ -312,14 +366,14 @@ class YansnetContentGeneratorModel(BaseMLModel):
         """Appel LLM local pour génération de texte"""
         import requests
         
+        # Construire le prompt complet
+        full_prompt = f"{system_prompt}\n\n{user_prompt}"
+        
         response = requests.post(
-            f"{settings.OLLAMA_BASE_URL}/api/chat",
+            f"{settings.OLLAMA_BASE_URL}/api/generate",
             json={
-                "model": settings.OLLAMA_MODEL,
-                "messages": [
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
+                "model": settings.OLLAMA_GENERATION_MODEL,
+                "prompt": full_prompt,
                 "stream": False,
                 "options": {
                     "temperature": 0.9,
@@ -330,13 +384,13 @@ class YansnetContentGeneratorModel(BaseMLModel):
         )
         response.raise_for_status()
         
-        return response.json()['message']['content'].strip()
+        return response.json()['response'].strip()
     
-    def health_check(self) -> Dict[str, Any]:
+    async def health_check(self) -> Dict[str, Any]:
         """Vérifie que le générateur est opérationnel"""
         try:
             # Test de génération simple
-            result = self.generate_post(
+            result = await self.generate_post(
                 post_type="blague",
                 topic="les partiels stressants"
             )
@@ -355,3 +409,21 @@ class YansnetContentGeneratorModel(BaseMLModel):
                 "model": self.model_name,
                 "error": str(e)
             }
+
+    
+    def _calculate_ttr(self, text: str) -> float:
+        """
+        Calcule le Type-Token Ratio (diversité lexicale).
+        
+        Args:
+            text: Texte à analyser
+            
+        Returns:
+            TTR (0-1, plus élevé = plus diversifié)
+        """
+        words = text.lower().split()
+        if not words:
+            return 0.0
+        
+        unique_words = set(words)
+        return len(unique_words) / len(words)

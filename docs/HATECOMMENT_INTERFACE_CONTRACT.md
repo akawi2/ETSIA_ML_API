@@ -122,7 +122,7 @@ def batch_predict(self, texts: List[str], **kwargs) -> List[Dict[str, Any]]
 
 #### **Signature**
 ```python
-def health_check(self) -> Dict[str, Any]
+async def health_check(self) -> Dict[str, Any]
 ```
 
 #### **Format de Sortie**
@@ -305,9 +305,11 @@ def test_predict_basic():
 
 #### **3. Test Health Check**
 ```python
+import asyncio
+
 def test_health_check():
     model = HateCommentBertModel()
-    health = model.health_check()
+    health = asyncio.run(model.health_check())
     
     assert health["status"] in ["healthy", "unhealthy"]
     assert health["model"] == "hatecomment-bert"

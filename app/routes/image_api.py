@@ -1,12 +1,13 @@
 """
 Routes API pour l'analyse d'images - Support multi-modèles
 """
-from fastapi import APIRouter, HTTPException, status, Query, UploadFile, File
-from typing import Optional, List
+from fastapi import APIRouter, HTTPException, status, Form, UploadFile, File
+from typing import List
 from PIL import Image
 import io
 from app.core.model_registry import registry
 from app.utils.logger import setup_logger
+
 
 logger = setup_logger(__name__)
 
@@ -16,31 +17,29 @@ router = APIRouter(prefix="/api/v1", tags=["Analyse d'Images"])
 @router.post(
     "/predict-image",
     summary="Analyser une image",
-    description="Analyse une image et détecte le contenu sensible"
+    description="Analyse une image et détecte le contenu sensible",
+    operation_id="predict_image_v1"
 )
 async def predict_image(
-    image: UploadFile = File(..., description="Image à analyser (JPEG, PNG)"),
-    model_name: Optional[str] = Query(
-        None,
-        description="Nom du modèle à utiliser (optionnel, utilise le défaut si non spécifié)"
-    )
+    model_name: str = Form(..., description="Nom du modèle à utiliser (ex: sensitive-image-caption, nsfw-detection)"),
+    image: UploadFile = File(..., description="Image à analyser (JPEG, PNG)")
 ):
     """
     Analyse une image et détecte le contenu sensible.
     
+    - **model_name**: Nom du modèle (ex: sensitive-image-caption, nsfw-detection)
     - **image**: Image à uploader (JPEG, PNG, etc.)
-    - **model_name**: Modèle à utiliser (query param, optionnel)
     
     Retourne:
     - **prediction**: SENSIBLE ou SÛR
     - **confidence**: Niveau de confiance (0-1)
     - **severity**: Niveau de sévérité
-    - **caption_en**: Légende en anglais
-    - **caption_fr**: Légende en français
+    - **caption_en**: Légende en anglais (si applicable)
+    - **caption_fr**: Légende en français (si applicable)
     - **is_safe**: Boolean indiquant si l'image est sûre
     """
     try:
-        logger.info(f"Requête d'analyse d'image (modèle: {model_name or 'default'})")
+        logger.info(f"Requête d'analyse d'image (modèle: {model_name})")
         
         # Vérifier le type de fichier
         if not image.content_type.startswith("image/"):
@@ -55,27 +54,18 @@ async def predict_image(
         logger.info(f"  → Image chargée: {pil_image.size}")
         
         # Récupérer le modèle
-        if model_name:
-            model = registry.get(model_name)
-            if not model:
-                available = registry.get_model_names()
-                raise HTTPException(
-                    status_code=404,
-                    detail=f"Modèle '{model_name}' non trouvé. Disponibles: {available}"
-                )
-        else:
-            # Chercher un modèle pour images
-            model = registry.get("sensitive-image-caption")
-            if not model:
-                raise HTTPException(
-                    status_code=500,
-                    detail="Aucun modèle d'analyse d'images disponible."
-                )
+        model = registry.get(model_name)
+        if not model:
+            available = registry.get_model_names()
+            raise HTTPException(
+                status_code=404,
+                detail=f"Modèle '{model_name}' non trouvé. Disponibles: {available}"
+            )
         
         logger.info(f"  → Utilisation du modèle: {model.model_name}")
         
         # Prédire
-        result = model.predict(image=pil_image)
+        result = await model.predict(image=pil_image)
         
         logger.info(f"  → Prédiction: {result['prediction']}")
         
@@ -103,20 +93,18 @@ async def predict_image(
 @router.post(
     "/batch-predict-image",
     summary="Analyser plusieurs images",
-    description="Analyse plusieurs images en batch (max 10)"
+    description="Analyse plusieurs images en batch (max 10)",
+    operation_id="batch_predict_image_v1"
 )
 async def batch_predict_image(
-    images: List[UploadFile] = File(..., description="Images à analyser"),
-    model_name: Optional[str] = Query(
-        None,
-        description="Nom du modèle à utiliser (optionnel)"
-    )
+    model_name: str = Form(..., description="Nom du modèle à utiliser (ex: sensitive-image-caption, nsfw-detection)"),
+    images: List[UploadFile] = File(..., description="Images à analyser (max 10)")
 ):
     """
     Analyse plusieurs images en batch.
     
+    - **model_name**: Nom du modèle (ex: sensitive-image-caption, nsfw-detection)
     - **images**: Liste d'images (max 10)
-    - **model_name**: Modèle à utiliser (query param, optionnel)
     
     Retourne:
     - **results**: Liste des prédictions
@@ -129,24 +117,16 @@ async def batch_predict_image(
                 detail="Maximum 10 images par requête batch"
             )
         
-        logger.info(f"Requête batch ({len(images)} images, modèle: {model_name or 'default'})")
+        logger.info(f"Requête batch ({len(images)} images, modèle: {model_name})")
         
         # Récupérer le modèle
-        if model_name:
-            model = registry.get(model_name)
-            if not model:
-                available = registry.get_model_names()
-                raise HTTPException(
-                    status_code=404,
-                    detail=f"Modèle '{model_name}' non trouvé. Disponibles: {available}"
-                )
-        else:
-            model = registry.get("sensitive-image-caption")
-            if not model:
-                raise HTTPException(
-                    status_code=500,
-                    detail="Aucun modèle d'analyse d'images disponible"
-                )
+        model = registry.get(model_name)
+        if not model:
+            available = registry.get_model_names()
+            raise HTTPException(
+                status_code=404,
+                detail=f"Modèle '{model_name}' non trouvé. Disponibles: {available}"
+            )
         
         logger.info(f"  → Utilisation du modèle: {model.model_name}")
         

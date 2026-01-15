@@ -158,17 +158,34 @@ class EnhancedModelRegistry:
         self._default_model = None
         logger.info("✓ Registre vidé")
     
-    def health_check_all(self) -> Dict[str, Dict]:
+    async def health_check_all(self) -> Dict[str, Dict]:
         """
         Vérifie la santé de tous les modèles.
         
         Returns:
             Dict {model_name: health_status}
         """
-        return {
-            name: model.health_check()
-            for name, model in self._models.items()
-        }
+        import asyncio
+        
+        # Créer des tâches pour tous les health checks
+        tasks = {}
+        for name, model in self._models.items():
+            # Vérifier si health_check est async
+            if asyncio.iscoroutinefunction(model.health_check):
+                tasks[name] = model.health_check()
+            else:
+                # Si c'est synchrone, l'appeler directement
+                tasks[name] = model.health_check()
+        
+        # Attendre tous les health checks asynchrones
+        results = {}
+        for name, task in tasks.items():
+            if asyncio.iscoroutine(task):
+                results[name] = await task
+            else:
+                results[name] = task
+        
+        return results
     
     # ============================================================================
     # ENHANCED METHODS FOR HYBRID ARCHITECTURE

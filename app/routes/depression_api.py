@@ -6,6 +6,7 @@ from typing import Optional, List
 from pydantic import BaseModel, Field
 from app.core.model_registry import registry
 from app.utils.logger import setup_logger
+from app.utils.async_helpers import call_model_predict, call_model_health_check
 from app.config import settings
 import time
 import uuid
@@ -115,7 +116,7 @@ async def depression_health():
                         detail="Aucun modèle de détection de dépression disponible. Vérifiez la configuration."
                     )
         
-        health_data = model.health_check()
+        health_data = await call_model_health_check(model)
         return DepressionHealthResponse(**health_data)
     except Exception as e:
         logger.error(f"Erreur health check: {e}")
@@ -171,7 +172,8 @@ async def detect_depression(request: DepressionDetectRequest) -> DepressionDetec
         
         # Try primary model first
         try:
-            result = model.predict(
+            result = await call_model_predict(
+                model,
                 text=request.text,
                 include_reasoning=request.include_reasoning
             )
@@ -183,7 +185,8 @@ async def detect_depression(request: DepressionDetectRequest) -> DepressionDetec
             
             if fallback_model:
                 logger.info(f"Utilisation du modèle de fallback: {fallback_model.model_name}")
-                result = fallback_model.predict(
+                result = await call_model_predict(
+                    fallback_model,
                     text=request.text,
                     include_reasoning=request.include_reasoning
                 )
@@ -372,7 +375,7 @@ async def depression_health_all():
         primary_model = registry.get_detection_model()
         if primary_model:
             try:
-                health_data = primary_model.health_check()
+                health_data = await primary_model.health_check()
                 health_results["primary"] = {
                     "model_name": primary_model.model_name,
                     "status": health_data.get("status", "unknown"),
@@ -394,7 +397,7 @@ async def depression_health_all():
         fallback_model = registry.get_detection_fallback()
         if fallback_model:
             try:
-                health_data = fallback_model.health_check()
+                health_data = await fallback_model.health_check()
                 health_results["fallback"] = {
                     "model_name": fallback_model.model_name,
                     "status": health_data.get("status", "unknown"),
@@ -416,7 +419,7 @@ async def depression_health_all():
         legacy_model = registry.get("yansnet-llm")
         if legacy_model:
             try:
-                health_data = legacy_model.health_check()
+                health_data = await legacy_model.health_check()
                 health_results["legacy"] = {
                     "model_name": legacy_model.model_name,
                     "status": health_data.get("status", "unknown"),

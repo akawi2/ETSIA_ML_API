@@ -295,6 +295,241 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- ============================================================================
+-- TABLE: api_requests
+-- Stocke toutes les requêtes API pour analyse et audit
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS api_requests (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    
+    -- Informations de la requête
+    endpoint VARCHAR(200) NOT NULL,
+    method VARCHAR(10) NOT NULL,  -- GET, POST, PUT, DELETE
+    status_code INTEGER NOT NULL,
+    
+    -- Performance
+    response_time_ms DECIMAL(10,2) NOT NULL,
+    
+    -- Métadonnées
+    user_agent TEXT,
+    ip_address INET,
+    request_id VARCHAR(100),
+    
+    -- Payload (optionnel, pour debug)
+    request_body JSONB,
+    response_body JSONB
+);
+
+CREATE INDEX idx_api_requests_endpoint ON api_requests(endpoint);
+CREATE INDEX idx_api_requests_created ON api_requests(created_at);
+CREATE INDEX idx_api_requests_status ON api_requests(status_code);
+CREATE INDEX idx_api_requests_method ON api_requests(method);
+
+-- ============================================================================
+-- TABLE: model_versions
+-- Gestion des versions de modèles déployés
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS model_versions (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    
+    -- Informations du modèle
+    model_name VARCHAR(100) NOT NULL,
+    version VARCHAR(50) NOT NULL,
+    provider VARCHAR(50) NOT NULL,
+    
+    -- Métadonnées
+    description TEXT,
+    deployed_at TIMESTAMP WITH TIME ZONE,
+    deprecated_at TIMESTAMP WITH TIME ZONE,
+    
+    -- Configuration
+    config JSONB,
+    
+    -- Statut
+    is_active BOOLEAN DEFAULT TRUE,
+    
+    UNIQUE(model_name, version)
+);
+
+CREATE INDEX idx_model_versions_name ON model_versions(model_name);
+CREATE INDEX idx_model_versions_active ON model_versions(is_active);
+
+-- ============================================================================
+-- TABLE: system_metrics
+-- Métriques système (CPU, RAM, etc.)
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS system_metrics (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    recorded_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    
+    -- Métriques système
+    cpu_percent DECIMAL(5,2),
+    memory_percent DECIMAL(5,2),
+    memory_used_mb DECIMAL(10,2),
+    memory_available_mb DECIMAL(10,2),
+    
+    -- Métriques disque
+    disk_usage_percent DECIMAL(5,2),
+    disk_used_gb DECIMAL(10,2),
+    disk_available_gb DECIMAL(10,2),
+    
+    -- Métriques réseau (optionnel)
+    network_sent_mb DECIMAL(10,2),
+    network_recv_mb DECIMAL(10,2),
+    
+    -- Contexte
+    hostname VARCHAR(100),
+    process_name VARCHAR(100)
+);
+
+CREATE INDEX idx_system_metrics_recorded ON system_metrics(recorded_at);
+CREATE INDEX idx_system_metrics_hostname ON system_metrics(hostname);
+
+-- ============================================================================
+-- TABLE: model_feedback
+-- Feedback utilisateur sur les prédictions
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS model_feedback (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    
+    -- Référence à la prédiction
+    prediction_id UUID REFERENCES model_predictions(id),
+    
+    -- Feedback
+    is_correct BOOLEAN,
+    user_rating INTEGER CHECK (user_rating >= 1 AND user_rating <= 5),
+    comment TEXT,
+    
+    -- Correction suggérée
+    suggested_prediction VARCHAR(100),
+    
+    -- Métadonnées
+    user_id VARCHAR(100),
+    session_id VARCHAR(100)
+);
+
+CREATE INDEX idx_feedback_prediction ON model_feedback(prediction_id);
+CREATE INDEX idx_feedback_created ON model_feedback(created_at);
+CREATE INDEX idx_feedback_correct ON model_feedback(is_correct);
+
+-- ============================================================================
+-- TABLE: ab_tests
+-- Tests A/B pour comparer les modèles
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS ab_tests (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    
+    -- Configuration du test
+    test_name VARCHAR(100) NOT NULL UNIQUE,
+    description TEXT,
+    
+    -- Modèles testés
+    model_a VARCHAR(100) NOT NULL,
+    model_b VARCHAR(100) NOT NULL,
+    
+    -- Répartition du trafic (0-100)
+    traffic_split_percent INTEGER DEFAULT 50 CHECK (traffic_split_percent >= 0 AND traffic_split_percent <= 100),
+    
+    -- Période
+    start_date TIMESTAMP WITH TIME ZONE NOT NULL,
+    end_date TIMESTAMP WITH TIME ZONE,
+    
+    -- Statut
+    status VARCHAR(20) DEFAULT 'active',  -- active, paused, completed
+    
+    -- Résultats
+    results JSONB
+);
+
+CREATE INDEX idx_ab_tests_status ON ab_tests(status);
+CREATE INDEX idx_ab_tests_dates ON ab_tests(start_date, end_date);
+
+-- ============================================================================
+-- TABLE: model_drift
+-- Détection de drift dans les modèles
+-- ============================================================================
+CREATE TABLE IF NOT EXISTS model_drift (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    detected_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    
+    -- Modèle concerné
+    model_name VARCHAR(100) NOT NULL,
+    provider VARCHAR(50) NOT NULL,
+    
+    -- Type de drift
+    drift_type VARCHAR(50) NOT NULL,  -- data_drift, concept_drift, prediction_drift
+    
+    -- Métriques
+    drift_score DECIMAL(5,4),
+    baseline_metric DECIMAL(10,4),
+    current_metric DECIMAL(10,4),
+    
+    -- Période d'analyse
+    analysis_start TIMESTAMP WITH TIME ZONE,
+    analysis_end TIMESTAMP WITH TIME ZONE,
+    
+    -- Détails
+    details JSONB,
+    
+    -- Action prise
+    action_taken VARCHAR(100),
+    resolved_at TIMESTAMP WITH TIME ZONE
+);
+
+CREATE INDEX idx_drift_model ON model_drift(model_name);
+CREATE INDEX idx_drift_detected ON model_drift(detected_at);
+CREATE INDEX idx_drift_type ON model_drift(drift_type);
+
+-- ============================================================================
+-- VUES ADDITIONNELLES
+-- ============================================================================
+
+-- Vue: Statistiques API par endpoint
+CREATE OR REPLACE VIEW v_api_stats_24h AS
+SELECT 
+    endpoint,
+    method,
+    COUNT(*) as total_requests,
+    AVG(response_time_ms) as avg_response_time_ms,
+    PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY response_time_ms) as p95_response_time_ms,
+    SUM(CASE WHEN status_code >= 200 AND status_code < 300 THEN 1 ELSE 0 END) as success_count,
+    SUM(CASE WHEN status_code >= 400 THEN 1 ELSE 0 END) as error_count,
+    (SUM(CASE WHEN status_code >= 400 THEN 1 ELSE 0 END)::DECIMAL / COUNT(*)) * 100 as error_rate_percent
+FROM api_requests
+WHERE created_at > NOW() - INTERVAL '24 hours'
+GROUP BY endpoint, method;
+
+-- Vue: Feedback par modèle
+CREATE OR REPLACE VIEW v_model_feedback_summary AS
+SELECT 
+    mp.model_name,
+    mp.provider,
+    COUNT(mf.id) as total_feedback,
+    SUM(CASE WHEN mf.is_correct = TRUE THEN 1 ELSE 0 END) as correct_count,
+    SUM(CASE WHEN mf.is_correct = FALSE THEN 1 ELSE 0 END) as incorrect_count,
+    AVG(mf.user_rating) as avg_rating,
+    (SUM(CASE WHEN mf.is_correct = TRUE THEN 1 ELSE 0 END)::DECIMAL / COUNT(mf.id)) * 100 as accuracy_percent
+FROM model_feedback mf
+JOIN model_predictions mp ON mf.prediction_id = mp.id
+GROUP BY mp.model_name, mp.provider;
+
+-- Vue: Métriques système récentes
+CREATE OR REPLACE VIEW v_system_metrics_latest AS
+SELECT DISTINCT ON (hostname, process_name)
+    hostname,
+    process_name,
+    recorded_at,
+    cpu_percent,
+    memory_percent,
+    memory_used_mb,
+    disk_usage_percent
+FROM system_metrics
+ORDER BY hostname, process_name, recorded_at DESC;
+
+-- ============================================================================
 -- DONNÉES INITIALES
 -- ============================================================================
 
@@ -306,6 +541,14 @@ VALUES
     ('llama-generation', 'ollama', 'unknown', '{"message": "Awaiting first health check"}')
 ON CONFLICT DO NOTHING;
 
+-- Insérer les versions de modèles initiales
+INSERT INTO model_versions (model_name, version, provider, description, deployed_at, is_active)
+VALUES 
+    ('camembert-depression', '1.0.0', 'huggingface', 'CamemBERT fine-tuned pour la détection de dépression', NOW(), TRUE),
+    ('qwen-depression', '1.0.0', 'ollama', 'Qwen 2.5 1.5B pour la détection de dépression', NOW(), TRUE),
+    ('llama-generation', '1.0.0', 'ollama', 'Llama 3.2 3B pour la génération de contenu', NOW(), TRUE)
+ON CONFLICT (model_name, version) DO NOTHING;
+
 -- ============================================================================
 -- COMMENTAIRES
 -- ============================================================================
@@ -315,3 +558,9 @@ COMMENT ON TABLE model_health_checks IS 'Historique des health checks des modèl
 COMMENT ON TABLE latency_percentiles IS 'Percentiles de latence agrégés par période';
 COMMENT ON TABLE throughput_metrics IS 'Métriques de débit (requêtes/seconde)';
 COMMENT ON TABLE alerts IS 'Alertes générées par le système de monitoring';
+COMMENT ON TABLE api_requests IS 'Historique de toutes les requêtes API';
+COMMENT ON TABLE model_versions IS 'Gestion des versions de modèles déployés';
+COMMENT ON TABLE system_metrics IS 'Métriques système (CPU, RAM, disque)';
+COMMENT ON TABLE model_feedback IS 'Feedback utilisateur sur les prédictions';
+COMMENT ON TABLE ab_tests IS 'Configuration et résultats des tests A/B';
+COMMENT ON TABLE model_drift IS 'Détection de drift dans les performances des modèles';
