@@ -95,7 +95,7 @@ class RecommendationModel(BaseMLModel):
             self._initialized = False
             raise
     
-    def predict(self, text: str = "", user_id: int = None, **kwargs) -> Dict[str, Any]:
+    async def predict(self, text: str = "", user_id: int = None, **kwargs) -> Dict[str, Any]:
         """
         Génère des recommandations de posts pour un utilisateur
         
@@ -158,7 +158,7 @@ class RecommendationModel(BaseMLModel):
             # Calculer le score moyen
             avg_score = np.mean([rec['score'] for rec in formatted_recommendations]) if formatted_recommendations else 0.0
             
-            # Émettre les métriques de monitoring
+            # Émettre les métriques de monitoring (GA4)
             emit_metric(
                 service="recommendation",
                 event_name="generate_recommendations",
@@ -170,6 +170,23 @@ class RecommendationModel(BaseMLModel):
                     "user_id": user_id
                 }
             )
+            
+            # Enregistrer dans la base de données (Métriques internes)
+            try:
+                from app.core.metrics.metrics_decorator import record_prediction_async
+                await record_prediction_async(
+                    model_name=self.model_name,
+                    provider="local",
+                    endpoint="/api/v1/recommend",
+                    prediction="RECOMMANDATIONS",
+                    confidence=avg_score,
+                    severity="Aucune",
+                    latency_ms=latency_ms,
+                    fallback_used=False,
+                    input_length=0
+                )
+            except Exception as e:
+                logger.debug(f"Erreur enregistrement métrique BDD: {e}")
             
             return {
                 "prediction": "RECOMMANDATIONS",
@@ -234,7 +251,7 @@ class RecommendationModel(BaseMLModel):
         
         return results
     
-    def health_check(self) -> Dict[str, Any]:
+    async def health_check(self) -> Dict[str, Any]:
         """
         Vérifie l'état de santé du système de recommandation
         
@@ -243,7 +260,7 @@ class RecommendationModel(BaseMLModel):
         """
         try:
             # Test basique
-            test_result = self.predict(user_id=1, top_n=5)
+            test_result = await self.predict(user_id=1, top_n=5)
             
             return {
                 "status": "healthy",

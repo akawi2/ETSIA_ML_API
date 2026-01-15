@@ -132,7 +132,7 @@ Configuration JSON définissant les règles d'alerte pour chaque service.
 **Métriques**:
 | Métrique | Type | Seuil | Description |
 |----------|------|-------|-------------|
-| `latency` | int (ms) | > 500 (CamemBERT)<br>> 1000 (Qwen) | Temps de réponse |
+| `latency` | int (ms) | > 500 (CamemBERT)<br>> 3500 (Qwen) | Temps de réponse |
 | `confidence` | float (0-1) | < 0.60 | Confiance de prédiction |
 | `severity` | string | - | Niveau de sévérité |
 | `is_depression` | bool | - | Résultat de détection |

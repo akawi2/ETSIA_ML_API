@@ -263,7 +263,7 @@ Les seuils d'alerte sont définis dans `metrics_catalog.json` :
 ### Résumé des Alertes Configurées
 
 #### Depression Detection
-- **Latence > 1000ms** (Moyenne) - Temps de réponse lent
+- **Latence > 500ms (CamemBERT) / > 3500ms (Qwen)** (Moyenne) - Temps de réponse lent
 - **Confidence < 0.60** (Haute) - Confiance faible
 
 #### Hate Comment Detection

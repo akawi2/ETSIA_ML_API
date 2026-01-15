@@ -6,6 +6,7 @@ from typing import Optional, List
 from pydantic import BaseModel, Field
 from app.core.model_registry import registry
 from app.utils.logger import setup_logger
+from app.utils.async_helpers import call_model_predict, call_model_health_check
 import time
 
 logger = setup_logger(__name__)
@@ -112,7 +113,7 @@ async def recommendation_health():
             detail="Système de recommandation non trouvé"
         )
     
-    health_data = model.health_check()
+    health_data = await call_model_health_check(model)
     return RecommendationHealthResponse(**health_data)
 
 
@@ -149,7 +150,8 @@ async def get_recommendations(request: RecommendationRequest) -> RecommendationR
         start_time = time.time()
         
         # Générer les recommandations
-        result = model.predict(
+        result = await call_model_predict(
+            model,
             user_id=request.user_id,
             top_n=request.top_n,
             available_posts=request.available_posts

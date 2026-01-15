@@ -117,7 +117,7 @@ Ce document recense en fonction du modèle, les métriques et les critères d'é
 | Alerte faux positifs élevés | > 15% | Ajustement du seuil de confiance |
 | Alerte faux négatifs élevés | > 10% | Révision urgente - impact sur la sécurité des utilisateurs |
 | Alerte temps de réponse lent (CamemBERT) | > 500 ms | Optimisation du modèle ou vérification des ressources |
-| Alerte temps de réponse lent (Qwen) | > 1000 ms | Vérification d'Ollama et des ressources |
+| Alerte temps de réponse lent (Qwen) | > 3500 ms | Vérification d'Ollama et des ressources (latence normale 2-3s sur CPU) |
 | Alerte confiance moyenne faible | < 0.6 | Analyse des textes ambigus |
 | Alerte taux de fallback élevé | > 5% | Vérification du modèle primaire |
 | Alerte mémoire élevée | > 2GB (CamemBERT) / > 4GB (Qwen) | Optimisation ou redémarrage |
@@ -149,9 +149,9 @@ Ce document recense en fonction du modèle, les métriques et les critères d'é
 
 | Métrique | Description | Seuil optimal |
 |----------|-------------|---------------|
-| Latence p50 | Temps de réponse médian | < 400 ms |
-| Latence p95 | Temps de réponse 95e percentile | < 700 ms |
-| Latence p99 | Temps de réponse 99e percentile | < 1000 ms |
+| Latence p50 | Temps de réponse médian | < 400 ms (CamemBERT), < 2500 ms (Qwen) |
+| Latence p95 | Temps de réponse 95e percentile | < 700 ms (CamemBERT), < 3000 ms (Qwen) |
+| Latence p99 | Temps de réponse 99e percentile | < 1000 ms (CamemBERT), < 3500 ms (Qwen) |
 | RAM utilisée | Mémoire consommée | < 3 GB |
 | Throughput | Requêtes par seconde | > 2 req/s |
 | Qualité du raisonnement | Pertinence des explications | Évaluation manuelle |
@@ -269,7 +269,7 @@ Ce document recense en fonction du modèle, les métriques et les critères d'é
 |---------|------------------|----------------|----------|
 | Depression Detection | Faux négatifs | > 10% | 🔴 Critique |
 | Depression Detection | Latence (CamemBERT) | > 500 ms | 🟡 Moyenne |
-| Depression Detection | Latence (Qwen) | > 1000 ms | 🟡 Moyenne |
+| Depression Detection | Latence (Qwen) | > 3500 ms | 🟡 Moyenne |
 | Depression Detection | Taux fallback | > 5% | 🟡 Moyenne |
 | Content Generation | Timeout | > 3% | 🟠 Haute |
 | Content Generation | Contenu inapproprié | > 1% | 🔴 Critique |

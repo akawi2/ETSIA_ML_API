@@ -13,7 +13,7 @@ API REST professionnelle multi-modèles pour :
 - 💬 **Détection de hate speech** (BERT fine-tuné)
 - 📊 **Système de recommandation** de posts
 
-> 🔧 **Note**: Le modèle de détection NSFW est désactivé par défaut pour accélérer les tests. Pour l'activer en production, décommentez la section dans `app/main.py` et augmentez `start_period` à 300s dans `docker-compose.yml`.
+
 
 **Projet académique - X5 Semestre 9 ETSIA**
 
@@ -44,7 +44,7 @@ API REST professionnelle multi-modèles pour :
 | Modèle | Type | Vitesse | Usage | Status |
 |--------|------|---------|-------|--------|
 | **Content Generator** | LLM | 2-3s/post | Génération posts/commentaires pour démos | ✅ Actif |
-| **NSFW Detection** | Vision | 300-500ms | Détection contenu sensible images | ⚠️ Désactivé par défaut |
+| **NSFW Detection** | CLIP-based | 300-500ms | Détection contenu sensible images | ✅ Actif |
 
 ### Performance par Catégorie
 
@@ -97,6 +97,7 @@ curl -X POST http://localhost:8000/api/v1/predict \
 
 # 🆕 Analyse d'image
 curl -X POST http://localhost:8000/api/v1/predict-image \
+  -F "model_name=sensitive-image-caption" \
   -F "image=@path/to/image.jpg"
 
 # Documentation interactive
@@ -304,6 +305,7 @@ Analyse une image et détecte le contenu sensible.
 **Request:**
 ```bash
 curl -X POST http://localhost:8000/api/v1/predict-image \
+  -F "model_name=sensitive-image-caption" \
   -F "image=@path/to/image.jpg"
 ```
 
@@ -391,6 +393,68 @@ Génère un post complet avec ses commentaires.
 
 Voir [CONTENT_GENERATION_GUIDE.md](docs/CONTENT_GENERATION_GUIDE.md) pour la documentation complète.
 
+#### 🆕 `POST /api/v1/censure/detect`
+Détecte le contenu NSFW dans une image (utilise Falconsai NSFW detector).
+
+**Request:**
+```bash
+curl -X POST http://localhost:8000/api/v1/censure/detect \
+  -F "file=@path/to/image.jpg"
+```
+
+**Response:**
+```json
+{
+  "prediction": "SAFE",
+  "confidence": 0.95,
+  "severity": "Aucune",
+  "reasoning": "✅ Contenu sûr - Aucun élément NSFW détecté",
+  "is_nsfw": false,
+  "categories": {
+    "General Content": {
+      "Safe": 95.0,
+      "Violation": 5.0,
+      "Prediction": "Safe"
+    }
+  },
+  "processing_time": 0.45
+}
+```
+
+**Modèle utilisé:** Falconsai/nsfw_image_detection (CLIP-based, léger et stable)
+
+#### 🆕 `POST /api/v1/censure/batch-detect`
+Analyse plusieurs images en batch pour détecter du contenu NSFW.
+
+**Request:**
+```bash
+curl -X POST http://localhost:8000/api/v1/censure/batch-detect \
+  -F "files=@image1.jpg" \
+  -F "files=@image2.jpg"
+```
+
+**Response:**
+```json
+{
+  "results": [
+    {
+      "filename": "image1.jpg",
+      "prediction": "SAFE",
+      "confidence": 0.95,
+      "is_nsfw": false
+    },
+    {
+      "filename": "image2.jpg",
+      "prediction": "NSFW",
+      "confidence": 0.88,
+      "is_nsfw": true
+    }
+  ],
+  "total_processed": 2,
+  "processing_time": 0.92
+}
+```
+
 Voir [API_CONTRACT.md](docs/API_CONTRACT.md) pour la documentation complète.
 
 ---
@@ -437,6 +501,9 @@ pytest tests/ --cov=app --cov-report=html
 
 # Test d'un endpoint spécifique
 pytest tests/test_api.py::test_predict_endpoint -v
+
+# Test complet de tous les modèles ML (7 modèles)
+python scripts/test_all_models.py
 
 # Test complet de l'environnement Docker
 python scripts/test_docker_complete.py

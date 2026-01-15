@@ -70,11 +70,13 @@ def test_model_batch_predict():
         assert "confidence" in result
         assert result["prediction"] in ["HAINEUX", "NON-HAINEUX", "ERREUR"]
 
+import pytest
 
 def test_model_health_check():
     """Test du health check"""
+    import asyncio
     model = HateCommentBertModel()
-    health = model.health_check()
+    health = asyncio.run(model.health_check())
     
     assert "status" in health
     assert "model" in health
@@ -100,11 +102,12 @@ if __name__ == "__main__":
     print(f"✓ Modèle initialisé: {model.model_name}")
     
     print("\nTest de prédiction...")
-    result = model.predict("I feel sad and hopeless")
+    import asyncio
+    result = asyncio.run(model.predict("I feel sad and hopeless"))
     print(f"✓ Prédiction: {result}")
     
     print("\nTest health check...")
-    health = model.health_check()
+    health = asyncio.run(model.health_check())
     print(f"✓ Health: {health}")
     
     print("\nTous les tests passés !")

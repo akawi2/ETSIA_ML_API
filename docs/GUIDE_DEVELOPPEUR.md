@@ -28,7 +28,7 @@ Guide complet pour cloner, configurer, lancer et tester le projet.
 - 📊 **Système de recommandation** de posts
 - ✍️ **Génération de contenu** pour le réseau social YANSNET
 
-> 🔧 **Note**: Le modèle de détection NSFW est désactivé par défaut pour accélérer les tests et réduire l'utilisation des ressources. Pour l'activer en production, décommentez la section dans `app/main.py` (ligne 170) et augmentez `start_period` à 300s dans `docker-compose.yml`.
+
 
 **Technologies :**
 - FastAPI 0.109.0
@@ -307,20 +307,18 @@ curl http://localhost:8000/health
   "version": "2.0.0",
   "timestamp": "2026-01-11T...",
   "models": {
-    "total": 6,
+    "total": 7,
     "available": [
       "yansnet-llm",
       "camembert-depression",
       "sensitive-image-caption",
       "yansnet-content-generator",
       "hatecomment-bert",
-      "recommendation-system"
+      "recommendation-system",
+      "censure-nsfw"
     ]
   }
 }
-```
-
-> **Note**: Le modèle `censure-nsfw` est désactivé par défaut. Pour l'activer, décommentez la section dans `app/main.py`.
 ```
 
 ### 2. Lister les Modèles
@@ -361,6 +359,7 @@ curl -X POST http://localhost:8000/api/v1/hatecomment/detect \
 
 ```bash
 curl -X POST http://localhost:8000/api/v1/predict-image \
+  -F "model_name=sensitive-image-caption" \
   -F "image=@chemin/vers/image.jpg"
 ```
 
@@ -405,7 +404,61 @@ curl http://localhost:8000/api/v1/metrics/prometheus
 
 **Note :** Ces endpoints nécessitent PostgreSQL configuré.
 
-### 9. Test du Système de Monitoring
+### 9. Test de Détection NSFW
+
+```bash
+# Test avec une image (upload de fichier)
+curl -X POST http://localhost:8000/api/v1/censure/detect \
+  -F "file=@chemin/vers/image.jpg"
+
+# Health check du modèle NSFW
+curl http://localhost:8000/api/v1/censure/health
+
+# Informations sur le modèle
+curl http://localhost:8000/api/v1/censure/info
+
+# Exemples d'utilisation
+curl http://localhost:8000/api/v1/censure/examples
+```
+
+**Réponse attendue :**
+```json
+{
+  "prediction": "SAFE",
+  "confidence": 0.95,
+  "severity": "Aucune",
+  "is_nsfw": false,
+  "reasoning": "✅ Contenu sûr - Aucun élément NSFW détecté",
+  "categories": {
+    "General Content": {
+      "Safe": 95.0,
+      "Violation": 5.0,
+      "Prediction": "Safe"
+    }
+  },
+  "processing_time": 0.45
+}
+```
+
+**Note :** Cet endpoint utilise `multipart/form-data` avec le paramètre `file` (pas `image`).
+
+### 10. Test du Système de Monitoring
+
+#### Démonstration Interactive
+
+```bash
+# Démonstration interactive du monitoring (recommandé pour découvrir le système)
+python scripts/demo_monitoring.py
+```
+
+**Ce script offre :**
+- 🎨 Interface colorée et interactive
+- 📊 Visualisation en temps réel des métriques
+- 🔔 Démonstration des alertes
+- 🤖 Test de tous les modèles ML (Depression, Hate Speech, Recommendation, NSFW)
+- 📈 Explication du flux de monitoring complet
+
+#### Tests Automatisés
 
 ```bash
 # Test complet de l'intégration monitoring
@@ -481,7 +534,58 @@ pytest tests/test_monitoring_client.py -v
 
 **Temps d'exécution :** 30 secondes - 2 minutes
 
-### 10. Test Docker Complet
+### 11. Test de Tous les Modèles ML
+
+```bash
+# Test automatique des 7 modèles avec monitoring
+python scripts/test_all_models.py
+```
+
+**Ce script teste :**
+- ✅ Health check global de l'API
+- ✅ Détection de dépression (Qwen 2.5)
+- ✅ Détection de hate speech (BERT)
+- ✅ Génération de contenu
+- ✅ Caption d'images
+- ✅ Système de recommandation
+- ✅ Détection NSFW (ShieldGemma)
+- ✅ Health check du GA4-Bridge
+- ✅ Envoi de métriques au Bridge
+
+**Exemple de sortie :**
+```
+======================================================================
+TEST 7: Détection NSFW (ShieldGemma)
+======================================================================
+
+Test: Image blanche (contenu sûr attendu)...
+  Prédiction: SÛR
+  Confiance: 0.9500
+  Sévérité: Aucune
+  NSFW: False
+  Raisonnement: ✅ Contenu sûr - Aucun élément sensible détecté
+  Latence: 0.45s
+
+  Catégories analysées:
+    - Dangerous Content: Safe (score: 0.0%)
+    - Harassment: Safe (score: 0.0%)
+    - Hate Speech: Safe (score: 0.0%)
+    - Sexually Explicit: Safe (score: 0.0%)
+
+======================================================================
+✓ TOUS LES TESTS TERMINÉS AVEC SUCCÈS
+======================================================================
+
+Résumé:
+  - 7 modèles testés
+  - Monitoring GA4-Bridge opérationnel
+  - Système de cache Redis fonctionnel
+  - Prêt pour déploiement Docker Hub
+```
+
+**Temps d'exécution :** 1-2 minutes
+
+### 12. Test Docker Complet
 
 ```bash
 # Test complet de l'environnement Docker
@@ -606,6 +710,7 @@ ETSIA_ML_API/
 ├── scripts/                      # Scripts utilitaires
 │   ├── setup_ollama_models.sh    # Setup Ollama
 │   ├── init_db.sql               # Init PostgreSQL
+│   ├── demo_monitoring.py        # Démo interactive du monitoring
 │   ├── test_monitoring_integration.py  # Test monitoring complet
 │   └── ...
 │
@@ -766,8 +871,8 @@ docker run -d \
 ### Déploiement Docker Compose
 
 ```bash
-# Lancer tous les services
-docker-compose up -d
+# Lancer tous les services (monitoring + ML)
+docker-compose --profile ml up -d
 
 # Voir les logs
 docker-compose logs -f
@@ -775,6 +880,13 @@ docker-compose logs -f
 # Arrêter
 docker-compose down
 ```
+
+**Services déployés :**
+- API ML (CPU-based, port 8001)
+- PostgreSQL (métriques)
+- Redis (cache)
+- Ollama (LLM local)
+- GA4-Bridge (monitoring)
 
 **Voir [DEPLOYMENT.md](DEPLOYMENT.md) pour les guides détaillés.**
 

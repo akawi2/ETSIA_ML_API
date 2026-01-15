@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Script de test complet de tous les modèles ML avec monitoring
 Vérifie que chaque modèle fonctionne et émet des métriques
@@ -6,7 +7,13 @@ Vérifie que chaque modèle fonctionne et émet des métriques
 import requests
 import json
 import time
+import sys
 from typing import Dict, Any
+
+# Fix encoding pour Windows
+if sys.platform == 'win32':
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # Configuration
 API_BASE_URL = "http://localhost:8001"
@@ -128,30 +135,37 @@ def test_image_caption():
     print("TEST 5: Caption d'Images")
     print("="*70)
     
-    # Créer une image de test simple (1x1 pixel blanc)
-    import base64
-    from PIL import Image
-    import io
-    
-    # Image blanche 100x100
-    img = Image.new('RGB', (100, 100), color='white')
-    buffer = io.BytesIO()
-    img.save(buffer, format='PNG')
-    img_base64 = base64.b64encode(buffer.getvalue()).decode()
-    
-    response = requests.post(
-        f"{API_BASE_URL}/api/v1/predict-image",
-        json={
-            "image": img_base64,
-            "model_name": "sensitive-image-caption"
-        },
-        timeout=30
-    )
-    
-    data = response.json()
-    print(f"  Caption: {data['prediction']}")
-    print(f"  Sensible: {data.get('is_sensitive', False)}")
-    print(f"  Latence: {data.get('processing_time', 0):.2f}s")
+    try:
+        # Créer une image de test simple (224x224 pixel blanc)
+        from PIL import Image
+        import io
+        
+        img = Image.new('RGB', (224, 224), color='white')
+        buffer = io.BytesIO()
+        img.save(buffer, format='PNG')
+        buffer.seek(0)
+        
+        # Utiliser multipart/form-data avec model_name dans le form
+        files = {'image': ('test.png', buffer, 'image/png')}
+        data = {'model_name': 'sensitive-image-caption'}
+        
+        response = requests.post(
+            f"{API_BASE_URL}/api/v1/predict-image",
+            files=files,
+            data=data,
+            timeout=30
+        )
+        
+        result = response.json()
+        print(f"  Caption EN: {result.get('caption_en', 'N/A')}")
+        print(f"  Caption FR: {result.get('caption_fr', 'N/A')}")
+        print(f"  Prédiction: {result.get('prediction', 'N/A')}")
+        print(f"  Sûr: {result.get('is_safe', False)}")
+        print(f"  Modèle: {result.get('model_used', 'N/A')}")
+    except Exception as e:
+        print(f"  ⚠ Erreur: {e}")
+        if 'response' in locals():
+            print(f"  Réponse: {response.text}")
 
 def test_recommendation_system():
     """Test du système de recommandation"""
@@ -177,38 +191,44 @@ def test_nsfw_detection():
     print("TEST 7: Détection NSFW (ShieldGemma)")
     print("="*70)
     
-    # Créer une image de test simple (image blanche = safe)
-    import base64
-    from PIL import Image
-    import io
-    
-    # Image blanche 224x224 (taille standard pour les modèles de vision)
-    img = Image.new('RGB', (224, 224), color='white')
-    buffer = io.BytesIO()
-    img.save(buffer, format='PNG')
-    img_base64 = base64.b64encode(buffer.getvalue()).decode()
-    
-    print(f"\nTest: Image blanche (contenu sûr attendu)...")
-    
-    response = requests.post(
-        f"{API_BASE_URL}/api/v1/censure/detect",
-        json={"image": img_base64},
-        timeout=30
-    )
-    
-    data = response.json()
-    print(f"  Prédiction: {data['prediction']}")
-    print(f"  Confiance: {data['confidence']:.4f}")
-    print(f"  Sévérité: {data['severity']}")
-    print(f"  NSFW: {data['is_nsfw']}")
-    print(f"  Raisonnement: {data['reasoning']}")
-    print(f"  Latence: {data.get('processing_time', 0):.2f}s")
-    
-    # Afficher les catégories détectées
-    if 'categories' in data:
-        print(f"\n  Catégories analysées:")
-        for category, scores in data['categories'].items():
-            print(f"    - {category}: {scores['Prediction']} (score: {scores.get('Violation', 0):.1f}%)")
+    try:
+        # Créer une image de test simple (image blanche = safe)
+        from PIL import Image
+        import io
+        
+        # Image blanche 224x224 (taille standard pour les modèles de vision)
+        img = Image.new('RGB', (224, 224), color='white')
+        buffer = io.BytesIO()
+        img.save(buffer, format='PNG')
+        buffer.seek(0)
+        
+        print(f"\nTest: Image blanche (contenu sûr attendu)...")
+        
+        # Utiliser multipart/form-data (upload de fichier)
+        files = {'file': ('test.png', buffer, 'image/png')}
+        
+        response = requests.post(
+            f"{API_BASE_URL}/api/v1/censure/detect",
+            files=files,
+            timeout=30
+        )
+        
+        data = response.json()
+        print(f"  Prédiction: {data.get('prediction', 'N/A')}")
+        print(f"  Confiance: {data.get('confidence', 0):.4f}")
+        print(f"  Sévérité: {data.get('severity', 'N/A')}")
+        print(f"  Safe: {data.get('is_safe', False)}")
+        print(f"  Raisonnement: {data.get('reasoning', 'N/A')}")
+        print(f"  Latence: {data.get('processing_time', 0):.2f}s")
+        
+        # Afficher les probabilités
+        if 'probabilities' in data:
+            print(f"\n  Probabilités:")
+            for key, value in data['probabilities'].items():
+                print(f"    - {key}: {value:.1f}%")
+    except Exception as e:
+        print(f"  ⚠ Erreur: {e}")
+        print(f"  Réponse: {response.text if 'response' in locals() else 'N/A'}")
 
 def test_bridge_health():
     """Test du GA4-Bridge"""

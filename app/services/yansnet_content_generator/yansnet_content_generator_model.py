@@ -90,7 +90,7 @@ class YansnetContentGeneratorModel(BaseMLModel):
         )
         return self.generate_post()
     
-    def generate_post(
+    async def generate_post(
         self,
         post_type: str = None,
         topic: str = None,
@@ -145,7 +145,7 @@ class YansnetContentGeneratorModel(BaseMLModel):
             tokens_generated = len(content.split())
             ttr = self._calculate_ttr(content)
             
-            # Émettre les métriques de monitoring
+            # Émettre les métriques de monitoring (GA4)
             emit_metric(
                 service="content_generation",
                 event_name="generate_content",
@@ -158,6 +158,23 @@ class YansnetContentGeneratorModel(BaseMLModel):
                     "sentiment": sentiment
                 }
             )
+            
+            # Enregistrer dans la base de données (Métriques internes)
+            try:
+                from app.core.metrics.metrics_decorator import record_prediction_async
+                await record_prediction_async(
+                    model_name=self.model_name,
+                    provider=settings.LLM_PROVIDER,
+                    endpoint="/api/v1/generate_content",
+                    prediction="POST_GENERATED",
+                    confidence=1.0,
+                    severity="Aucune",
+                    latency_ms=latency_ms,
+                    fallback_used=False,
+                    input_length=len(user_prompt)
+                )
+            except Exception as e:
+                logger.debug(f"Erreur enregistrement métrique BDD: {e}")
             
             return {
                 "prediction": "POST_GENERATED",  # Pour compatibilité interface
@@ -369,11 +386,11 @@ class YansnetContentGeneratorModel(BaseMLModel):
         
         return response.json()['response'].strip()
     
-    def health_check(self) -> Dict[str, Any]:
+    async def health_check(self) -> Dict[str, Any]:
         """Vérifie que le générateur est opérationnel"""
         try:
             # Test de génération simple
-            result = self.generate_post(
+            result = await self.generate_post(
                 post_type="blague",
                 topic="les partiels stressants"
             )

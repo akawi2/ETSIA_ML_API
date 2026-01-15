@@ -241,7 +241,7 @@ async def root():
 )
 async def health():
     """Health check global"""
-    models_health = registry.health_check_all()
+    models_health = await registry.health_check_all()
     models_list = registry.list_models()
     
     return {

@@ -168,7 +168,7 @@ class HateCommentBertModel(BaseMLModel):
         
         return base_score
     
-    def predict(self, text: str, **kwargs) -> Dict[str, Any]:
+    async def predict(self, text: str, **kwargs) -> Dict[str, Any]:
         """
         Détecte si le texte contient du hate speech avec post-processing amélioré
         
@@ -232,7 +232,7 @@ class HateCommentBertModel(BaseMLModel):
             # Calculer la latence
             latency_ms = int((time.time() - start_time) * 1000)
             
-            # Émettre les métriques de monitoring
+            # Émettre les métriques de monitoring (GA4)
             emit_metric(
                 service="hate_comment",
                 event_name="detect_hate",
@@ -245,6 +245,23 @@ class HateCommentBertModel(BaseMLModel):
                     "fine_tuned": self.is_fine_tuned
                 }
             )
+            
+            # Enregistrer dans la base de données (Métriques internes)
+            try:
+                from app.core.metrics.metrics_decorator import record_prediction_async
+                await record_prediction_async(
+                    model_name=self.model_name,
+                    provider="local",
+                    endpoint="/api/v1/predict_hatecomment",
+                    prediction=prediction,
+                    confidence=confidence,
+                    severity=result.get("severity"),
+                    latency_ms=latency_ms,
+                    fallback_used=False,
+                    input_length=len(text)
+                )
+            except Exception as e:
+                logger.debug(f"Erreur enregistrement métrique BDD: {e}")
             
             return result
             
@@ -370,7 +387,7 @@ class HateCommentBertModel(BaseMLModel):
         
         return results
     
-    def health_check(self) -> Dict[str, Any]:
+    async def health_check(self) -> Dict[str, Any]:
         """
         Vérifie l'état de santé du modèle
         
@@ -379,7 +396,7 @@ class HateCommentBertModel(BaseMLModel):
         """
         try:
             # Test de prédiction simple
-            test_result = self.predict("Test de santé du modèle")
+            test_result = await self.predict("Test de santé du modèle")
             
             # Informations GPU si disponible
             gpu_info = {}

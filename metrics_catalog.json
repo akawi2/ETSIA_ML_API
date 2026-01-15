@@ -156,10 +156,10 @@
     "service": "depression_detection",
     "model": "qwen2.5:1.5b",
     "metric": "latency",
-    "threshold": 1000,
+    "threshold": 3500,
     "operator": ">",
     "priority": "Moyenne",
-    "description": "Alerte temps de réponse lent (Qwen)"
+    "description": "Alerte temps de réponse lent (Qwen sur CPU - latence normale 2-3s)"
   },
   {
     "service": "depression_detection",
@@ -270,10 +270,10 @@
   {
     "service": "recommendation",
     "metric": "avg_score",
-    "threshold": 0.50,
+    "threshold": 0.35,
     "operator": "<",
     "priority": "Moyenne",
-    "description": "Alerte qualité des recommandations faible"
+    "description": "Alerte qualité des recommandations faible (cold start acceptable)"
   },
   {
     "service": "recommendation",

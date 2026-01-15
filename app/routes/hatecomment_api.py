@@ -6,6 +6,7 @@ from typing import Optional, List
 from pydantic import BaseModel, Field
 from app.core.model_registry import registry
 from app.utils.logger import setup_logger
+from app.utils.async_helpers import call_model_predict, call_model_health_check
 import time
 
 logger = setup_logger(__name__)
@@ -143,7 +144,7 @@ async def hatecomment_health():
             detail="Modèle HateComment BERT non trouvé"
         )
     
-    health_data = model.health_check()
+    health_data = await call_model_health_check(model)
     return HateCommentHealthResponse(**health_data)
 
 
@@ -183,7 +184,8 @@ async def detect_hate_speech(request: HateCommentRequest) -> HateCommentResponse
         start_time = time.time()
         
         # Prédiction
-        result = model.predict(
+        result = await call_model_predict(
+            model,
             text=request.text,
             include_reasoning=request.include_reasoning
         )

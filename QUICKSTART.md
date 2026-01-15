@@ -17,7 +17,7 @@ uvicorn app.main:app --reload
 ### 3. Tester (1 min)
 ```bash
 # Test automatique des 7 modèles
-python test_all_models.py
+python scripts/test_all_models.py
 
 # Ou test manuel
 curl http://localhost:8000/health
@@ -25,7 +25,7 @@ curl http://localhost:8000/health
 
 ---
 
-## 📋 Les 6 Modèles Actifs en 1 Ligne
+## 📋 Les 7 Modèles Actifs en 1 Ligne
 
 ```bash
 # 1. Détection dépression (NOUVELLE ROUTE)
@@ -45,9 +45,10 @@ curl -X POST http://localhost:8000/api/v1/content/generate-post -H "Content-Type
 
 # 6. Génération contenu avec commentaires
 curl -X POST http://localhost:8000/api/v1/content/generate-post-with-comments -H "Content-Type: application/json" -d '{"num_comments":5}'
-```
 
-> **Note**: Le modèle NSFW (7ème modèle) est désactivé par défaut. Pour l'activer, voir `app/main.py` ligne 170.
+# 7. Détection NSFW (ShieldGemma)
+curl -X POST http://localhost:8000/api/v1/censure/detect -H "Content-Type: application/json" -d '{"image":"<base64_image>"}'
+```
 
 ---
 
@@ -87,7 +88,7 @@ OLLAMA_MODEL=llama3.2
 - [ ] `pip install -r requirements.txt`
 - [ ] `.env` configuré avec clé API
 - [ ] `uvicorn app.main:app --reload`
-- [ ] `python test_all_models.py` → Tous les tests passent
+- [ ] `python scripts/test_all_models.py` → Tous les tests passent
 - [ ] http://localhost:8000/docs accessible
 
 ---

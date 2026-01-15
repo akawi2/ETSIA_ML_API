@@ -6,6 +6,7 @@ import time
 from PIL import Image
 from app.core.base_model import BaseMLModel
 from app.core.monitoring import emit_metric
+from app.core.metrics.metrics_decorator import record_prediction_metric
 from app.utils.logger import setup_logger
 from .censure_model import predict_image
 
@@ -31,11 +32,11 @@ class CensureModel(BaseMLModel):
     
     @property
     def description(self) -> str:
-        return "Détection de contenu NSFW dans les images"
+        return "Détection de contenu NSFW dans les images (Falconsai CLIP-based)"
     
     @property
     def tags(self) -> List[str]:
-        return ["nsfw", "content-moderation", "shield-gemma", "safety"]
+        return ["nsfw", "content-moderation", "clip-based", "safety", "falconsai"]
     
     def __init__(self):
         """Initialise le modèle NSFW"""
@@ -49,7 +50,7 @@ class CensureModel(BaseMLModel):
             self._initialized = False
             raise
     
-    def predict(self, text: str = "", image_path: str = None, **kwargs) -> Dict[str, Any]:
+    async def predict(self, text: str = "", image_path: str = None, **kwargs) -> Dict[str, Any]:
         """
         Détecte le contenu NSFW dans une image
         
@@ -106,11 +107,11 @@ class CensureModel(BaseMLModel):
                 prediction = "SAFE"
                 reasoning = "✅ Contenu sûr - Aucun élément NSFW détecté"
             
-            # Émettre les métriques de monitoring
+            # Émettre les métriques de monitoring (GA4)
             emit_metric(
                 service="nsfw_detection",
                 event_name="detect_nsfw",
-                model_name="shield-gemma",
+                model_name="falconsai-nsfw",
                 params={
                     "latency": latency_ms,
                     "is_nsfw": is_nsfw,
@@ -118,6 +119,23 @@ class CensureModel(BaseMLModel):
                     "violation_count": len(violation_categories)
                 }
             )
+            
+            # Enregistrer dans la base de données (Métriques internes)
+            try:
+                from app.core.metrics.metrics_decorator import record_prediction_async
+                await record_prediction_async(
+                    model_name=self.model_name,
+                    provider="local",
+                    endpoint="/api/v1/censure/detect",
+                    prediction=prediction,
+                    confidence=confidence,
+                    severity=severity,
+                    latency_ms=latency_ms,
+                    fallback_used=False,
+                    input_length=0
+                )
+            except Exception as e:
+                logger.debug(f"Erreur enregistrement métrique BDD: {e}")
             
             return {
                 "prediction": prediction,
@@ -136,7 +154,7 @@ class CensureModel(BaseMLModel):
             emit_metric(
                 service="nsfw_detection",
                 event_name="detect_nsfw_error",
-                model_name="shield-gemma",
+                model_name="falconsai-nsfw",
                 params={
                     "latency": latency_ms,
                     "error": str(e)[:100]
@@ -186,10 +204,10 @@ class CensureModel(BaseMLModel):
     def health_check(self) -> Dict[str, Any]:
         """Vérifie que le modèle est opérationnel"""
         try:
-            # Créer une image de test (224x224 pour compatibilité avec les modèles de vision)
+            # Créer une image de test (224x224 pour compatibilité)
             test_image = Image.new('RGB', (224, 224), color='white')
             
-            # Tester la prédiction directement avec predict_image
+            # Tester la prédiction
             from .censure_model import predict_image
             result = predict_image(test_image)
             
@@ -201,15 +219,13 @@ class CensureModel(BaseMLModel):
                 "model": self.model_name,
                 "version": self.model_version,
                 "test_prediction": "SAFE" if is_safe else "NSFW",
-                "categories_tested": len(result)
+                "categories_tested": len(result),
+                "model_type": "Falconsai CLIP-based"
             }
         except Exception as e:
             logger.error(f"Health check failed for {self.model_name}: {e}")
-            # Le modèle est chargé mais le health check échoue - considérons-le comme healthy
-            # car l'erreur vient du test, pas du modèle lui-même
             return {
-                "status": "healthy",
+                "status": "unhealthy",
                 "model": self.model_name,
-                "version": self.model_version,
-                "note": "Model loaded successfully, health check skipped due to technical limitation"
+                "error": str(e)
             }

@@ -61,7 +61,7 @@ class YansnetLLMModel(BaseMLModel):
             self._initialized = False
             raise
     
-    def predict(self, text: str, include_reasoning: bool = True, **kwargs) -> Dict[str, Any]:
+    async def predict(self, text: str, include_reasoning: bool = True, **kwargs) -> Dict[str, Any]:
         """
         Prédit si le texte indique de la dépression.
         
@@ -89,7 +89,7 @@ class YansnetLLMModel(BaseMLModel):
             latency_ms = int((time.time() - start_time) * 1000)
             result['processing_time'] = latency_ms / 1000
             
-            # Émettre les métriques de monitoring
+            # Émettre les métriques de monitoring (GA4)
             emit_metric(
                 service="llm_detection",
                 event_name="detect_depression_llm",
@@ -103,6 +103,23 @@ class YansnetLLMModel(BaseMLModel):
                 },
                 model_name=f"{settings.LLM_PROVIDER}:{settings.OPENAI_MODEL if settings.LLM_PROVIDER == 'gpt' else settings.OLLAMA_MODEL}"
             )
+            
+            # Enregistrer dans la base de données (Métriques internes)
+            try:
+                from app.core.metrics.metrics_decorator import record_prediction_async
+                await record_prediction_async(
+                    model_name=self.model_name,
+                    provider=settings.LLM_PROVIDER,
+                    endpoint="/api/v1/predict_depression",
+                    prediction=result.get("prediction", "ERREUR"),
+                    confidence=result.get("confidence"),
+                    severity=result.get("severity"),
+                    latency_ms=latency_ms,
+                    fallback_used=False,
+                    input_length=len(text)
+                )
+            except Exception as e:
+                logger.debug(f"Erreur enregistrement métrique BDD: {e}")
             
             # Retirer le reasoning si non demandé
             if not include_reasoning:
@@ -161,7 +178,7 @@ class YansnetLLMModel(BaseMLModel):
         
         return results
     
-    def health_check(self) -> Dict[str, Any]:
+    async def health_check(self) -> Dict[str, Any]:
         """
         Vérifie que le modèle est opérationnel.
         
@@ -170,7 +187,7 @@ class YansnetLLMModel(BaseMLModel):
         """
         try:
             # Test avec un texte simple
-            result = self.predict("test", include_reasoning=False)
+            result = await self.predict("test", include_reasoning=False)
             
             return {
                 "status": "healthy",
