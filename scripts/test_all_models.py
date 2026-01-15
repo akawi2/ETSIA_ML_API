@@ -171,10 +171,49 @@ def test_recommendation_system():
     print(f"  Latence: {data.get('processing_time', 0):.3f}s")
     print(f"  Cache utilisé: {data.get('from_cache', False)}")
 
+def test_nsfw_detection():
+    """Test du modèle de détection NSFW (ShieldGemma)"""
+    print("\n" + "="*70)
+    print("TEST 7: Détection NSFW (ShieldGemma)")
+    print("="*70)
+    
+    # Créer une image de test simple (image blanche = safe)
+    import base64
+    from PIL import Image
+    import io
+    
+    # Image blanche 224x224 (taille standard pour les modèles de vision)
+    img = Image.new('RGB', (224, 224), color='white')
+    buffer = io.BytesIO()
+    img.save(buffer, format='PNG')
+    img_base64 = base64.b64encode(buffer.getvalue()).decode()
+    
+    print(f"\nTest: Image blanche (contenu sûr attendu)...")
+    
+    response = requests.post(
+        f"{API_BASE_URL}/api/v1/censure/detect",
+        json={"image": img_base64},
+        timeout=30
+    )
+    
+    data = response.json()
+    print(f"  Prédiction: {data['prediction']}")
+    print(f"  Confiance: {data['confidence']:.4f}")
+    print(f"  Sévérité: {data['severity']}")
+    print(f"  NSFW: {data['is_nsfw']}")
+    print(f"  Raisonnement: {data['reasoning']}")
+    print(f"  Latence: {data.get('processing_time', 0):.2f}s")
+    
+    # Afficher les catégories détectées
+    if 'categories' in data:
+        print(f"\n  Catégories analysées:")
+        for category, scores in data['categories'].items():
+            print(f"    - {category}: {scores['Prediction']} (score: {scores.get('Violation', 0):.1f}%)")
+
 def test_bridge_health():
     """Test du GA4-Bridge"""
     print("\n" + "="*70)
-    print("TEST 7: GA4-Bridge Monitoring")
+    print("TEST 8: GA4-Bridge Monitoring")
     print("="*70)
     
     response = requests.get(f"{BRIDGE_URL}/health")
@@ -186,7 +225,7 @@ def test_bridge_health():
 def test_bridge_metric():
     """Test d'envoi de métrique au bridge"""
     print("\n" + "="*70)
-    print("TEST 8: Envoi de Métrique au Bridge")
+    print("TEST 9: Envoi de Métrique au Bridge")
     print("="*70)
     
     # Test métrique normale
@@ -243,10 +282,13 @@ def main():
         # Test 6: Système de recommandation
         test_recommendation_system()
         
-        # Test 7: Bridge health
+        # Test 7: Détection NSFW
+        test_nsfw_detection()
+        
+        # Test 8: Bridge health
         test_bridge_health()
         
-        # Test 8: Envoi de métriques
+        # Test 9: Envoi de métriques
         test_bridge_metric()
         
         print("\n" + "="*70)

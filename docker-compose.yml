@@ -135,7 +135,7 @@ services:
       interval: 30s
       timeout: 30s
       retries: 5
-      start_period: 180s
+      start_period: 300s
     networks:
       - api-network
     volumes:
@@ -144,9 +144,9 @@ services:
     deploy:
       resources:
         limits:
-          memory: 8G
+          memory: 12G
         reservations:
-          memory: 2G
+          memory: 4G
     profiles:
       - ml
 
